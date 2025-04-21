@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "tfc:lumber"
+    },
+    "W": {
+      "item": "tfc:metal/fishing_rod/copper"
+    }
+  },
+  "pattern": [
+    "###",
+    "#W#"
+  ],
+  "result": {
+    "item": "workers:fisherman_block"
+  },
+  "show_notification": false
+}

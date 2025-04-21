@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "tfc:lumber"
+    },
+    "W": {
+      "tag": "tfc:javelins"
+    }
+  },
+  "pattern": [
+    "###",
+    "#W#"
+  ],
+  "result": {
+    "item": "recruits:recruit_block"
+  },
+  "show_notification": false
+}

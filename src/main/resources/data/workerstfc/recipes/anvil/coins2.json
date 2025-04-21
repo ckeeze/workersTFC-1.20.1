@@ -1,0 +1,17 @@
+{
+  "type": "tfc:anvil",
+  "input": {
+    "item": "tfc:metal/rod/bronze"
+  },
+  "result": {
+    "item": "workerstfc:coin",
+    "count": 1
+  },
+  "tier": 1,
+  "rules": [
+    "hit_last",
+    "hit_second_last",
+    "hit_third_last"
+  ],
+  "apply_forging_bonus": false
+}

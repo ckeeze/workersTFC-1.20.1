@@ -1,0 +1,16 @@
+{
+  "type": "tfc:knapping",
+  "knapping_type": "tfc:clay",
+  "outside_slot_required": true,
+  "pattern": [
+    " XXX ",
+    "XX XX",
+    "X   X",
+    "XX XX",
+    " XXX "
+  ],
+  "result": {
+    "item": "workerstfc:clayroundjar",
+    "count": 2
+  }
+}

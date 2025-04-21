@@ -1,0 +1,16 @@
+{
+  "type": "tfc:anvil",
+  "input": {
+    "item": "tfc:metal/rod/copper"
+  },
+  "result": {
+    "item": "workerstfc:coin"
+  },
+  "tier": 1,
+  "rules": [
+    "punch_last",
+    "punch_second_last",
+    "punch_third_last"
+  ],
+  "apply_forging_bonus": false
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:saddle"
+    },
+    "I": {
+      "tag": "tfc:lumber"
+    },
+    "X": {
+      "item": "minecraft:bow"
+    }
+  },
+  "pattern": [
+    "III",
+    "IXI",
+    " # "
+  ],
+  "result": {
+    "item": "recruits:nomad_block"
+  },
+  "show_notification": false
+}

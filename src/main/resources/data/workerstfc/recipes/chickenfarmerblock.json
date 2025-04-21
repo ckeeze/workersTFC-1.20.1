@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "tfc:lumber"
+    },
+    "W": {
+      "item": "tfc:nest_box"
+    }
+  },
+  "pattern": [
+    "###",
+    "#W#"
+  ],
+  "result": {
+    "item": "workers:chicken_farmer_block"
+  },
+  "show_notification": false
+}

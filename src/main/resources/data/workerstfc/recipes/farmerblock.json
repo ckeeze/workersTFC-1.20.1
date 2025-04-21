@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "tfc:lumber"
+    },
+    "W": {
+      "tag": "tfc:hoes"
+    }
+  },
+  "pattern": [
+    "###",
+    "#W#"
+  ],
+  "result": {
+    "item": "workers:farmer_block"
+  },
+  "show_notification": false
+}
