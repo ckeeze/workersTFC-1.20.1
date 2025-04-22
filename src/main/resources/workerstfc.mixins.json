@@ -6,6 +6,14 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "mixins": ["FishermanEntityMixin","MinerAIMixin", "MinerEntityMixin", "CommandEventsMixin"],
+  "mixins": [
+    "CommandEventsMixin",
+    "FishermanAIMixin",
+    "FishermanEntityMixin",
+    "LumberjackAIMixin",
+    "LumberjackEntityMixin",
+    "MinerAIMixin",
+    "MinerEntityMixin",
+    "WorkerFindWaterAIMixin"],
   "refmap": "workerstfc.refmap.json"
 }

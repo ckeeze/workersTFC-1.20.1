@@ -67,6 +67,9 @@ public abstract class MinerEntityMixin extends AbstractInventoryEntity {
             //Sand
             ,IFS("tfc:sand/black"),IFS("tfc:sand/brown"),IFS("tfc:sand/green"),IFS("tfc:sand/pink"),IFS("tfc:sand/red"),IFS("tfc:sand/white")
             ,IFS("tfc:sand/yellow")
+            //Sandstone
+            ,IFS("tfc:raw_sandstone/black"),IFS("tfc:raw_sandstone/brown"),IFS("tfc:raw_sandstone/green"),IFS("tfc:raw_sandstone/pink"),IFS("tfc:raw_sandstone/red"),IFS("tfc:raw_sandstone/white")
+            ,IFS("tfc:raw_sandstone/yellow")
             //Soil
             ,IFS("tfc:dirt/loam"),IFS("tfc:dirt/sandy_loam"),IFS("tfc:dirt/silt"),IFS("tfc:dirt/silty_loam")
             //Rocks

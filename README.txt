@@ -22,10 +22,10 @@ WIP change default held items of workers to tfc items
 DONE - make workers/recruits recognise TFC chests
 - make workers/recruits unwilling to eat spoilt food, (or get a some sort of debuff for it)
 
-- make fisherman fish in saltwater
-- change fisherman items to TFC seafood items
+DONE - make fisherman fish in saltwater (sometimes does wierd things)
+DONE - change fisherman items to TFC seafood items
 - fix issue with flowing rivers (possibly make them not effect boats)
-- nerf fisherman output (Way out of line of what's expected in Terrafirmacraft)
+DONE - nerf fisherman output (Way out of line of what's expected in Terrafirmacraft)
 
 SKIPPED - make woodcutter chop tfc trees more accurately (possibly treecapitator style)
 - make woodcutter replant tfc trees
@@ -35,6 +35,10 @@ SKIPPED - make woodcutter chop tfc trees more accurately (possibly treecapitator
 - make farmer plant and harvest tfc plants
 
 - make animal handlers work with tfc animals
+- Shepherd
+- chickenfarmer
+- cattlefarmer
+- swineherd
 - feeding,
 - killing old animals
 - collecting animal products (egg, milk), but only from animals that had children 3 times to avoid depopulation
@@ -52,6 +56,7 @@ DONE - update weakness clay pot sounds
 - make tfc villager trades with coins (helps with food security/rare resources)
 - make tfc field guide entries for workers and recruits
 - update coins texture to something nicer
+- make 3x3 coinstack item for easier money storage
 - make farmer harvest fruits
 - make farmer replenish nutrients
 - make saddles mandatory
@@ -59,3 +64,4 @@ DONE - update weakness clay pot sounds
 - make vanilla villagers reproduce with tfc food
 - make custom item "golden fruit" to replace gapple
 - update weakness clay pot textures
+- make fisherman consume bait (revert nerf after?)
