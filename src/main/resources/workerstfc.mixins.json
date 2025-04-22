@@ -7,13 +7,18 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "CattleFarmerEntityMixin",
+    "ChickenFarmerEntityMixin",
     "CommandEventsMixin",
+    "FarmerEntityMixin",
     "FishermanAIMixin",
     "FishermanEntityMixin",
     "LumberjackAIMixin",
     "LumberjackEntityMixin",
     "MinerAIMixin",
     "MinerEntityMixin",
+    "ShepherdEntityMixin",
+    "SwineherdEntityMixin",
     "WorkerFindWaterAIMixin"],
   "refmap": "workerstfc.refmap.json"
 }

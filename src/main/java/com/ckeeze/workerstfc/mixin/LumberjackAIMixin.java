@@ -1,10 +1,13 @@
 package com.ckeeze.workerstfc.mixin;
 
+import com.google.common.collect.ImmutableSet;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.LumberjackEntity;
 import com.talhanation.workers.entities.ai.LumberjackAI;
+import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -21,6 +24,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 import static com.talhanation.workers.entities.LumberjackEntity.State.*;
 
@@ -34,6 +38,8 @@ public abstract class LumberjackAIMixin extends Goal {
         this.lumber = lumber;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
+
+    //private static final Set<Item> PLANTONTHIS = ImmutableSet.of();
 
     public boolean canUse() {
         // Start AI if there are trees near the work place.

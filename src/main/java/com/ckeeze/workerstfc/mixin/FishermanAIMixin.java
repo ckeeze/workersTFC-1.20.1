@@ -4,7 +4,6 @@ import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.FishermanEntity;
 import com.talhanation.workers.entities.ai.FishermanAI;
 import net.dries007.tfc.common.TFCTags;
-import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.MinecraftServer;

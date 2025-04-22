@@ -17,10 +17,11 @@ DONE - make villager zombies spawn uncommonly underground
 
 DONE - make recruits/workers stations obtainable (crafting, villagers are tedious enough to get as is)
 DONE - change default held items of recruitsto to tfc items
-WIP change default held items of workers to tfc items
+DONE - change default held items of workers to tfc items
 
 DONE - make workers/recruits recognise TFC chests
 - make workers/recruits unwilling to eat spoilt food, (or get a some sort of debuff for it)
+- make workers recognise TFC food.
 
 DONE - make fisherman fish in saltwater (sometimes does wierd things)
 DONE - change fisherman items to TFC seafood items
