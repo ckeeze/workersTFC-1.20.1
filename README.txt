@@ -20,8 +20,8 @@ DONE - change default held items of workers to tfc items
 
 DONE - make workers/recruits recognise TFC chests
 DONE - make recruits unwilling to eat spoilt food
-- make workers recognise TFC food.
-- make workers unwilling to eat spoilt food
+DONE - make workers recognise TFC food.
+DONE - make workers unwilling to eat spoilt food, or raw food
 
 DONE - make fisherman fish in saltwater (sometimes does wierd things)
 DONE - change fisherman items to TFC seafood items
