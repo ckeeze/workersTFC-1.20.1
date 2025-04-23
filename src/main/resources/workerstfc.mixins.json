@@ -8,11 +8,12 @@
   },
   "mixins": [
     "AbstractRecruitEntityMixin",
-    "EatGoalMixin",
     "CattleFarmerEntityMixin",
     "ChickenFarmerEntityMixin",
     "CommandEventsMixin",
     "DepositItemsInChestGoalMixin",
+    "EatGoalMixin",
+    "FarmerAIMixin",
     "FarmerEntityMixin",
     "FishermanAIMixin",
     "FishermanEntityMixin",

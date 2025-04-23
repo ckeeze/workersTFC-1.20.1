@@ -31,8 +31,9 @@ DONE - nerf fisherman output (Way out of line of what's expected in Terrafirmacr
 SKIPPED - make woodcutter chop tfc trees more accurately (it's good enough)
 DONE - make woodcutter replant tfc trees
 
-- make farmer till tfc dirt types
-- make farmer plant and harvest tfc plants
+DONE - make farmer till tfc dirt types
+DONE - make farmer plant tfc crops
+DONE - make farmer harvest tfc crops
 
 - make animal handlers work with tfc animals
 - Shepherd
@@ -57,7 +58,9 @@ DONE - update weakness clay pot sounds
 - update coins texture to something nicer
 - make 3x3 coinstack item for easier money storage
 - make farmer harvest fruits
-- make farmer replenish nutrients
+- make farmer manage climate
+- make farmer manage nutrients
+- make farmer plant and harvest special crops (sticks, waterlogged, spreading)
 - make saddles mandatory
 - make crossbowman unable to shoot from horseback (except for pistols, or forbid them from mounting horses)
 - make vanilla villagers reproduce with tfc food
