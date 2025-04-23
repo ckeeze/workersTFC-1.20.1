@@ -2,9 +2,8 @@ This is a work in progress project!
 This is a compatibility submod for villager workers, and villager recruits and Terrafirmacraft.
 
 TODO LIST:
-
-DONE -coins
-DONE -recipe for coins (tfc anvil recipe from precious metals, output amount depends on the exact metal type)
+DONE - coins
+DONE - recipe for coins (tfc anvil recipe from precious metals, output amount depends on the exact metal type)
 DONE - create config file builder
 DONE - change default recruitment/upkeep item to coins
 DONE - remove vanilla trades from villagers (TFC already removes vanilla professions from zombievillagers when cured)
@@ -20,8 +19,9 @@ DONE - change default held items of recruitsto to tfc items
 DONE - change default held items of workers to tfc items
 
 DONE - make workers/recruits recognise TFC chests
-- make workers/recruits unwilling to eat spoilt food, (or get a some sort of debuff for it)
+DONE - make recruits unwilling to eat spoilt food
 - make workers recognise TFC food.
+- make workers unwilling to eat spoilt food
 
 DONE - make fisherman fish in saltwater (sometimes does wierd things)
 DONE - change fisherman items to TFC seafood items
@@ -41,10 +41,9 @@ DONE - make woodcutter replant tfc trees
 - swineherd
 - feeding,
 - killing old animals
-- collecting animal products (egg, milk), but only from animals that had children 3 times to avoid depopulation
+- collecting animal products (egg, milk, wool), but until animals can still have children 3 times to avoid depopulation
 
-- make merchant able to use tfc horses, donkeys, mules
-- make them prefer donkeys and mules
+DONE - make merchant able to use tfc horses, donkeys, mules
 
 DONE - make recruits use tfc horses
 DONE - horseman/nomad spawn without a horse

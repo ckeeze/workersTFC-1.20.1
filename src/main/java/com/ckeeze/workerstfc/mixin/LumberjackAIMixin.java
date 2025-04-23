@@ -272,6 +272,9 @@ public abstract class LumberjackAIMixin extends Goal {
                 if (itemstack.is(IFS("tfc:wood/sapling/willow"))){
                     placedSaplingBlock = BFS("tfc:wood/sapling/willow").defaultBlockState();
                 }
+                if (itemstack.is(IFS("tfc:wood/sapling/palm"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/palm").defaultBlockState();
+                }
 
                 this.lumber.level().setBlock(blockPos, placedSaplingBlock, 3);
                 lumber.level().playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);

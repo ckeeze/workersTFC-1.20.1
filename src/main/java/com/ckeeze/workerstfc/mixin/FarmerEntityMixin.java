@@ -24,6 +24,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
         super(entityType, world);
     }
 
+    //items from string
     private static Item IFS(String S){
         return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
     }
@@ -33,7 +34,31 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             Items.MELON_SEEDS,
             Items.POTATO,
             Items.BEETROOT_SEEDS,
-            Items.CARROT);
+            Items.CARROT,
+            IFS("tfc:seeds/yellow_bell_pepper"),
+            IFS("tfc:seeds/red_bell_pepper"),
+            IFS("tfc:seeds/melon"),
+            IFS("tfc:seeds/pumpkin"),
+            IFS("tfc:seeds/papyrus"),
+            IFS("tfc:seeds/jute"),
+            IFS("tfc:seeds/tomato"),
+            IFS("tfc:seeds/sugarcane"),
+            IFS("tfc:seeds/squash"),
+            IFS("tfc:seeds/beet"),
+            IFS("tfc:seeds/rice"),
+            IFS("tfc:seeds/wheat"),
+            IFS("tfc:seeds/barley"),
+            IFS("tfc:seeds/oat"),
+            IFS("tfc:seeds/rye"),
+            IFS("tfc:seeds/maize"),
+            IFS("tfc:seeds/cabbage"),
+            IFS("tfc:seeds/soybean"),
+            IFS("tfc:seeds/onion"),
+            IFS("tfc:seeds/potato"),
+            IFS("tfc:seeds/carrot"),
+            IFS("tfc:seeds/garlic"),
+            IFS("tfc:seeds/green_bean")
+            );
 
     private final Set<Item> WANTED_ITEMS = ImmutableSet.of(
             Items.WHEAT,
