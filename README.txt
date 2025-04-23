@@ -28,9 +28,8 @@ DONE - change fisherman items to TFC seafood items
 - fix issue with flowing rivers (possibly make them not effect boats)
 DONE - nerf fisherman output (Way out of line of what's expected in Terrafirmacraft)
 
-SKIPPED - make woodcutter chop tfc trees more accurately (possibly treecapitator style)
-- make woodcutter replant tfc trees
-- make woodcutter collect tfc sapplings
+SKIPPED - make woodcutter chop tfc trees more accurately (it's good enough)
+DONE - make woodcutter replant tfc trees
 
 - make farmer till tfc dirt types
 - make farmer plant and harvest tfc plants
@@ -66,3 +65,4 @@ DONE - update weakness clay pot sounds
 - make custom item "golden fruit" to replace gapple
 - update weakness clay pot textures
 - make fisherman consume bait (revert nerf after?)
+- make woodcutter actively collect tfc sapplings with sychte

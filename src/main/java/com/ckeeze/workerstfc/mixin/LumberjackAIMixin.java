@@ -1,11 +1,13 @@
 package com.ckeeze.workerstfc.mixin;
 
 import com.google.common.collect.ImmutableSet;
+import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.LumberjackEntity;
 import com.talhanation.workers.entities.ai.LumberjackAI;
 import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.blocks.TFCBlocks;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +21,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,7 +42,12 @@ public abstract class LumberjackAIMixin extends Goal {
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
-    //private static final Set<Item> PLANTONTHIS = ImmutableSet.of();
+    private static Item IFS(String S){
+        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
+    }
+    private static Block BFS(String S){
+        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(S));
+    }
 
     public boolean canUse() {
         // Start AI if there are trees near the work place.
@@ -116,8 +124,7 @@ public abstract class LumberjackAIMixin extends Goal {
                     if (this.mineBlock(chopPos))
                         this.lumber.increaseFarmedItems();
 
-                    if(lumber.getReplantSaplings() && lumber.getCommandSenderWorld().getBlockState(chopPos.below()).getBlock() == TFCBlocks.SOIL && this.lumber.getCommandSenderWorld().isEmptyBlock(chopPos)) {
-
+                    if(lumber.getReplantSaplings() && lumber.getCommandSenderWorld().getBlockState(chopPos.below()).is(TFCTags.Blocks.GRASS_PLANTABLE_ON) && this.lumber.getCommandSenderWorld().isEmptyBlock(chopPos)) {
                         plantSaplingFromInv(chopPos);
                     }
                 }
@@ -202,21 +209,6 @@ public abstract class LumberjackAIMixin extends Goal {
     private BlockPos getWoodPos() {
         return null;
     }
-/*
-    public BlockPos getPlantPos() {
-        int range = 16;
-        Random random = new Random();
-        for (int j = 0; j < range; j++) {
-            BlockPos blockPos = this.lumber.getStartPos().offset(random.nextInt(10) - range / 2F, 1, random.nextInt(10) - range / 2F);
-
-
-            if (this.lumber.level.isEmptyBlock(blockPos) && lumber.level.getBlockState(blockPos.below()).is(Blocks.GRASS_BLOCK)) {
-                return blockPos;
-            }
-        }
-        return null;
-    }
-*/
 
     private void plantSaplingFromInv(BlockPos blockPos) {
         SimpleContainer inventory = lumber.getInventory();
@@ -224,7 +216,63 @@ public abstract class LumberjackAIMixin extends Goal {
         for (int i = 0; i < inventory.getContainerSize(); ++i) {
             ItemStack itemstack = inventory.getItem(i);
             if (!itemstack.isEmpty() && itemstack.is(ItemTags.SAPLINGS)) {
-                BlockState placedSaplingBlock = Block.byItem(itemstack.getItem()).defaultBlockState();
+                BlockState placedSaplingBlock = BFS("minecraft:grass").defaultBlockState();
+
+                if (itemstack.is(IFS("tfc:wood/sapling/acacia"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/acacia").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/ash"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/ash").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/aspen"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/aspen").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/birch"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/birch").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/blackwood"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/blackwood").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/chestnut"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/chestnut").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/douglas_fir"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/douglas_fir").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/hickory"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/hickory").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/kapok"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/kapok").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/maple"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/maple").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/oak"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/oak").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/rosewood"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/rosewood").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/pine"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/pine").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/sequoia"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/sequoia").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/spruce"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/spruce").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/sycamore"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/sycamore").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/white_cedar"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/white_cedar").defaultBlockState();
+                }
+                if (itemstack.is(IFS("tfc:wood/sapling/willow"))){
+                    placedSaplingBlock = BFS("tfc:wood/sapling/willow").defaultBlockState();
+                }
+
                 this.lumber.level().setBlock(blockPos, placedSaplingBlock, 3);
                 lumber.level().playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 itemstack.shrink(1);
