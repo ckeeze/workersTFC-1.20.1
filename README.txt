@@ -110,4 +110,3 @@ DONE - update weakness clay pot sounds
 - update weakness clay pot textures
 - make fisherman consume bait (revert nerf after?)
 - make woodcutter actively collect tfc sapplings with sychte
-- make woodcutter take climate into account when planting sapplings
