@@ -22,6 +22,7 @@ Features:
   - Merchant can ride TFC horses
 
 Planned:
+  - Full moon spawn event to help players gather zombie villagers as their initial workers/recruits
   - Animal farmers fully manage TFC animals
   - Miner Placing support beams when digging sideways
   - Lumberjack uses schyte to collect saplings
