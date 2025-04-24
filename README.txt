@@ -22,8 +22,13 @@ Features:
   - Merchant can ride TFC horses
 
 Planned:
+  - Animal farmers fully manage TFC animals
   - Miner Placing support beams when digging sideways
-
+  - Lumberjack uses schyte to collect saplings
+  - Farmer takes climate into consideration when planting
+  - Farmer replenishes nutrients
+  - Fisherman consumes bait
+  - Unique TFC villager professions who help with food security and trade hard to find, or non renewable resources
 
 DISCLAIMER:
 The Mod is still in initial development fase, expect bugs and instability!
