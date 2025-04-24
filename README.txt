@@ -1,8 +1,13 @@
 This is a work in progress project!
 This is a compatibility submod for villager workers, and villager recruits and Terrafirmacraft.
+This project contains original code made by talhanation who is the owner of it.
+The rest of the code's author is Ckeeze.
+Usage in commercial projects is strictly forbidden otherwise standard ForgeMod licese usage apply, you may include the mod in any modpack,
+on any platform as long as you distribute it for free, and to licensed minecraft userbase.
 
 Beyond functional compatibility this mod aim's to smooth out the gameplay interactions of both mods. 
 Making the transition from normal TFC gameplay to that of enhanced by Workers and Recruits smooth and ballanced.
+
 Features:
   - Instead of unobtainable vanilla emeralds, recruits and workers now use a Coin wich can be made from precious metals in the TFC anvil
   - Recruits fully function with TFC as expected, eating TFC food, riding TFC horse, wearing TFC gear etc...
