@@ -1,7 +1,7 @@
 This is a work in progress project!
 This is a compatibility submod for villager workers, and villager recruits and Terrafirmacraft.
 
-TODO LIST:
+TODO LIST (Release):
 DONE - coins
 DONE - recipe for coins (tfc anvil recipe from precious metals, output amount depends on the exact metal type)
 DONE - create config file builder
@@ -11,7 +11,6 @@ DONE - remove wokrers/recruits trades from villagers (TFC already removes vanill
 
 DONE - make golden apple craftable
 DONE - make weakness potion substitute (copper age) (throwable claypot with weakness effect)
-- make villager zombies spawn in full moon commonly on the surface
 DONE - make villager zombies spawn uncommonly underground
 
 DONE - make recruits/workers stations obtainable (crafting, villagers are tedious enough to get as is)
@@ -40,31 +39,47 @@ DONE - make farmer harvest tfc crops
 - chickenfarmer
 - cattlefarmer
 - swineherd
-- feeding,
+
+- feeding
 - killing old animals
-- collecting animal products (egg, milk, wool), but until animals can still have children 3 times to avoid depopulation
+- collecting animal products (egg, milk, wool), but only until animals can still have children 3 times to avoid depopulation
 
 DONE - make merchant able to use tfc horses, donkeys, mules
+- make merchant able to navigate tfc waters
 
 DONE - make recruits use tfc horses
 DONE - horseman/nomad spawn without a horse
 
-LOW PRIO:
+LOW PRIO (Updates):
 DONE - make custom creative mode tab
 DONE - update weakness clay pot sounds
+- make villager zombies spawn in full moon commonly on the surface
+- make vanilla villagers reproduce with tfc food
 - make new tfc villagers, and workstations (craftable copper age tech)
-- make tfc villager trades with coins (helps with food security/rare resources)
+  - hunter (exchanges animal products, high level trade: big hide, wool)
+  - potter (exchanges clay and pottery, High level trade: kaolin clay)
+  - carpenter (exchanges wood types, high level trade: seqioa sapling)
+  - geologist (echanges ores and minerals)
+  - gardener (exchanges seeds, fruits and saplings)
+  - dye trader (exchanges dusts and dyes, high level trade: lapis)
+  - jeweler (exchanges precious metals and gems)
+  - glassmaker 
+  - spicetrader (sugar, salt, garlic, tropical goods)
+  - miller
+  - mason
+- make tfc villagers trade with coins (helps with food security/rare resources)
 - make tfc field guide entries for workers and recruits
 - update coins texture to something nicer
 - make 3x3 coinstack item for easier money storage
-- make farmer harvest fruits
+- make miner create support beams when tunneling sideways (disable 1 by 2 tunneling)
+- make farmer harvest fruits from bushes
+- make farmer harvest fruits from trees
 - make farmer manage climate
 - make farmer manage nutrients
 - make farmer plant and harvest special crops (sticks, waterlogged, spreading)
 - make saddles mandatory
-- make crossbowman unable to shoot from horseback (except for pistols, or forbid them from mounting horses)
-- make vanilla villagers reproduce with tfc food
 - make custom item "golden fruit" to replace gapple
 - update weakness clay pot textures
 - make fisherman consume bait (revert nerf after?)
 - make woodcutter actively collect tfc sapplings with sychte
+- make woodcutter take climate into account when planting sapplings
