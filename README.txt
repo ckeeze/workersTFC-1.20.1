@@ -1,6 +1,29 @@
 This is a work in progress project!
 This is a compatibility submod for villager workers, and villager recruits and Terrafirmacraft.
 
+Beyond functional compatibility this mod aim's to smooth out the gameplay interactions of both mods. 
+Making the transition from normal TFC gameplay to that of enhanced by Workers and Recruits smooth and ballanced.
+Features:
+  - Instead of unobtainable vanilla emeralds, recruits and workers now use a Coin wich can be made from precious metals in the TFC anvil
+  - Recruits fully function with TFC as expected, eating TFC food, riding TFC horse, wearing TFC gear etc...
+  - All Recruit workblocks are craftable with TFC materials in the early copper age
+  - Villagers are now obtainable in TFC via curing Zombies with a TFC-Esque Weakness potion substitute
+  - Villagers lose their job upon curing and vanilla trades are still not avalaible, later will custom villager professions will be added
+  - Workers take items to and from TFC chests, eat COOKED tfc food, while ignoring spoilt or raw fooditems
+  - Fisherman fishes from both saltwater and freshwater, and get's TFC fish as loot
+  - Miner places TFC torches, picks up and deposits TFC resources
+  - Lumberjack replants TFC sapplings
+  - Farmer tills tfc:soil, plants and harvests most TFC crops
+  - Merchant can ride TFC horses
+
+Planned:
+  - Miner Placing support beams when digging sideways
+
+
+DISCLAIMER:
+The Mod is still in initial development fase, expect bugs and instability!
+
+
 TODO LIST (Release):
 DONE - coins
 DONE - recipe for coins (tfc anvil recipe from precious metals, output amount depends on the exact metal type)
