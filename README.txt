@@ -79,8 +79,6 @@ DONE - make farmer harvest tfc crops
 - collecting animal products (egg, milk, wool), but only until animals can still have children 3 times to avoid depopulation
 
 DONE - make merchant able to use tfc horses, donkeys, mules
-- make merchant able to navigate tfc waters
-
 DONE - make recruits use tfc horses
 DONE - horseman/nomad spawn without a horse
 

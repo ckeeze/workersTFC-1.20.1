@@ -181,7 +181,7 @@ public abstract class FishermanAIMixin extends Goal {
         for(int i = -range; i <= range; i++){
             for(int k = -range; k <= range; k++) {
                 BlockPos pos = pos1.offset(i, 0, k);
-                BlockState state = this.fisherman.level().getBlockState(pos);
+                BlockState state = this.fisherman.getCommandSenderWorld().getBlockState(pos);
 
                 if (state.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
                     return true;
@@ -232,7 +232,7 @@ public abstract class FishermanAIMixin extends Goal {
     private int getWaterDepth(BlockPos pos){
         int depth = 0;
         for(int i = 0; i < 10; i++){
-            BlockState state = fisherman.level().getBlockState(pos.below(i));
+            BlockState state = fisherman.getCommandSenderWorld().getBlockState(pos.below(i));
             if(state.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
                 depth++;
             }
@@ -248,11 +248,11 @@ public abstract class FishermanAIMixin extends Goal {
         for(int i = -10; i <= 10; i++){
             for(int k = -10; k <= 10; k++) {
                 BlockPos pos = fisherman.getStartPos().offset(i, 0, k);
-                BlockState state = this.fisherman.level().getBlockState(pos);
-                BlockState targetBlockN = this.fisherman.level().getBlockState(pos.north());
-                BlockState targetBlockE = this.fisherman.level().getBlockState(pos.east());
-                BlockState targetBlockS = this.fisherman.level().getBlockState(pos.south());
-                BlockState targetBlockW = this.fisherman.level().getBlockState(pos.west());
+                BlockState state = this.fisherman.getCommandSenderWorld().getBlockState(pos);
+                BlockState targetBlockN = this.fisherman.getCommandSenderWorld().getBlockState(pos.north());
+                BlockState targetBlockE = this.fisherman.getCommandSenderWorld().getBlockState(pos.east());
+                BlockState targetBlockS = this.fisherman.getCommandSenderWorld().getBlockState(pos.south());
+                BlockState targetBlockW = this.fisherman.getCommandSenderWorld().getBlockState(pos.west());
 
                 if ((state.getFluidState().is(TFCTags.Fluids.WATER_LIKE)) && targetBlockN.getFluidState().is(TFCTags.Fluids.WATER_LIKE) || targetBlockE.getFluidState().is(TFCTags.Fluids.WATER_LIKE) || targetBlockS.getFluidState().is(TFCTags.Fluids.WATER_LIKE) || targetBlockW.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
                     list.add(pos);
@@ -280,7 +280,7 @@ public abstract class FishermanAIMixin extends Goal {
     private int getDistanceWithWater(BlockPos pos, Direction direction){
         int distance = 0;
         for(int i = 0; i < fishingRange; i++){
-            BlockState targetBlockN = this.fisherman.level().getBlockState(pos.relative(direction, i));
+            BlockState targetBlockN = this.fisherman.getCommandSenderWorld().getBlockState(pos.relative(direction, i));
             if (targetBlockN.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
                 distance++;
             }
