@@ -3,20 +3,18 @@ package com.ckeeze.workerstfc.mixin;
 import com.google.common.collect.ImmutableSet;
 import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.FarmerEntity;
-import com.talhanation.workers.entities.LumberjackEntity;
 import com.talhanation.workers.entities.ai.FarmerAI;
+
 import net.dries007.tfc.client.TFCSounds;
-import net.dries007.tfc.common.blockentities.FarmlandBlockEntity;
 import net.dries007.tfc.common.blockentities.IFarmland;
 import net.dries007.tfc.common.blocks.crop.CropBlock;
 import net.dries007.tfc.util.Helpers;
 import net.dries007.tfc.util.climate.Climate;
-import net.dries007.tfc.common.blockentities.FarmlandBlockEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
@@ -28,18 +26,13 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.GrowingPlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.EnumSet;
 import java.util.Set;
 
 import static com.talhanation.workers.entities.FarmerEntity.CROP_BLOCKS;
-import static com.talhanation.workers.entities.FarmerEntity.WANTED_SEEDS;
 import static net.dries007.tfc.common.blockentities.FarmlandBlockEntity.NutrientType.*;
 import static net.dries007.tfc.common.blocks.soil.FarmlandBlock.getHydration;
 
@@ -47,9 +40,7 @@ import static net.dries007.tfc.common.blocks.soil.FarmlandBlock.getHydration;
 public abstract class FarmerAIMixin extends Goal {
 
     private final FarmerEntity farmer;
-    private BlockPos workPos;
     private BlockPos waterPos;
-    private boolean messageNoHoe;
 
     public FarmerAIMixin(FarmerEntity farmer) {
         this.farmer = farmer;
@@ -73,7 +64,6 @@ public abstract class FarmerAIMixin extends Goal {
             IFS("tfc:powder/wood_ash"), IFS("tfc:compost"),IFS("tfc:groundcover/guano"),
             Items.BONE_MEAL
     );
-
 
     private static final Set<Item> FARMED_ITEMS = ImmutableSet.of(
             Items.WHEAT,

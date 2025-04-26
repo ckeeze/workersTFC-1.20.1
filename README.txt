@@ -19,6 +19,8 @@ Features:
   - Miner places TFC torches, picks up and deposits TFC resources
   - Lumberjack replants TFC sapplings
   - Farmer tills tfc:soil, plants and harvests most TFC crops
+  - Farmer takes climate into consideration when planting
+  - Farmer replenishes nutrients
   - Merchant can ride TFC horses
 
 Planned:
@@ -26,8 +28,6 @@ Planned:
   - Animal farmers fully manage TFC animals
   - Miner Placing support beams when digging sideways
   - Lumberjack uses schyte to collect saplings
-  - Farmer takes climate into consideration when planting
-  - Farmer replenishes nutrients
   - Fisherman consumes bait
   - Unique TFC villager professions who help with food security and trade hard to find, or non renewable resources
 
@@ -106,8 +106,8 @@ DONE - update weakness clay pot sounds
 - make miner create support beams when tunneling sideways (disable 1 by 2 tunneling)
 - make farmer harvest fruits from bushes
 - make farmer harvest fruits from trees
-- make farmer manage climate
-- make farmer manage nutrients
+DONE - make farmer manage climate
+DONE - make farmer manage nutrients
 - make farmer plant and harvest special crops (sticks, waterlogged, spreading)
 - make saddles mandatory
 - make custom item "golden fruit" to replace gapple
