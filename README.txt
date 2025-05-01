@@ -86,7 +86,7 @@ LOW PRIO (Updates):
 DONE - make custom creative mode tab
 DONE - update weakness clay pot sounds
 - make villager zombies spawn in full moon commonly on the surface
-- make vanilla villagers reproduce with tfc food
+DONE - make vanilla villagers reproduce with tfc food
 - make new tfc villagers, and workstations (craftable copper age tech)
   - hunter (exchanges animal products, high level trade: big hide, wool)
   - potter (exchanges clay and pottery, High level trade: kaolin clay)
@@ -110,7 +110,7 @@ DONE - make farmer manage climate
 DONE - make farmer manage nutrients
 - make farmer plant and harvest special crops (sticks, waterlogged, spreading)
 - make saddles mandatory
-- make custom item "golden fruit" to replace gapple
+DONE - make custom item "golden fruit" to replace gapple
 - update weakness clay pot textures
 - make fisherman consume bait (revert nerf after?)
 - make woodcutter actively collect tfc sapplings with sychte

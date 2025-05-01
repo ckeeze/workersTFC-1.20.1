@@ -18,9 +18,13 @@ public class ModItems {
             () ->  new Item(new Item.Properties()));
     public static final RegistryObject<Item> CERAMICROUNDJAR = ITEMS.register("ceramicroundjar",
             () ->  new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GILDEDFRUIT = ITEMS.register("gildedfruit",
+            () ->  new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> WEAKNESSBOMB = ITEMS.register("weaknessbomb",
             () ->  new WeaknessBomb(new Item.Properties()));
+
+
 
     public static void refister(IEventBus eventBus){
         ITEMS.register(eventBus);

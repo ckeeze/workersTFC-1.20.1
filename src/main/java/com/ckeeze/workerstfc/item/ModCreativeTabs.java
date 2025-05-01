@@ -22,6 +22,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.CLAYROUNDJAR.get());
                         output.accept(ModItems.CERAMICROUNDJAR.get());
                         output.accept(ModItems.WEAKNESSBOMB.get());
+                        output.accept(ModItems.GILDEDFRUIT.get());
                     }).build());
 
     public static void register(IEventBus eventBus){

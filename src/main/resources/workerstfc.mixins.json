@@ -23,6 +23,8 @@
     "MinerEntityMixin",
     "ShepherdEntityMixin",
     "SwineherdEntityMixin",
-    "WorkerFindWaterAIMixin"],
+    "VillagerMixin",
+    "WorkerFindWaterAIMixin",
+    "ZombieVillagerMixin"],
   "refmap": "workerstfc.refmap.json"
 }
