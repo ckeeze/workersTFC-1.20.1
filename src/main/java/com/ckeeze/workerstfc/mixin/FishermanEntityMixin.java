@@ -30,4 +30,8 @@ public abstract class FishermanEntityMixin extends AbstractInventoryEntity {
         this.updateInventory(0, initialTool);
         this.equipTool(initialTool);
     }
+
+    public int getFarmedItemsDepositAmount(){
+        return 24;
+    }
 }
