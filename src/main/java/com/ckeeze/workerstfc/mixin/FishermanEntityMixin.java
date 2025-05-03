@@ -11,6 +11,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Mixin(FishermanEntity.class)
 public abstract class FishermanEntityMixin extends AbstractInventoryEntity {
 
@@ -31,5 +34,9 @@ public abstract class FishermanEntityMixin extends AbstractInventoryEntity {
 
     public int getFarmedItemsDepositAmount(){
         return 24;
+    }
+
+    public List<Item> inventoryInputHelp() {
+        return Arrays.asList(IFS("tfc:metal/fishing_rod/wrought_iron"));
     }
 }

@@ -177,6 +177,12 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                         if(this.worker instanceof SwineherdEntity){
                             if(!hasEnoughOfItem(Items.CARROT, 32)) this.getItemFromChest(Items.CARROT);
                             if(!hasEnoughOfItem(Items.ROTTEN_FLESH, 32)) this.getItemFromChest(Items.ROTTEN_FLESH);
+                            if(!hasEnoughOfItem(IFS("tfc:food/oat_grain"), 32)) this.getItemFromChest(IFS("tfc:food/oat_grain"));
+                            if(!hasEnoughOfItem(IFS("tfc:food/wheat_grain"), 32)) this.getItemFromChest(IFS("tfc:food/wheat_grain"));
+                            if(!hasEnoughOfItem(IFS("tfc:food/maize_grain"), 32)) this.getItemFromChest(IFS("tfc:food/maize_grain"));
+                            if(!hasEnoughOfItem(IFS("tfc:food/rye_grain"), 32)) this.getItemFromChest(IFS("tfc:food/rye_grain"));
+                            if(!hasEnoughOfItem(IFS("tfc:food/barley_grain"), 32)) this.getItemFromChest(IFS("tfc:food/barley_grain"));
+                            if(!hasEnoughOfItem(IFS("tfc:food/rice_grain"), 32)) this.getItemFromChest(IFS("tfc:food/rice_grain"));
                         }
 
                         if(this.worker instanceof CattleFarmerEntity){

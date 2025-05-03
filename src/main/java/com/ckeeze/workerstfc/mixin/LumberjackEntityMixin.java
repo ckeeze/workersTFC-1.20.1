@@ -12,6 +12,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Mixin(LumberjackEntity.class)
 public abstract class LumberjackEntityMixin extends AbstractInventoryEntity {
 
@@ -32,5 +35,9 @@ public abstract class LumberjackEntityMixin extends AbstractInventoryEntity {
         ItemStack initialTool = new ItemStack(IFS("tfc:stone/axe/igneous_extrusive"));
         this.updateInventory(0, initialTool);
         this.equipTool(initialTool);
+    }
+
+    public List<Item> inventoryInputHelp() {
+        return Arrays.asList(IFS("tfc:metal/axe/wrought_iron"), IFS("tfc:wood/sapling/maple"));
     }
 }

@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 
@@ -130,5 +132,13 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
         ItemStack initialTool = new ItemStack(IFS("tfc:stone/hoe/igneous_extrusive"));
         this.updateInventory(0, initialTool);
         this.equipTool(initialTool);
+    }
+
+    public List<Item> inventoryInputHelp() {
+        return Arrays.asList(IFS("tfc:metal/hoe/wrought_iron"),
+                IFS("tfc:seeds/wheat"),
+                IFS("tfc:seeds/barley"),
+                IFS("tfc:seeds/oat"),
+                IFS("tfc:seeds/rye"));
     }
 }
