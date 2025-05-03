@@ -68,6 +68,13 @@ DONE - make farmer till tfc dirt types
 DONE - make farmer plant tfc crops
 DONE - make farmer harvest tfc crops
 
+DONE - Remove librarian
+DONE - Remove cartografer
+DONE - Remove shepherd
+DONE - Remove cleric
+DONE - Remove toolsmith
+DONE - Remove leatherworker
+
 - make animal handlers work with tfc animals
 - Shepherd
 - chickenfarmer

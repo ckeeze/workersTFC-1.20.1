@@ -21,6 +21,7 @@
     "LumberjackEntityMixin",
     "MinerAIMixin",
     "MinerEntityMixin",
+    "PoiTypesMixin",
     "ShepherdEntityMixin",
     "SwineherdEntityMixin",
     "VillagerMixin",
