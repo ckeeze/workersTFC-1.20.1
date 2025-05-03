@@ -1,34 +1,21 @@
 package com.ckeeze.workerstfc.mixin;
 
 import com.google.common.collect.ImmutableSet;
-import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.SwineherdEntity;
 import com.talhanation.workers.entities.ai.AnimalFarmerAI;
 import com.talhanation.workers.entities.ai.SwineherdAI;
-import net.dries007.tfc.common.entities.Faunas;
 import net.dries007.tfc.common.entities.TFCEntities;
-import net.dries007.tfc.common.entities.livestock.DairyAnimal;
 import net.dries007.tfc.common.entities.livestock.Mammal;
-import net.dries007.tfc.common.entities.Faunas;
-import net.dries007.tfc.common.entities.livestock.TFCAnimal;
 import net.dries007.tfc.common.entities.livestock.TFCAnimalProperties;
-import net.dries007.tfc.config.animals.AnimalConfig;
 import net.dries007.tfc.util.calendar.Calendars;
-import net.dries007.tfc.util.calendar.ICalendar;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.animal.Pig;
-import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.client.event.RenderHighlightEvent;
-import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -36,12 +23,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
-import static net.minecraft.commands.arguments.EntityArgument.getEntity;
 
 @Mixin(SwineherdAI.class)
 public abstract class SwineherdAIMixin extends AnimalFarmerAI {
-    private Mammal pig1;
-    //private Optional<Faunas> pig;
     private boolean breeding;
     private boolean slaughtering;
     private BlockPos workPos;

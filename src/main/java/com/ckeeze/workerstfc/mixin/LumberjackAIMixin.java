@@ -1,12 +1,9 @@
 package com.ckeeze.workerstfc.mixin;
 
-import com.google.common.collect.ImmutableSet;
-import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.LumberjackEntity;
 import com.talhanation.workers.entities.ai.LumberjackAI;
 import net.dries007.tfc.common.TFCTags;
-import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;

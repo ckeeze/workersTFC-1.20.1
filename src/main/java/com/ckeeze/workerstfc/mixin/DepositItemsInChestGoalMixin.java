@@ -5,31 +5,19 @@ import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.ai.DepositItemsInChestGoal;
 import com.talhanation.workers.entities.*;
-import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-
-import javax.annotation.Nullable;
-import java.util.EnumSet;
-import java.util.Optional;
-
 import java.util.EnumSet;
 import java.util.Set;
 

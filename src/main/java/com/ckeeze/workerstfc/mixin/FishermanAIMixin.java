@@ -25,7 +25,6 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.*;
 
-import static com.talhanation.workers.entities.FishermanEntity.State.*;
 
 @Mixin(FishermanAI.class)
 public abstract class FishermanAIMixin extends Goal {

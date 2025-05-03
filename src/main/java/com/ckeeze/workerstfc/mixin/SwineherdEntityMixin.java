@@ -1,13 +1,11 @@
 package com.ckeeze.workerstfc.mixin;
 
 import com.google.common.collect.ImmutableSet;
-import com.talhanation.workers.entities.AbstractInventoryEntity;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.SwineherdEntity;
 import net.dries007.tfc.common.TFCTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
