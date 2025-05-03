@@ -22,6 +22,7 @@ Features:
   - Farmer takes climate into consideration when planting
   - Farmer replenishes nutrients
   - Merchant can ride TFC horses
+  - Swineherd feeds TFC pigs, kills old pigs, slaughters excess lifestock and collects materials from slain pigs
 
 Planned:
   - Full moon spawn event to help players gather zombie villagers as their initial workers/recruits
@@ -75,15 +76,10 @@ DONE - Remove cleric
 DONE - Remove toolsmith
 DONE - Remove leatherworker
 
-- make animal handlers work with tfc animals
 - Shepherd
 - chickenfarmer
 - cattlefarmer
-- swineherd
-
-- feeding
-- killing old animals
-- collecting animal products (egg, milk, wool), but only until animals can still have children 3 times to avoid depopulation
+DONE - swineherd
 
 DONE - make merchant able to use tfc horses, donkeys, mules
 DONE - make recruits use tfc horses

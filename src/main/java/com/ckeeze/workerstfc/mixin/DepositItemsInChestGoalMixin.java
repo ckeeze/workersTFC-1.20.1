@@ -5,6 +5,7 @@ import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.ai.DepositItemsInChestGoal;
 import com.talhanation.workers.entities.*;
+import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 
 import net.minecraft.core.BlockPos;
@@ -187,6 +188,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
 
                         if(this.worker instanceof SwineherdEntity){
                             if(!hasEnoughOfItem(Items.CARROT, 32)) this.getItemFromChest(Items.CARROT);
+                            if(!hasEnoughOfItem(Items.ROTTEN_FLESH, 32)) this.getItemFromChest(Items.ROTTEN_FLESH);
                         }
 
                         if(this.worker instanceof CattleFarmerEntity){
