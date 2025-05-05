@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.*;
 
-
+@SuppressWarnings("unused")
 @Mixin(FishermanAI.class)
 public abstract class FishermanAIMixin extends Goal {
     private final FishermanEntity fisherman;

@@ -3,7 +3,13 @@ package com.ckeeze.workerstfc.mixin;
 import com.google.common.collect.ImmutableSet;
 import com.talhanation.workers.entities.AbstractInventoryEntity;
 import com.talhanation.workers.entities.FarmerEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.dries007.tfc.common.TFCTags;
+import net.dries007.tfc.common.blocks.TFCBlocks;
+import net.dries007.tfc.common.blocks.crop.Crop;
+import net.dries007.tfc.common.blocks.rock.RockCategory;
+import net.dries007.tfc.common.blocks.soil.SoilBlockType;
+import net.dries007.tfc.common.items.TFCItems;
+import net.dries007.tfc.util.Metal;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.item.Item;
@@ -12,7 +18,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Arrays;
@@ -20,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 
-
+@SuppressWarnings("unused")
 @Mixin(FarmerEntity.class)
 public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
 
@@ -28,42 +33,34 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
         super(entityType, world);
     }
 
-    //itemfromstring
-    private static Item IFS(String S){
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
-    }
-    //Blockfromstring
-    private static Block BFS(String S) { return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(S));}
-
     private static final Set<Item> WANTED_SEEDS = ImmutableSet.of(
             Items.WHEAT_SEEDS,
             Items.MELON_SEEDS,
             Items.POTATO,
             Items.BEETROOT_SEEDS,
             Items.CARROT,
-            IFS("tfc:seeds/yellow_bell_pepper"),
-            IFS("tfc:seeds/red_bell_pepper"),
+            TFCItems.CROP_SEEDS.get(Crop.RED_BELL_PEPPER).get(),
             //IFS("tfc:seeds/melon"), spreading
             //IFS("tfc:seeds/pumpkin"), spreading
-            IFS("tfc:seeds/papyrus"),
-            IFS("tfc:seeds/jute"),
+            TFCItems.CROP_SEEDS.get(Crop.PAPYRUS).get(),
+            TFCItems.CROP_SEEDS.get(Crop.JUTE).get(),
             //IFS("tfc:seeds/tomato"), sticks
-            IFS("tfc:seeds/sugarcane"),
-            IFS("tfc:seeds/squash"),
-            IFS("tfc:seeds/beet"),
+            TFCItems.CROP_SEEDS.get(Crop.SUGARCANE).get(),
+            TFCItems.CROP_SEEDS.get(Crop.SQUASH).get(),
+            TFCItems.CROP_SEEDS.get(Crop.BEET).get(),
             //IFS("tfc:seeds/rice"), waterlogged
-            IFS("tfc:seeds/wheat"),
-            IFS("tfc:seeds/barley"),
-            IFS("tfc:seeds/oat"),
-            IFS("tfc:seeds/rye"),
-            IFS("tfc:seeds/maize"),
-            IFS("tfc:seeds/cabbage"),
-            IFS("tfc:seeds/soybean"),
-            IFS("tfc:seeds/onion"),
-            IFS("tfc:seeds/potato"),
-            IFS("tfc:seeds/carrot"),
-            IFS("tfc:seeds/garlic"),
-            IFS("tfc:seeds/green_bean") //sticks
+            TFCItems.CROP_SEEDS.get(Crop.WHEAT).get(),
+            TFCItems.CROP_SEEDS.get(Crop.BARLEY).get(),
+            TFCItems.CROP_SEEDS.get(Crop.OAT).get(),
+            TFCItems.CROP_SEEDS.get(Crop.RYE).get(),
+            TFCItems.CROP_SEEDS.get(Crop.MAIZE).get(),
+            TFCItems.CROP_SEEDS.get(Crop.CABBAGE).get(),
+            TFCItems.CROP_SEEDS.get(Crop.SOYBEAN).get(),
+            TFCItems.CROP_SEEDS.get(Crop.ONION).get(),
+            TFCItems.CROP_SEEDS.get(Crop.POTATO).get(),
+            TFCItems.CROP_SEEDS.get(Crop.CARROT).get(),
+            TFCItems.CROP_SEEDS.get(Crop.GARLIC).get(),
+            TFCItems.CROP_SEEDS.get(Crop.GREEN_BEAN).get() //sticks
             );
 
     private static final Set<Item> FARMED_ITEMS = ImmutableSet.of(
@@ -71,17 +68,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             Items.MELON_SLICE,
             Items.POTATO,
             Items.BEETROOT,
-            Items.CARROT,
-            IFS("tfc:food/crappie"),IFS("tfc:food/wheat"),IFS("tfc:food/oat"),
-            IFS("tfc:food/rice"),IFS("tfc:food/maize"),IFS("tfc:food/rye"),IFS("tfc:food/barley"),
-            IFS("tfc:food/snowberry"),IFS("tfc:food/blueberry"),IFS("tfc:food/blackberry"),IFS("tfc:food/raspberry"),IFS("tfc:food/gooseberry"),
-            IFS("tfc:food/elderberry"),IFS("tfc:food/wintergreen_berry"),IFS("tfc:food/banana"),IFS("tfc:food/cherry"),IFS("tfc:food/green_apple"),
-            IFS("tfc:food/lemon"),IFS("tfc:food/olive"),IFS("tfc:food/plum"),IFS("tfc:food/orange"),IFS("tfc:food/peach"),
-            IFS("tfc:food/red_apple"),IFS("tfc:food/melon_slice"),IFS("tfc:food/beet"),IFS("tfc:food/soybean"),IFS("tfc:food/carrot"),
-            IFS("tfc:food/cabbage"),IFS("tfc:food/green_bean"),IFS("tfc:food/garlic"),IFS("tfc:food/yellow_bell_pepper"),IFS("tfc:food/red_bell_pepper"),
-            IFS("tfc:food/green_bell_pepper"),IFS("tfc:food/squash"),IFS("tfc:food/potato"),IFS("tfc:food/onion"),IFS("tfc:food/tomato"),
-            IFS("tfc:food/sugarcane"),IFS("tfc:food/cranberry"),IFS("tfc:food/cloudberry"),IFS("tfc:food/bunchberry"),IFS("tfc:food/strawberry")
-    );
+            Items.CARROT);
 
     private static final Set<Block> CROP_BLOCKS = ImmutableSet.of(
             Blocks.WHEAT,
@@ -90,25 +77,25 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             Blocks.BEETROOTS,
             Blocks.MELON,
             Blocks.PUMPKIN,
-            BFS("tfc:crop/yellow_bell_pepper"),
-            BFS("tfc:crop/red_bell_pepper"),
-            BFS("tfc:crop/papyrus"),
-            BFS("tfc:crop/jute"),
-            BFS("tfc:crop/sugarcane"),
-            BFS("tfc:crop/squash"),
-            BFS("tfc:crop/beet"),
-            BFS("tfc:crop/wheat"),
-            BFS("tfc:crop/barley"),
-            BFS("tfc:crop/oat"),
-            BFS("tfc:crop/rye"),
-            BFS("tfc:crop/maize"),
-            BFS("tfc:crop/cabbage"),
-            BFS("tfc:crop/soybean"),
-            BFS("tfc:crop/onion"),
-            BFS("tfc:crop/potato"),
-            BFS("tfc:crop/carrot"),
-            BFS("tfc:crop/garlic"),
-            BFS("tfc:crop/green_bean")
+            TFCBlocks.CROPS.get(Crop.YELLOW_BELL_PEPPER).get(),
+            TFCBlocks.CROPS.get(Crop.RED_BELL_PEPPER).get(),
+            TFCBlocks.CROPS.get(Crop.PAPYRUS).get(),
+            TFCBlocks.CROPS.get(Crop.JUTE).get(),
+            TFCBlocks.CROPS.get(Crop.SUGARCANE).get(),
+            TFCBlocks.CROPS.get(Crop.SQUASH).get(),
+            TFCBlocks.CROPS.get(Crop.BEET).get(),
+            TFCBlocks.CROPS.get(Crop.WHEAT).get(),
+            TFCBlocks.CROPS.get(Crop.BARLEY).get(),
+            TFCBlocks.CROPS.get(Crop.OAT).get(),
+            TFCBlocks.CROPS.get(Crop.RYE).get(),
+            TFCBlocks.CROPS.get(Crop.MAIZE).get(),
+            TFCBlocks.CROPS.get(Crop.CABBAGE).get(),
+            TFCBlocks.CROPS.get(Crop.SOYBEAN).get(),
+            TFCBlocks.CROPS.get(Crop.ONION).get(),
+            TFCBlocks.CROPS.get(Crop.POTATO).get(),
+            TFCBlocks.CROPS.get(Crop.CARROT).get(),
+            TFCBlocks.CROPS.get(Crop.GARLIC).get(),
+            TFCBlocks.CROPS.get(Crop.GREEN_BEAN).get()
     );
 
     //HoeItem
@@ -117,28 +104,31 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             Blocks.ROOTED_DIRT,
             Blocks.COARSE_DIRT,
             Blocks.GRASS_BLOCK,
-            BFS("tfc:dirt/silt"),BFS("tfc:dirt/loam"),BFS("tfc:dirt/sandy_loam"),BFS("tfc:dirt/silty_loam"),
-            BFS("tfc:grass/silt"),BFS("tfc:grass/loam"),BFS("tfc:grass/sandy_loam"),BFS("tfc:grass/silty_loam"),
-            BFS("tfc:rooted_dirt/silt"),BFS("tfc:rooted_dirt/loam"),BFS("tfc:rooted_dirt/sandy_loam"),BFS("tfc:rooted_dirt/silty_loam")
+            TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.SILT).get(),TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.LOAM).get(),
+            TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.SANDY_LOAM).get(),TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.SILTY_LOAM).get(),
+            TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.SILT).get(),TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.LOAM).get(),
+            TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.SANDY_LOAM).get(),TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.SILTY_LOAM).get(),
+            TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.SILT).get(),TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.LOAM).get(),
+            TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.SILTY_LOAM).get(),TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.SILTY_LOAM).get()
     );
 
 
     public boolean wantsToPickUp(ItemStack itemStack) {
         Item item = itemStack.getItem();
-        return (FARMED_ITEMS.contains(item) || WANTED_SEEDS.contains(item));
+        return (FARMED_ITEMS.contains(item) || WANTED_SEEDS.contains(item) || itemStack.is(TFCTags.Items.GOAT_FOOD));
     }
 
     public void setEquipment() {
-        ItemStack initialTool = new ItemStack(IFS("tfc:stone/hoe/igneous_extrusive"));
+        ItemStack initialTool = new ItemStack(TFCItems.ROCK_TOOLS.get(RockCategory.IGNEOUS_EXTRUSIVE).get(RockCategory.ItemType.HOE).get());
         this.updateInventory(0, initialTool);
         this.equipTool(initialTool);
     }
 
     public List<Item> inventoryInputHelp() {
-        return Arrays.asList(IFS("tfc:metal/hoe/wrought_iron"),
-                IFS("tfc:seeds/wheat"),
-                IFS("tfc:seeds/barley"),
-                IFS("tfc:seeds/oat"),
-                IFS("tfc:seeds/rye"));
+        return Arrays.asList(TFCItems.METAL_ITEMS.get(Metal.Default.WROUGHT_IRON).get(Metal.ItemType.HOE).get(),
+                TFCItems.CROP_SEEDS.get(Crop.BARLEY).get(),
+                TFCItems.CROP_SEEDS.get(Crop.OAT).get(),
+                TFCItems.CROP_SEEDS.get(Crop.RYE).get(),
+                TFCItems.CROP_SEEDS.get(Crop.MAIZE).get());
     }
 }

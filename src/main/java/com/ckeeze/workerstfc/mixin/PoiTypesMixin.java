@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
+@SuppressWarnings("unused")
 @Mixin(PoiTypes.class)
 public class PoiTypesMixin {
     @Shadow
@@ -64,9 +65,7 @@ public class PoiTypesMixin {
     @Shadow
     private static final ResourceKey<PoiType> TOOLSMITH = createKey("toolsmith");
 
-
-
-    @Overwrite(remap = false)
+    @Overwrite(remap = true)
     public static PoiType bootstrap(Registry<PoiType> pRegistry) {
         register(pRegistry, ARMORER, getBlockStates(Blocks.BLAST_FURNACE), 1, 1);
         register(pRegistry, BUTCHER, getBlockStates(Blocks.SMOKER), 1, 1);

@@ -7,12 +7,18 @@ import com.talhanation.workers.entities.ai.FarmerAI;
 
 import net.dries007.tfc.client.TFCSounds;
 import net.dries007.tfc.common.blockentities.IFarmland;
+import net.dries007.tfc.common.blocks.GroundcoverBlockType;
+import net.dries007.tfc.common.blocks.TFCBlocks;
+import net.dries007.tfc.common.blocks.crop.Crop;
 import net.dries007.tfc.common.blocks.crop.CropBlock;
+import net.dries007.tfc.common.blocks.soil.SoilBlockType;
+import net.dries007.tfc.common.items.Food;
+import net.dries007.tfc.common.items.Powder;
+import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.util.Helpers;
 import net.dries007.tfc.util.climate.Climate;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
@@ -26,7 +32,6 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.GrowingPlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.EnumSet;
@@ -36,6 +41,7 @@ import static com.talhanation.workers.entities.FarmerEntity.CROP_BLOCKS;
 import static net.dries007.tfc.common.blockentities.FarmlandBlockEntity.NutrientType.*;
 import static net.dries007.tfc.common.blocks.soil.FarmlandBlock.getHydration;
 
+@SuppressWarnings("unused")
 @Mixin(FarmerAI.class)
 public abstract class FarmerAIMixin extends Goal {
 
@@ -49,19 +55,19 @@ public abstract class FarmerAIMixin extends Goal {
 
     //MEHTODS AND SETS NEEDED FOR TFC
     private static final Set<Item> FERTILIZER = ImmutableSet.of(
-            IFS("tfc:powder/wood_ash"), IFS("tfc:powder/sylvite"), IFS("tfc:powder/saltpeter"),
-            IFS("tfc:compost"),IFS("tfc:groundcover/guano"),
+            TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), TFCItems.POWDERS.get(Powder.SYLVITE).get(), TFCItems.POWDERS.get(Powder.SALTPETER).get(),
+            TFCItems.COMPOST.get(), TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem(),
             Items.BONE_MEAL
     );
     private static final Set<Item> NITROGENF = ImmutableSet.of(
-            IFS("tfc:powder/saltpeter"), IFS("tfc:compost"),IFS("tfc:guano")
+            TFCItems.POWDERS.get(Powder.SALTPETER).get(), TFCItems.COMPOST.get(),TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem()
     );
     private static final Set<Item> POTASSIUMF = ImmutableSet.of(
-            IFS("tfc:powder/wood_ash"), IFS("tfc:powder/sylvite"), IFS("tfc:powder/saltpeter"),
-            IFS("tfc:compost"),IFS("tfc:groundcover/guano")
+            TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), TFCItems.POWDERS.get(Powder.SYLVITE).get(), TFCItems.POWDERS.get(Powder.SALTPETER).get(),
+            TFCItems.COMPOST.get(),TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem()
     );
     private static final Set<Item> PHOSPHORF = ImmutableSet.of(
-            IFS("tfc:powder/wood_ash"), IFS("tfc:compost"),IFS("tfc:groundcover/guano"),
+            TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), TFCItems.COMPOST.get(),TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem(),
             Items.BONE_MEAL
     );
 
@@ -71,19 +77,16 @@ public abstract class FarmerAIMixin extends Goal {
             Items.POTATO,
             Items.BEETROOT,
             Items.CARROT,
-            IFS("tfc:food/crappie"),IFS("tfc:food/wheat"),IFS("tfc:food/oat"),
-            IFS("tfc:food/rice"),IFS("tfc:food/maize"),IFS("tfc:food/rye"),IFS("tfc:food/barley"),
-            IFS("tfc:food/snowberry"),IFS("tfc:food/blueberry"),IFS("tfc:food/blackberry"),IFS("tfc:food/raspberry"),IFS("tfc:food/gooseberry"),
-            IFS("tfc:food/elderberry"),IFS("tfc:food/wintergreen_berry"),IFS("tfc:food/banana"),IFS("tfc:food/cherry"),IFS("tfc:food/green_apple"),
-            IFS("tfc:food/lemon"),IFS("tfc:food/olive"),IFS("tfc:food/plum"),IFS("tfc:food/orange"),IFS("tfc:food/peach"),
-            IFS("tfc:food/red_apple"),IFS("tfc:food/melon_slice"),IFS("tfc:food/beet"),IFS("tfc:food/soybean"),IFS("tfc:food/carrot"),
-            IFS("tfc:food/cabbage"),IFS("tfc:food/green_bean"),IFS("tfc:food/garlic"),IFS("tfc:food/yellow_bell_pepper"),IFS("tfc:food/red_bell_pepper"),
-            IFS("tfc:food/green_bell_pepper"),IFS("tfc:food/squash"),IFS("tfc:food/potato"),IFS("tfc:food/onion"),IFS("tfc:food/tomato"),
-            IFS("tfc:food/sugarcane"),IFS("tfc:food/cranberry"),IFS("tfc:food/cloudberry"),IFS("tfc:food/bunchberry"),IFS("tfc:food/strawberry")
+            TFCItems.FOOD.get(Food.WHEAT).get(),TFCItems.FOOD.get(Food.OAT).get(),
+            TFCItems.FOOD.get(Food.RICE).get(),TFCItems.FOOD.get(Food.MAIZE).get(),TFCItems.FOOD.get(Food.RYE).get(),TFCItems.FOOD.get(Food.BARLEY).get(),
+            TFCItems.FOOD.get(Food.SNOWBERRY).get(),TFCItems.FOOD.get(Food.BLUEBERRY).get(),TFCItems.FOOD.get(Food.BLACKBERRY).get(),TFCItems.FOOD.get(Food.RASPBERRY).get(),TFCItems.FOOD.get(Food.GOOSEBERRY).get(),
+            TFCItems.FOOD.get(Food.ELDERBERRY).get(),TFCItems.FOOD.get(Food.WINTERGREEN_BERRY).get(),TFCItems.FOOD.get(Food.BANANA).get(),TFCItems.FOOD.get(Food.CHERRY).get(),TFCItems.FOOD.get(Food.GREEN_APPLE).get(),
+            TFCItems.FOOD.get(Food.LEMON).get(),TFCItems.FOOD.get(Food.OLIVE).get(),TFCItems.FOOD.get(Food.PLUM).get(),TFCItems.FOOD.get(Food.ORANGE).get(),TFCItems.FOOD.get(Food.PEACH).get(),
+            TFCItems.FOOD.get(Food.RED_APPLE).get(),TFCItems.FOOD.get(Food.MELON_SLICE).get(),TFCItems.FOOD.get(Food.BEET).get(),TFCItems.FOOD.get(Food.SOYBEAN).get(),TFCItems.FOOD.get(Food.CARROT).get(),
+            TFCItems.FOOD.get(Food.CABBAGE).get(),TFCItems.FOOD.get(Food.GREEN_BEAN).get(),TFCItems.FOOD.get(Food.GARLIC).get(),TFCItems.FOOD.get(Food.YELLOW_BELL_PEPPER).get(),TFCItems.FOOD.get(Food.RED_BELL_PEPPER).get(),
+            TFCItems.FOOD.get(Food.GREEN_BELL_PEPPER).get(),TFCItems.FOOD.get(Food.SQUASH).get(),TFCItems.FOOD.get(Food.POTATO).get(),TFCItems.FOOD.get(Food.ONION).get(),TFCItems.FOOD.get(Food.TOMATO).get(),
+            TFCItems.FOOD.get(Food.SUGARCANE).get(),TFCItems.FOOD.get(Food.CRANBERRY).get(),TFCItems.FOOD.get(Food.CLOUDBERRY).get(),TFCItems.FOOD.get(Food.BUNCHBERRY).get(),TFCItems.FOOD.get(Food.STRAWBERRY ).get()
     );
-
-    private static Item IFS(String S) { return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));}
-    private static Block BFS(String S) { return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(S));}
 
     //TILLING
     private void prepareFarmLand(BlockPos blockPos) {
@@ -91,17 +94,17 @@ public abstract class FarmerAIMixin extends Goal {
         BlockState blockState = this.farmer.getCommandSenderWorld().getBlockState(blockPos);
         Block block = blockState.getBlock();
         if(blockPos != waterPos && FarmerEntity.TILLABLES.contains(block)) {
-            if (block == BFS("tfc:dirt/silt") || block == BFS("tfc:grass/silt" )|| block == BFS("tfc:rooted_dirt/silt")){
-                farmer.getCommandSenderWorld().setBlock(blockPos, BFS("tfc:farmland/silt").defaultBlockState(), 3);
+            if (block == TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.SILT).get() || block == TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.SILT).get()|| block == TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.SILT).get()){
+                farmer.getCommandSenderWorld().setBlock(blockPos, TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILT).get().defaultBlockState(), 3);
             }
-            else if (block == BFS("tfc:dirt/loam") || block == BFS("tfc:grass/loam" )|| block == BFS("tfc:rooted_dirt/loam")){
-                farmer.getCommandSenderWorld().setBlock(blockPos, BFS("tfc:farmland/loam").defaultBlockState(), 3);
+            else if (block == TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.LOAM).get() || block == TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.LOAM).get()|| block == TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.LOAM).get()){
+                farmer.getCommandSenderWorld().setBlock(blockPos, TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.LOAM).get().defaultBlockState(), 3);
             }
-            else if (block == BFS("tfc:dirt/sandy_loam") || block == BFS("tfc:grass/sandy_loam" )|| block == BFS("tfc:rooted_dirt/sandy_loam")){
-                farmer.getCommandSenderWorld().setBlock(blockPos, BFS("tfc:farmland/sandy_loam").defaultBlockState(), 3);
+            else if (block == TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.SANDY_LOAM).get() || block == TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.SANDY_LOAM).get()|| block == TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.SANDY_LOAM).get()){
+                farmer.getCommandSenderWorld().setBlock(blockPos, TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SANDY_LOAM).get().defaultBlockState(), 3);
             }
-            else if (block == BFS("tfc:dirt/silty_loam") || block == BFS("tfc:grass/silty_loam" )|| block == BFS("tfc:rooted_dirt/silty_loam")){
-                farmer.getCommandSenderWorld().setBlock(blockPos, BFS("tfc:farmland/silty_loam").defaultBlockState(), 3);
+            else if (block == TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.SILTY_LOAM).get() || block == TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.SILTY_LOAM).get()|| block == TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.SILTY_LOAM).get()){
+                farmer.getCommandSenderWorld().setBlock(blockPos, TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILTY_LOAM).get().defaultBlockState(), 3);
             }
             else{
                 farmer.getCommandSenderWorld().setBlock(blockPos, Blocks.FARMLAND.defaultBlockState(), 3);
@@ -159,111 +162,111 @@ public abstract class FarmerAIMixin extends Goal {
                     flag = true;
                 }
                 //TFC plants
-                else if (itemstack.getItem() == IFS("tfc:seeds/yellow_bell_pepper")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.YELLOW_BELL_PEPPER).get()){
                     if(Hyd >= 25 && Hyd <= 60 && Temp >= 19.0 && Temp <= 27.0){
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/yellow_bell_pepper").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.YELLOW_BELL_PEPPER).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/red_bell_pepper")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.RED_BELL_PEPPER).get()){
                     if(Hyd >= 25 && Hyd <= 60 && Temp >= 19.0 && Temp <= 27.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/red_bell_pepper").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.RED_BELL_PEPPER).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/papyrus")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.PAPYRUS).get()){
                     if(Hyd >= 70 && Temp >= 22.0 && Temp <= 34.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/papyrus").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.PAPYRUS).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/jute")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.JUTE).get()){
                     if(Hyd >= 25 && Temp >= 8.0 && Temp <= 34.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/jute").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.JUTE).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/sugarcane")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.SUGARCANE).get()){
                     if(Hyd >= 40 && Temp >= 15.0 && Temp <= 35.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/sugarcane").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.SUGARCANE).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/squash")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.SQUASH).get()){
                     if(Hyd >= 23 && Hyd <= 95 && Temp >= 8.0 && Temp <= 30.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/squash").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.SQUASH).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/beet")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.BEET).get()){
                     if(Hyd >= 15 && Hyd <= 85 && Temp >= -2.0 && Temp <= 17.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/beet").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.BEET).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/wheat")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.WHEAT).get()){
                     if(Hyd >= 25 && Temp >= -1.0 && Temp <= 32.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/wheat").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.WHEAT).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/barley")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.BARLEY).get()){
                     if(Hyd >= 18 && Hyd <= 75 && Temp >= -5.0 && Temp <= 23.0){
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/barley").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.BARLEY).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/oat")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.OAT).get()){
                     if(Hyd >= 35 && Temp >= 6.0 && Temp <= 37.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/oat").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.OAT).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/rye")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.RYE).get()){
                     if(Hyd >= 25 && Hyd <= 85 && Temp >= -8.0 && Temp <= 27.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/rye").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.RYE).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/maize")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.MAIZE).get()){
                     if(Hyd >= 75 && Temp >= 16.0 && Temp <= 37.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/maize").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.MAIZE).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/cabbage")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.CABBAGE).get()){
                     if(Hyd >= 15 && Hyd <= 65 && Temp >= -7.0 && Temp <= 24.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/cabbage").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.CABBAGE).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/soybean")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.SOYBEAN).get()){
                     if(Hyd >= 40 && Temp >= 11.0 && Temp <= 27.0){
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/soybean").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.SOYBEAN).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/onion")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.ONION).get()){
                     if(Hyd >= 25 && Hyd <= 90 && Temp >= 3.0 && Temp <= 27.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/onion").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.ONION).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/potato")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.POTATO).get()){
                     if(Hyd >= 50 && Temp >= 2.0 && Temp <= 34.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/potato").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.POTATO).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/carrot")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.CARROT).get()){
                     if(Hyd >= 25 && Temp >= 6.0 && Temp <= 27.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/carrot").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.CARROT).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
-                else if (itemstack.getItem() == IFS("tfc:seeds/garlic")){
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.GARLIC).get()){
                     if(Hyd >= 15 && Hyd <= 75 && Temp >= -17.0 && Temp <= 15.0) {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/garlic").defaultBlockState(), 3);
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.GARLIC).get().defaultBlockState(), 3);
                         flag = true;
                     }
                 }
@@ -298,8 +301,10 @@ public abstract class FarmerAIMixin extends Goal {
 
                 Block block = blockState.getBlock();
                 Block aboveBlock = aboveBlockState.getBlock();
-                if ((block == Blocks.FARMLAND || block == BFS("tfc:farmland/silt") || block == BFS("tfc:farmland/loam") ||
-                        block == BFS("tfc:farmland/sandy_loam") || block == BFS("tfc:farmland/silty_loam") ) && aboveBlock == Blocks.AIR) {
+                if ((block == Blocks.FARMLAND ||block == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILTY_LOAM).get() ||
+                        block == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILT).get() ||
+                        block == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SANDY_LOAM).get() ||
+                        block == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.LOAM).get() ) && aboveBlock == Blocks.AIR) {
                     return aboveBlockPos;
                 }
             }
@@ -320,7 +325,11 @@ public abstract class FarmerAIMixin extends Goal {
                     BlockPos belowBlockPos = blockPos.below();
                     BlockState belowBlockState = this.farmer.level().getBlockState(belowBlockPos);
 
-                    if (block instanceof CropBlock crop && (belowBlockState.is(Blocks.FARMLAND) || belowBlockState.is(BFS("tfc:farmland/silt")) ||belowBlockState.is(BFS("tfc:farmland/loam")) || belowBlockState.is(BFS("tfc:farmland/sandy_loam")) || belowBlockState.is(BFS("tfc:farmland/silty_loam")))) {
+                    if (block instanceof CropBlock crop && (belowBlockState.is(Blocks.FARMLAND) ||
+                            belowBlockState.is(TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILT).get()) ||
+                            belowBlockState.is(TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.LOAM).get()) ||
+                            belowBlockState.is(TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILTY_LOAM).get()) ||
+                            belowBlockState.is(TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SANDY_LOAM).get()))) {
 
                         if (crop.isMaxAge(blockState)) {
                             return blockPos;
@@ -354,34 +363,26 @@ public abstract class FarmerAIMixin extends Goal {
                     Block belowBlock = belowBlockState.getBlock();
                     BlockEntity Farmland = this.farmer.getCommandSenderWorld().getBlockEntity(belowBlockPos);
 
-                    if (block instanceof CropBlock crop && (belowBlock == BFS("tfc:farmland/silt") || belowBlock == BFS("tfc:farmland/loam") ||
-                            belowBlock == BFS("tfc:farmland/sandy_loam") || belowBlock == BFS("tfc:farmland/silty_loam") )) {
+                    if (block instanceof CropBlock crop && (belowBlock == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILTY_LOAM).get() ||
+                            belowBlock == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILT).get() ||
+                            belowBlock == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SANDY_LOAM).get() ||
+                            belowBlock == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.LOAM).get() )) {
                         if (!crop.isMaxAge(blockState)) {
-                            if(inventory.hasAnyOf(PHOSPHORF) && (crop == BFS("tfc:crop/oat") ||
-                                    crop == BFS("tfc:crop/rye") ||crop == BFS("tfc:crop/maize") ||
-                                    crop == BFS("tfc:crop/wheat") ||crop == BFS("tfc:crop/rice") ||
-                                    crop == BFS("tfc:crop/pumpkin") ||crop == BFS("tfc:crop/melon")))
+                            if(inventory.hasAnyOf(PHOSPHORF) && crop.getPrimaryNutrient() == PHOSPHOROUS)
                             {
                                 if(Farmland instanceof IFarmland farmland && farmland.getNutrient(PHOSPHOROUS) < 0.2)
                                 {
                                     return blockPos;
                                 }
                             }
-                            if(inventory.hasAnyOf(NITROGENF) && (crop == BFS("tfc:crop/barley") ||
-                                    crop == BFS("tfc:crop/cabbage" ) || crop == BFS("tfc:crop/garlic" ) ||
-                                    crop == BFS("tfc:crop/green_beans" ) || crop == BFS("tfc:crop/onions" ) ||
-                                    crop == BFS("tfc:crop/soybean" )))
+                            if(inventory.hasAnyOf(NITROGENF) && crop.getPrimaryNutrient() == NITROGEN)
                             {
                                 if(Farmland instanceof IFarmland farmland && farmland.getNutrient(NITROGEN) < 0.2)
                                 {
                                     return blockPos;
                                 }
                             }
-                            if(inventory.hasAnyOf(POTASSIUMF) && (crop == BFS("tfc:crop/beet") ||
-                                    crop == BFS("tfc:crop/carrot") ||crop == BFS("tfc:crop/potatoes") ||
-                                    crop == BFS("tfc:crop/red_bell_peppers") ||crop == BFS("tfc:crop/yellow_bell_peppers") ||
-                                    crop == BFS("tfc:crop/squash") ||crop == BFS("tfc:crop/sugarcane") ||
-                                    crop == BFS("tfc:crop/tomato") ||crop == BFS("tfc:crop/jute") || crop == BFS("tfc:crop/papyrus")))
+                            if(inventory.hasAnyOf(POTASSIUMF) && crop.getPrimaryNutrient() == POTASSIUM)
                             {
                                 if(Farmland instanceof IFarmland farmland && farmland.getNutrient(POTASSIUM) < 0.2)
                                 {
@@ -412,18 +413,18 @@ public abstract class FarmerAIMixin extends Goal {
                             farmland.addNutrient(PHOSPHOROUS, 0.1F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:powder/wood_ash")) {
+                        else if (itemstack.getItem() == TFCItems.POWDERS.get(Powder.WOOD_ASH).get()) {
                             farmland.addNutrient(PHOSPHOROUS, 0.1F);
                             farmland.addNutrient(POTASSIUM, 0.3F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:compost")) {
+                        else if (itemstack.getItem() == TFCItems.COMPOST.get()) {
                             farmland.addNutrient(NITROGEN, 0.4F);
                             farmland.addNutrient(PHOSPHOROUS, 0.2F);
                             farmland.addNutrient(POTASSIUM, 0.4F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:groundcoverguano")) {
+                        else if (itemstack.getItem() == TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem()) {
                             farmland.addNutrient(NITROGEN, 0.8F);
                             farmland.addNutrient(PHOSPHOROUS, 0.5F);
                             farmland.addNutrient(POTASSIUM, 0.1F);
@@ -432,27 +433,27 @@ public abstract class FarmerAIMixin extends Goal {
 
                     }
                     if (crop.getPrimaryNutrient() == POTASSIUM) {
-                        if (itemstack.getItem() == IFS("tfc:powder/sylvite")) {
+                        if (itemstack.getItem() == TFCItems.POWDERS.get(Powder.SYLVITE).get()) {
                             farmland.addNutrient(POTASSIUM, 0.5F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:powder/wood_ash")) {
+                        else if (itemstack.getItem() == TFCItems.POWDERS.get(Powder.WOOD_ASH).get()) {
                             farmland.addNutrient(PHOSPHOROUS, 0.1F);
                             farmland.addNutrient(POTASSIUM, 0.3F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:powder/saltpeter")) {
+                        else if (itemstack.getItem() == TFCItems.POWDERS.get(Powder.SALTPETER).get()) {
                             farmland.addNutrient(POTASSIUM, 0.4F);
                             farmland.addNutrient(NITROGEN, 0.1F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:compost")) {
+                        else if (itemstack.getItem() == TFCItems.COMPOST.get()) {
                             farmland.addNutrient(NITROGEN, 0.4F);
                             farmland.addNutrient(PHOSPHOROUS, 0.2F);
                             farmland.addNutrient(POTASSIUM, 0.4F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:guano")) {
+                        else if (itemstack.getItem() == TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem()) {
                             farmland.addNutrient(NITROGEN, 0.8F);
                             farmland.addNutrient(PHOSPHOROUS, 0.5F);
                             farmland.addNutrient(POTASSIUM, 0.1F);
@@ -460,18 +461,18 @@ public abstract class FarmerAIMixin extends Goal {
                         }
                     }
                     if (crop.getPrimaryNutrient() == NITROGEN) {
-                        if (itemstack.getItem() == IFS("tfc:groundcover/guano")) {
+                        if (itemstack.getItem() == TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem()) {
                             farmland.addNutrient(NITROGEN, 0.8F);
                             farmland.addNutrient(PHOSPHOROUS, 0.5F);
                             farmland.addNutrient(POTASSIUM, 0.1F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:powder/saltpeter")) {
+                        else if (itemstack.getItem() == TFCItems.POWDERS.get(Powder.SALTPETER).get()) {
                             farmland.addNutrient(POTASSIUM, 0.4F);
                             farmland.addNutrient(NITROGEN, 0.1F);
                             flag = true;
                         }
-                        else if (itemstack.getItem() == IFS("tfc:compost")) {
+                        else if (itemstack.getItem() == TFCItems.COMPOST.get()) {
                             farmer.tellPlayer(farmer.getOwner(), Translatable.TEXT_CHEST_ERROR); //
                             farmland.addNutrient(NITROGEN, 0.4F);
                             farmland.addNutrient(PHOSPHOROUS, 0.2F);

@@ -10,6 +10,7 @@
     "AbstractRecruitEntityMixin",
     "AbstractWorkerEntityMixin",
     "CattleFarmerEntityMixin",
+    "CattleFarmerAIMixin",
     "ChickenFarmerEntityMixin",
     "CommandEventsMixin",
     "DepositItemsInChestGoalMixin",

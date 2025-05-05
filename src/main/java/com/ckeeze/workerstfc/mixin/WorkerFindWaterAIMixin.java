@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.EnumSet;
 import java.util.Random;
 
+@SuppressWarnings("unused")
 @Mixin(WorkerFindWaterAI.class)
 public abstract class WorkerFindWaterAIMixin extends Goal{
     private final AbstractWorkerEntity worker;

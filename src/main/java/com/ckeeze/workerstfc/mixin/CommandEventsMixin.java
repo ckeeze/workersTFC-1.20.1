@@ -3,6 +3,8 @@ package com.ckeeze.workerstfc.mixin;
 import com.google.common.collect.ImmutableSet;
 import com.talhanation.workers.CommandEvents;
 import com.talhanation.workers.entities.*;
+import net.dries007.tfc.common.blocks.TFCBlocks;
+import net.dries007.tfc.common.blocks.wood.Wood;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.core.BlockPos;
@@ -29,11 +31,13 @@ public abstract class CommandEventsMixin{
 
     private static final Set<Block> VALID_CHESTS = ImmutableSet.of(
             Blocks.CHEST, Blocks.BARREL
-            ,BFS("tfc:wood/chest/acacia"),BFS("tfc:wood/chest/ash"),BFS("tfc:wood/chest/aspen"),BFS("tfc:wood/chest/birch")
-            ,BFS("tfc:wood/chest/blackwood"),BFS("tfc:wood/chest/chestnut"),BFS("tfc:wood/chest/douglas_fir"),BFS("tfc:wood/chest/hickory")
-            ,BFS("tfc:wood/chest/kapok"),BFS("tfc:wood/chest/mangrove"),BFS("tfc:wood/chest/maple"),BFS("tfc:wood/chest/oak")
-            ,BFS("tfc:wood/chest/palm"),BFS("tfc:wood/chest/pine"),BFS("tfc:wood/chest/rosewood"),BFS("tfc:wood/chest/sequoia")
-            ,BFS("tfc:wood/chest/spruce"),BFS("tfc:wood/chest/sycamore"),BFS("tfc:wood/chest/white_cedar"),BFS("tfc:wood/chest/willow"));
+            ,TFCBlocks.WOODS.get(Wood.ACACIA).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.ASH).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.ASPEN).get(Wood.BlockType.CHEST).get()
+            ,TFCBlocks.WOODS.get(Wood.BIRCH).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.BLACKWOOD).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.CHESTNUT).get(Wood.BlockType.CHEST).get()
+            ,TFCBlocks.WOODS.get(Wood.DOUGLAS_FIR).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.HICKORY).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.KAPOK).get(Wood.BlockType.CHEST).get()
+            ,TFCBlocks.WOODS.get(Wood.MANGROVE).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.MAPLE).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.OAK).get(Wood.BlockType.CHEST).get()
+            ,TFCBlocks.WOODS.get(Wood.PALM).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.PINE).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.ROSEWOOD).get(Wood.BlockType.CHEST).get()
+            ,TFCBlocks.WOODS.get(Wood.SEQUOIA).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.SPRUCE).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.SYCAMORE).get(Wood.BlockType.CHEST).get()
+            ,TFCBlocks.WOODS.get(Wood.WHITE_CEDAR).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.WILLOW).get(Wood.BlockType.CHEST).get());
 
     @Overwrite(remap = false)
     public static void setChestPosWorker(UUID player_uuid, AbstractWorkerEntity worker, BlockPos blockpos) {

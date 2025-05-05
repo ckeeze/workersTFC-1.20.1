@@ -2,18 +2,19 @@ package com.ckeeze.workerstfc.mixin;
 
 import com.talhanation.workers.entities.AbstractInventoryEntity;
 import com.talhanation.workers.entities.FishermanEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.dries007.tfc.common.items.TFCItems;
+import net.dries007.tfc.util.Metal;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Mixin(FishermanEntity.class)
 public abstract class FishermanEntityMixin extends AbstractInventoryEntity {
 
@@ -21,13 +22,8 @@ public abstract class FishermanEntityMixin extends AbstractInventoryEntity {
         super(entityType, world);
     }
 
-    //itemfromstring
-    private static Item IFS(String S){
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
-    }
-
     public void setEquipment() {
-        ItemStack initialTool = new ItemStack(IFS("tfc:metal/fishing_rod/copper"));
+        ItemStack initialTool = new ItemStack(TFCItems.METAL_ITEMS.get(Metal.Default.COPPER).get(Metal.ItemType.FISHING_ROD).get());
         this.updateInventory(0, initialTool);
         this.equipTool(initialTool);
     }
@@ -37,6 +33,6 @@ public abstract class FishermanEntityMixin extends AbstractInventoryEntity {
     }
 
     public List<Item> inventoryInputHelp() {
-        return Arrays.asList(IFS("tfc:metal/fishing_rod/wrought_iron"));
+        return Arrays.asList(TFCItems.METAL_ITEMS.get(Metal.Default.WROUGHT_IRON).get(Metal.ItemType.FISHING_ROD).get());
     }
 }

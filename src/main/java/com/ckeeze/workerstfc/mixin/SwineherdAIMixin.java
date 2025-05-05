@@ -90,11 +90,13 @@ public abstract class SwineherdAIMixin extends AnimalFarmerAI {
 
                     if (pig.get().closerThan(this.animalFarmer, 2)) {
                         this.animalFarmer.workerSwingArm();
+                        pig.get().playSound(SoundEvents.GENERIC_EAT);
                         this.consumeBreedItem(Pigfeed.getItem());
                         this.animalFarmer.getLookControl().setLookAt(pig.get().getX(), pig.get().getEyeY(), pig.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
                         pig.get().setFamiliarity(pig.get().getFamiliarity() + 0.07F);
                         pig.get().setLastFed(Calendars.get(pig.get().level()).getTotalDays());
                         pig.get().setLastFamiliarityDecay(Calendars.get(pig.get().level()).getTotalDays());
+
                         this.pig = Optional.empty();
                     }
                 }
@@ -110,7 +112,7 @@ public abstract class SwineherdAIMixin extends AnimalFarmerAI {
 
         if (slaughtering) {
             List<Mammal> oldpigs = findOldPigs();
-            if (oldpigs.size() > 0)
+            if (!oldpigs.isEmpty())
             {
                 pig = oldpigs.stream().findFirst();
 
@@ -166,6 +168,7 @@ public abstract class SwineherdAIMixin extends AnimalFarmerAI {
         }
 
     }
+    //feeding
     private Optional<Mammal> findPigBreeding() {
         return  this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.PIG.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), Mammal::isAlive)
@@ -183,7 +186,7 @@ public abstract class SwineherdAIMixin extends AnimalFarmerAI {
                 .filter(not(Mammal::isFertilized))
                 .collect(Collectors.toList());
     }
-
+    //old animals are killed first
     private List<Mammal> findOldPigs() {
         return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.PIG.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), Mammal::isAlive)

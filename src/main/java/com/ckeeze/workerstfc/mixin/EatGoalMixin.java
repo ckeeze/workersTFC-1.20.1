@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.ai.EatGoal;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
+import net.dries007.tfc.common.items.Food;
+import net.dries007.tfc.common.items.TFCItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.Item;
@@ -28,23 +30,25 @@ public class EatGoalMixin {
     }
 
     private static final Set<Item> RAW_FOOD = ImmutableSet.of(
-            IFS("tfc:food/horse_meat"),IFS("tfc:food/bear"),IFS("tfc:food/fox"),IFS("tfc:food/pork"),IFS("tfc:food/venison"),
-            IFS("tfc:food/beef"),IFS("tfc:food/chicken"),IFS("tfc:food/quail"),IFS("tfc:food/mutton"),IFS("tfc:food/gran_feline"),
-            IFS("tfc:food/turtle"),IFS("tfc:food/chevon"),IFS("tfc:food/peafowl"),IFS("tfc:food/turkey"),IFS("tfc:food/pheasant"),
-            IFS("tfc:food/grouse"),IFS("tfc:food/wolf"),IFS("tfc:food/rabbit"),IFS("tfc:food/camelidae"),IFS("tfc:food/hyena"),
-            IFS("tfc:food/duck"),IFS("tfc:food/frog_legs"),IFS("tfc:food/cod"),IFS("tfc:food/tropical_fish"),IFS("tfc:food/calamari"),
-            IFS("tfc:food/shellfish"),IFS("tfc:food/bluegill"),IFS("tfc:food/smallmouth_bass"),IFS("tfc:food/salmon"),IFS("tfc:food/trout"),
-            IFS("tfc:food/largemouth_bass"),IFS("tfc:food/lake_trout"),IFS("tfc:food/crappie"),IFS("tfc:food/wheat"),IFS("tfc:food/oat"),
-            IFS("tfc:food/rice"),IFS("tfc:food/maize"),IFS("tfc:food/rye"),IFS("tfc:food/barley"),IFS("tfc:food/wheat_grain"),
-            IFS("tfc:food/oat_grain"),IFS("tfc:food/rice_grain"),IFS("tfc:food/maize_grain"),IFS("tfc:food/rye_grain"),IFS("tfc:food/barley_grain"),
+            TFCItems.FOOD.get(Food.HORSE_MEAT).get(),TFCItems.FOOD.get(Food.BEAR).get(),TFCItems.FOOD.get(Food.FOX).get(),TFCItems.FOOD.get(Food.PORK).get(),TFCItems.FOOD.get(Food.VENISON).get(),
+            TFCItems.FOOD.get(Food.BEEF).get(),TFCItems.FOOD.get(Food.CHICKEN).get(),TFCItems.FOOD.get(Food.QUAIL).get(),TFCItems.FOOD.get(Food.MUTTON).get(),TFCItems.FOOD.get(Food.GRAN_FELINE).get(),
+            TFCItems.FOOD.get(Food.TURTLE).get(),TFCItems.FOOD.get(Food.CHEVON).get(),TFCItems.FOOD.get(Food.PEAFOWL).get(),TFCItems.FOOD.get(Food.TURKEY).get(),TFCItems.FOOD.get(Food.PHEASANT).get(),
+            TFCItems.FOOD.get(Food.GROUSE).get(),TFCItems.FOOD.get(Food.WOLF).get(),TFCItems.FOOD.get(Food.RABBIT).get(),TFCItems.FOOD.get(Food.CAMELIDAE).get(),TFCItems.FOOD.get(Food.HYENA).get(),
+            TFCItems.FOOD.get(Food.DUCK).get(),TFCItems.FOOD.get(Food.FROG_LEGS).get(),TFCItems.FOOD.get(Food.COD).get(),TFCItems.FOOD.get(Food.TROPICAL_FISH).get(),TFCItems.FOOD.get(Food.CALAMARI).get(),
+            TFCItems.FOOD.get(Food.SHELLFISH).get(),TFCItems.FOOD.get(Food.BLUEGILL).get(),TFCItems.FOOD.get(Food.SMALLMOUTH_BASS).get(),TFCItems.FOOD.get(Food.SALMON).get(),TFCItems.FOOD.get(Food.TARO_ROOT).get(),
+            TFCItems.FOOD.get(Food.LARGEMOUTH_BASS).get(),TFCItems.FOOD.get(Food.LAKE_TROUT).get(),TFCItems.FOOD.get(Food.CRAPPIE).get(),
 
-            IFS("tfc:food/snowberry"),IFS("tfc:food/blueberry"),IFS("tfc:food/blackberry"),IFS("tfc:food/raspberry"),IFS("tfc:food/gooseberry"),
-            IFS("tfc:food/elderberry"),IFS("tfc:food/wintergreen_berry"),IFS("tfc:food/banana"),IFS("tfc:food/cherry"),IFS("tfc:food/green_apple"),
-            IFS("tfc:food/lemon"),IFS("tfc:food/olive"),IFS("tfc:food/plum"),IFS("tfc:food/orange"),IFS("tfc:food/peach"),
-            IFS("tfc:food/red_apple"),IFS("tfc:food/melon_slice"),IFS("tfc:food/beet"),IFS("tfc:food/soybean"),IFS("tfc:food/carrot"),
-            IFS("tfc:food/cabbage"),IFS("tfc:food/green_bean"),IFS("tfc:food/garlic"),IFS("tfc:food/yellow_bell_pepper"),IFS("tfc:food/red_bell_pepper"),
-            IFS("tfc:food/green_bell_pepper"),IFS("tfc:food/squash"),IFS("tfc:food/potato"),IFS("tfc:food/onion"),IFS("tfc:food/tomato"),
-            IFS("tfc:food/sugarcane"),IFS("tfc:food/cranberry"),IFS("tfc:food/cloudberry"),IFS("tfc:food/bunchberry"),IFS("tfc:food/strawberry")
+            TFCItems.FOOD.get(Food.WHEAT).get(),TFCItems.FOOD.get(Food.OAT).get(),
+            TFCItems.FOOD.get(Food.RICE).get(),TFCItems.FOOD.get(Food.MAIZE).get(),TFCItems.FOOD.get(Food.RYE).get(),TFCItems.FOOD.get(Food.BARLEY).get(),TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(),
+            TFCItems.FOOD.get(Food.OAT_GRAIN).get(),TFCItems.FOOD.get(Food.RICE_GRAIN).get(),TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(),TFCItems.FOOD.get(Food.RYE_GRAIN).get(),TFCItems.FOOD.get(Food.BARLEY_GRAIN).get(),
+
+            TFCItems.FOOD.get(Food.SNOWBERRY).get(),TFCItems.FOOD.get(Food.BLUEBERRY).get(),TFCItems.FOOD.get(Food.BLACKBERRY).get(),TFCItems.FOOD.get(Food.RASPBERRY).get(),TFCItems.FOOD.get(Food.GOOSEBERRY).get(),
+            TFCItems.FOOD.get(Food.ELDERBERRY).get(),TFCItems.FOOD.get(Food.WINTERGREEN_BERRY).get(),TFCItems.FOOD.get(Food.BANANA).get(),TFCItems.FOOD.get(Food.CHERRY).get(),TFCItems.FOOD.get(Food.GREEN_APPLE).get(),
+            TFCItems.FOOD.get(Food.LEMON).get(),TFCItems.FOOD.get(Food.OLIVE).get(),TFCItems.FOOD.get(Food.PLUM).get(),TFCItems.FOOD.get(Food.ORANGE).get(),TFCItems.FOOD.get(Food.PEACH).get(),
+            TFCItems.FOOD.get(Food.RED_APPLE).get(),TFCItems.FOOD.get(Food.MELON_SLICE).get(),TFCItems.FOOD.get(Food.BEET).get(),TFCItems.FOOD.get(Food.SOYBEAN).get(),TFCItems.FOOD.get(Food.CARROT).get(),
+            TFCItems.FOOD.get(Food.CABBAGE).get(),TFCItems.FOOD.get(Food.GREEN_BEAN).get(),TFCItems.FOOD.get(Food.GARLIC).get(),TFCItems.FOOD.get(Food.YELLOW_BELL_PEPPER).get(),TFCItems.FOOD.get(Food.RED_BELL_PEPPER).get(),
+            TFCItems.FOOD.get(Food.GREEN_BELL_PEPPER).get(),TFCItems.FOOD.get(Food.SQUASH).get(),TFCItems.FOOD.get(Food.POTATO).get(),TFCItems.FOOD.get(Food.ONION).get(),TFCItems.FOOD.get(Food.TOMATO).get(),
+            TFCItems.FOOD.get(Food.SUGARCANE).get(),TFCItems.FOOD.get(Food.CRANBERRY).get(),TFCItems.FOOD.get(Food.CLOUDBERRY).get(),TFCItems.FOOD.get(Food.BUNCHBERRY).get(),TFCItems.FOOD.get(Food.STRAWBERRY ).get()
     );
 
     private boolean hasFoodInInv(){

@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 @Mixin(ZombieVillager.class)
 public abstract class ZombieVillagerMixin extends Zombie implements VillagerDataHolder{
 

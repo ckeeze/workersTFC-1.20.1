@@ -5,8 +5,14 @@ import com.talhanation.workers.Translatable;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.ai.DepositItemsInChestGoal;
 import com.talhanation.workers.entities.*;
+import net.dries007.tfc.common.TFCTags;
+import net.dries007.tfc.common.blocks.GroundcoverBlockType;
+import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 
+import net.dries007.tfc.common.items.Food;
+import net.dries007.tfc.common.items.Powder;
+import net.dries007.tfc.common.items.TFCItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -21,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.EnumSet;
 import java.util.Set;
 
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -63,23 +70,25 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
 
     //FOOD CHANGES
     private static final Set<Item> RAW_FOOD = ImmutableSet.of(
-            IFS("tfc:food/horse_meat"),IFS("tfc:food/bear"),IFS("tfc:food/fox"),IFS("tfc:food/pork"),IFS("tfc:food/venison"),
-            IFS("tfc:food/beef"),IFS("tfc:food/chicken"),IFS("tfc:food/quail"),IFS("tfc:food/mutton"),IFS("tfc:food/gran_feline"),
-            IFS("tfc:food/turtle"),IFS("tfc:food/chevon"),IFS("tfc:food/peafowl"),IFS("tfc:food/turkey"),IFS("tfc:food/pheasant"),
-            IFS("tfc:food/grouse"),IFS("tfc:food/wolf"),IFS("tfc:food/rabbit"),IFS("tfc:food/camelidae"),IFS("tfc:food/hyena"),
-            IFS("tfc:food/duck"),IFS("tfc:food/frog_legs"),IFS("tfc:food/cod"),IFS("tfc:food/tropical_fish"),IFS("tfc:food/calamari"),
-            IFS("tfc:food/shellfish"),IFS("tfc:food/bluegill"),IFS("tfc:food/smallmouth_bass"),IFS("tfc:food/salmon"),IFS("tfc:food/trout"),
-            IFS("tfc:food/largemouth_bass"),IFS("tfc:food/lake_trout"),IFS("tfc:food/crappie"),IFS("tfc:food/wheat"),IFS("tfc:food/oat"),
-            IFS("tfc:food/rice"),IFS("tfc:food/maize"),IFS("tfc:food/rye"),IFS("tfc:food/barley"),IFS("tfc:food/wheat_grain"),
-            IFS("tfc:food/oat_grain"),IFS("tfc:food/rice_grain"),IFS("tfc:food/maize_grain"),IFS("tfc:food/rye_grain"),IFS("tfc:food/barley_grain"),
+            TFCItems.FOOD.get(Food.HORSE_MEAT).get(),TFCItems.FOOD.get(Food.BEAR).get(),TFCItems.FOOD.get(Food.FOX).get(),TFCItems.FOOD.get(Food.PORK).get(),TFCItems.FOOD.get(Food.VENISON).get(),
+            TFCItems.FOOD.get(Food.BEEF).get(),TFCItems.FOOD.get(Food.CHICKEN).get(),TFCItems.FOOD.get(Food.QUAIL).get(),TFCItems.FOOD.get(Food.MUTTON).get(),TFCItems.FOOD.get(Food.GRAN_FELINE).get(),
+            TFCItems.FOOD.get(Food.TURTLE).get(),TFCItems.FOOD.get(Food.CHEVON).get(),TFCItems.FOOD.get(Food.PEAFOWL).get(),TFCItems.FOOD.get(Food.TURKEY).get(),TFCItems.FOOD.get(Food.PHEASANT).get(),
+            TFCItems.FOOD.get(Food.GROUSE).get(),TFCItems.FOOD.get(Food.WOLF).get(),TFCItems.FOOD.get(Food.RABBIT).get(),TFCItems.FOOD.get(Food.CAMELIDAE).get(),TFCItems.FOOD.get(Food.HYENA).get(),
+            TFCItems.FOOD.get(Food.DUCK).get(),TFCItems.FOOD.get(Food.FROG_LEGS).get(),TFCItems.FOOD.get(Food.COD).get(),TFCItems.FOOD.get(Food.TROPICAL_FISH).get(),TFCItems.FOOD.get(Food.CALAMARI).get(),
+            TFCItems.FOOD.get(Food.SHELLFISH).get(),TFCItems.FOOD.get(Food.BLUEGILL).get(),TFCItems.FOOD.get(Food.SMALLMOUTH_BASS).get(),TFCItems.FOOD.get(Food.SALMON).get(),TFCItems.FOOD.get(Food.TARO_ROOT).get(),
+            TFCItems.FOOD.get(Food.LARGEMOUTH_BASS).get(),TFCItems.FOOD.get(Food.LAKE_TROUT).get(),TFCItems.FOOD.get(Food.CRAPPIE).get(),
 
-            IFS("tfc:food/snowberry"),IFS("tfc:food/blueberry"),IFS("tfc:food/blackberry"),IFS("tfc:food/raspberry"),IFS("tfc:food/gooseberry"),
-            IFS("tfc:food/elderberry"),IFS("tfc:food/wintergreen_berry"),IFS("tfc:food/banana"),IFS("tfc:food/cherry"),IFS("tfc:food/green_apple"),
-            IFS("tfc:food/lemon"),IFS("tfc:food/olive"),IFS("tfc:food/plum"),IFS("tfc:food/orange"),IFS("tfc:food/peach"),
-            IFS("tfc:food/red_apple"),IFS("tfc:food/melon_slice"),IFS("tfc:food/beet"),IFS("tfc:food/soybean"),IFS("tfc:food/carrot"),
-            IFS("tfc:food/cabbage"),IFS("tfc:food/green_bean"),IFS("tfc:food/garlic"),IFS("tfc:food/yellow_bell_pepper"),IFS("tfc:food/red_bell_pepper"),
-            IFS("tfc:food/green_bell_pepper"),IFS("tfc:food/squash"),IFS("tfc:food/potato"),IFS("tfc:food/onion"),IFS("tfc:food/tomato"),
-            IFS("tfc:food/sugarcane"),IFS("tfc:food/cranberry"),IFS("tfc:food/cloudberry"),IFS("tfc:food/bunchberry"),IFS("tfc:food/strawberry")
+            TFCItems.FOOD.get(Food.WHEAT).get(),TFCItems.FOOD.get(Food.OAT).get(),
+            TFCItems.FOOD.get(Food.RICE).get(),TFCItems.FOOD.get(Food.MAIZE).get(),TFCItems.FOOD.get(Food.RYE).get(),TFCItems.FOOD.get(Food.BARLEY).get(),TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(),
+            TFCItems.FOOD.get(Food.OAT_GRAIN).get(),TFCItems.FOOD.get(Food.RICE_GRAIN).get(),TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(),TFCItems.FOOD.get(Food.RYE_GRAIN).get(),TFCItems.FOOD.get(Food.BARLEY_GRAIN).get(),
+
+            TFCItems.FOOD.get(Food.SNOWBERRY).get(),TFCItems.FOOD.get(Food.BLUEBERRY).get(),TFCItems.FOOD.get(Food.BLACKBERRY).get(),TFCItems.FOOD.get(Food.RASPBERRY).get(),TFCItems.FOOD.get(Food.GOOSEBERRY).get(),
+            TFCItems.FOOD.get(Food.ELDERBERRY).get(),TFCItems.FOOD.get(Food.WINTERGREEN_BERRY).get(),TFCItems.FOOD.get(Food.BANANA).get(),TFCItems.FOOD.get(Food.CHERRY).get(),TFCItems.FOOD.get(Food.GREEN_APPLE).get(),
+            TFCItems.FOOD.get(Food.LEMON).get(),TFCItems.FOOD.get(Food.OLIVE).get(),TFCItems.FOOD.get(Food.PLUM).get(),TFCItems.FOOD.get(Food.ORANGE).get(),TFCItems.FOOD.get(Food.PEACH).get(),
+            TFCItems.FOOD.get(Food.RED_APPLE).get(),TFCItems.FOOD.get(Food.MELON_SLICE).get(),TFCItems.FOOD.get(Food.BEET).get(),TFCItems.FOOD.get(Food.SOYBEAN).get(),TFCItems.FOOD.get(Food.CARROT).get(),
+            TFCItems.FOOD.get(Food.CABBAGE).get(),TFCItems.FOOD.get(Food.GREEN_BEAN).get(),TFCItems.FOOD.get(Food.GARLIC).get(),TFCItems.FOOD.get(Food.YELLOW_BELL_PEPPER).get(),TFCItems.FOOD.get(Food.RED_BELL_PEPPER).get(),
+            TFCItems.FOOD.get(Food.GREEN_BELL_PEPPER).get(),TFCItems.FOOD.get(Food.SQUASH).get(),TFCItems.FOOD.get(Food.POTATO).get(),TFCItems.FOOD.get(Food.ONION).get(),TFCItems.FOOD.get(Food.TOMATO).get(),
+            TFCItems.FOOD.get(Food.SUGARCANE).get(),TFCItems.FOOD.get(Food.CRANBERRY).get(),TFCItems.FOOD.get(Food.CLOUDBERRY).get(),TFCItems.FOOD.get(Food.BUNCHBERRY).get(),TFCItems.FOOD.get(Food.STRAWBERRY ).get()
     );
 
     private ItemStack getFoodFromInv(Container inv){
@@ -114,6 +123,12 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
         return false;
     }
     //FOOD CHANGES
+
+    private boolean hasEnoughofTag(ForgeItemTagsProvider Tag) {
+
+        return true;
+    }
+
 
     //TICK CHANGES
     public void tick() {
@@ -150,43 +165,56 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                         this.reequipSecondTool();
 
                         if(this.worker instanceof MinerEntity){
-                            if(!hasEnoughOfItem(IFS("tfc:torch"), 16)) this.getItemFromChest(IFS("tfc:torch"));
+                            if(!hasEnoughOfItem(TFCItems.TORCH.get(), 16)) this.getItemFromChest(TFCItems.TORCH.get());
                         }
                         //TODO: ADD fisherman takes boat
                         if(this.worker instanceof FarmerEntity){
                             if(!hasEnoughOfItem(Items.BONE_MEAL, 32)) this.getItemFromChest(Items.BONE_MEAL);
-                            if(!hasEnoughOfItem(IFS("tfc:powder/wood_ash"), 32)) this.getItemFromChest(IFS("tfc:powder/wood_ash"));
-                            if(!hasEnoughOfItem(IFS("tfc:powder/sylvite"), 32)) this.getItemFromChest(IFS("tfc:powder/sylvite"));
-                            if(!hasEnoughOfItem(IFS("tfc:powder/saltpeter"), 32)) this.getItemFromChest(IFS("tfc:powder/saltpeter"));
-                            if(!hasEnoughOfItem(IFS("tfc:compost"), 32)) this.getItemFromChest(IFS("tfc:compost"));
-                            if(!hasEnoughOfItem(IFS("tfc:groundcover/guano"), 32)) this.getItemFromChest(IFS("tfc:groundcover/guano"));
+                            if(!hasEnoughOfItem(TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), 32)) this.getItemFromChest(TFCItems.POWDERS.get(Powder.WOOD_ASH).get());
+                            if(!hasEnoughOfItem(TFCItems.POWDERS.get(Powder.SYLVITE).get(), 32)) this.getItemFromChest(TFCItems.POWDERS.get(Powder.SYLVITE).get());
+                            if(!hasEnoughOfItem(TFCItems.POWDERS.get(Powder.SALTPETER).get(), 32)) this.getItemFromChest(TFCItems.POWDERS.get(Powder.SALTPETER).get());
+                            if(!hasEnoughOfItem(TFCItems.COMPOST.get(), 32)) this.getItemFromChest(TFCItems.COMPOST.get());
+                            if(!hasEnoughOfItem(TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem(), 32)) this.getItemFromChest(TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem());
                         }
 
                         if(this.worker instanceof ChickenFarmerEntity chickenFarmer){
-                            if(chickenFarmer.getUseEggs()) this.getItemFromChest(Items.EGG);
-                            if(!hasEnoughOfItem(Items.WHEAT_SEEDS, 32)) this.getItemFromChest(Items.WHEAT_SEEDS);
-                            if(!hasEnoughOfItem(Items.PUMPKIN_SEEDS, 32)) this.getItemFromChest(Items.PUMPKIN_SEEDS);
-                            if(!hasEnoughOfItem(Items.MELON_SEEDS, 32)) this.getItemFromChest(Items.MELON_SEEDS);
-                            if(!hasEnoughOfItem(Items.BEETROOT_SEEDS, 32)) this.getItemFromChest(Items.BEETROOT_SEEDS);
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.OAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.OAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RYE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RYE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RICE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RICE_GRAIN).get());
                         }
 
                         if(this.worker instanceof ShepherdEntity || this.worker instanceof CattleFarmerEntity){
                             if(!hasEnoughOfItem(Items.WHEAT, 32)) this.getItemFromChest(Items.WHEAT);
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.OAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.OAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RYE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RYE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RICE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RICE_GRAIN).get());
                         }
 
                         if(this.worker instanceof SwineherdEntity){
                             if(!hasEnoughOfItem(Items.CARROT, 32)) this.getItemFromChest(Items.CARROT);
                             if(!hasEnoughOfItem(Items.ROTTEN_FLESH, 32)) this.getItemFromChest(Items.ROTTEN_FLESH);
-                            if(!hasEnoughOfItem(IFS("tfc:food/oat_grain"), 32)) this.getItemFromChest(IFS("tfc:food/oat_grain"));
-                            if(!hasEnoughOfItem(IFS("tfc:food/wheat_grain"), 32)) this.getItemFromChest(IFS("tfc:food/wheat_grain"));
-                            if(!hasEnoughOfItem(IFS("tfc:food/maize_grain"), 32)) this.getItemFromChest(IFS("tfc:food/maize_grain"));
-                            if(!hasEnoughOfItem(IFS("tfc:food/rye_grain"), 32)) this.getItemFromChest(IFS("tfc:food/rye_grain"));
-                            if(!hasEnoughOfItem(IFS("tfc:food/barley_grain"), 32)) this.getItemFromChest(IFS("tfc:food/barley_grain"));
-                            if(!hasEnoughOfItem(IFS("tfc:food/rice_grain"), 32)) this.getItemFromChest(IFS("tfc:food/rice_grain"));
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.OAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.OAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RYE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RYE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RICE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RICE_GRAIN).get());
                         }
 
                         if(this.worker instanceof CattleFarmerEntity){
                             if(!hasEnoughOfItem(Items.MILK_BUCKET, 3)) this.getItemFromChest(Items.BUCKET);
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.OAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.OAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RYE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RYE_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.BARLEY_GRAIN).get());
+                            if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RICE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RICE_GRAIN).get());
                         }
 
                         if(this.worker.needsToGetFood() && !this.hasFoodInInv()){
@@ -218,7 +246,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                             }
                         }
 
-                        timer = 30;
+                        timer = 15;
                         setTimer = true;
                     }
                 }

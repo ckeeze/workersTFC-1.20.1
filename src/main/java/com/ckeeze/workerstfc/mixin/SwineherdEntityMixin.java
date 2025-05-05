@@ -4,13 +4,16 @@ import com.google.common.collect.ImmutableSet;
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.SwineherdEntity;
 import net.dries007.tfc.common.TFCTags;
-import net.minecraft.resources.ResourceLocation;
+import net.dries007.tfc.common.blocks.rock.RockCategory;
+import net.dries007.tfc.common.items.Food;
+import net.dries007.tfc.common.items.HideItemType;
+import net.dries007.tfc.common.items.TFCItems;
+import net.dries007.tfc.util.Metal;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Arrays;
@@ -24,34 +27,28 @@ public abstract class SwineherdEntityMixin extends AbstractWorkerEntity {
         super(entityType, world);
     }
 
-    //ITEM FROM STRING
-    private static Item IFS(String S){
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
-    }
-
     private static final Set<Item> WANTED_ITEMS = ImmutableSet.of(
             Items.PORKCHOP,
             Items.CARROT,
             Items.BONE,
-            IFS("tfc:food/pork"),
-            IFS("tfc:medium_raw_hide"));
-
+            TFCItems.FOOD.get(Food.PORK).get(),
+            TFCItems.HIDES.get(HideItemType.RAW).get(HideItemType.Size.MEDIUM).get());
     public boolean wantsToPickUp(ItemStack itemStack) {
         Item item = itemStack.getItem();
         return (WANTED_ITEMS.contains(item) || itemStack.is(TFCTags.Items.PIG_FOOD));
     }
 
     public boolean wantsToKeep(ItemStack itemStack) {
-        return super.wantsToKeep(itemStack) || itemStack.is(TFCTags.Items.PIG_FOOD) && !itemStack.is(IFS("tfc:food/pork"));
+        return super.wantsToKeep(itemStack) || itemStack.is(TFCTags.Items.PIG_FOOD) && !itemStack.is(TFCItems.FOOD.get(Food.PORK).get());
     }
 
     public void setEquipment() {
-        ItemStack initialTool = new ItemStack(IFS("tfc:stone/axe/igneous_extrusive"));
+        ItemStack initialTool = new ItemStack(TFCItems.ROCK_TOOLS.get(RockCategory.IGNEOUS_EXTRUSIVE).get(RockCategory.ItemType.AXE).get());
         this.updateInventory(0, initialTool);
         this.equipTool(initialTool);
     }
 
     public List<Item> inventoryInputHelp() {
-        return Arrays.asList(IFS("tfc:metal/axe/wrought_iron"), IFS("tfc:food/carrot"), Items.ROTTEN_FLESH);
+        return Arrays.asList(TFCItems.METAL_ITEMS.get(Metal.Default.WROUGHT_IRON).get(Metal.ItemType.AXE).get(), TFCItems.FOOD.get(Food.CARROT).get(), Items.ROTTEN_FLESH);
     }
 }

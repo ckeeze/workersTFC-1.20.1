@@ -4,10 +4,11 @@ import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.LumberjackEntity;
 import com.talhanation.workers.entities.ai.LumberjackAI;
 import net.dries007.tfc.common.TFCTags;
-import net.minecraft.resources.ResourceLocation;
+import net.dries007.tfc.common.blocks.TFCBlocks;
+import net.dries007.tfc.common.blocks.wood.Wood;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.InteractionHand;
@@ -18,13 +19,11 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.EnumSet;
-import java.util.Set;
 
 import static com.talhanation.workers.entities.LumberjackEntity.State.*;
 
@@ -37,13 +36,6 @@ public abstract class LumberjackAIMixin extends Goal {
     public LumberjackAIMixin(LumberjackEntity lumber) {
         this.lumber = lumber;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-    }
-
-    private static Item IFS(String S){
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
-    }
-    private static Block BFS(String S){
-        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(S));
     }
 
     public boolean canUse() {
@@ -81,7 +73,7 @@ public abstract class LumberjackAIMixin extends Goal {
                 if (workPos != null){
                     setWorkState(WORKING);
                 }
-                else setWorkState(STOP);;
+                else setWorkState(STOP);
 
             }
 
@@ -213,64 +205,64 @@ public abstract class LumberjackAIMixin extends Goal {
         for (int i = 0; i < inventory.getContainerSize(); ++i) {
             ItemStack itemstack = inventory.getItem(i);
             if (!itemstack.isEmpty() && itemstack.is(ItemTags.SAPLINGS)) {
-                BlockState placedSaplingBlock = BFS("minecraft:grass").defaultBlockState();
+                BlockState placedSaplingBlock = Blocks.DEAD_BUSH.defaultBlockState();
 
-                if (itemstack.is(IFS("tfc:wood/sapling/acacia"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/acacia").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.ACACIA).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.ACACIA).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/ash"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/ash").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.ASH).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.ASH).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/aspen"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/aspen").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.ASPEN).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.ASPEN).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/birch"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/birch").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.BIRCH).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.BIRCH).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/blackwood"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/blackwood").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.BLACKWOOD).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.BLACKWOOD).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/chestnut"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/chestnut").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.CHESTNUT).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.CHESTNUT).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/douglas_fir"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/douglas_fir").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.DOUGLAS_FIR).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.DOUGLAS_FIR).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/hickory"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/hickory").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.HICKORY).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.HICKORY).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/kapok"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/kapok").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.KAPOK).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.KAPOK).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/maple"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/maple").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.MAPLE).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.MAPLE).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/oak"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/oak").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.OAK).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.OAK).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/rosewood"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/rosewood").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.ROSEWOOD).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.ROSEWOOD).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/pine"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/pine").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.PINE).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.PINE).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/sequoia"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/sequoia").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.SEQUOIA).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.SEQUOIA).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/spruce"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/spruce").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.SPRUCE).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.SPRUCE).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/sycamore"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/sycamore").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.SYCAMORE).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.SYCAMORE).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/white_cedar"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/white_cedar").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.WHITE_CEDAR).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.WHITE_CEDAR).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/willow"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/willow").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.WILLOW).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.WILLOW).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
-                if (itemstack.is(IFS("tfc:wood/sapling/palm"))){
-                    placedSaplingBlock = BFS("tfc:wood/sapling/palm").defaultBlockState();
+                if (itemstack.is(TFCBlocks.WOODS.get(Wood.PALM).get(Wood.BlockType.SAPLING).get().asItem())){
+                    placedSaplingBlock = TFCBlocks.WOODS.get(Wood.PALM).get(Wood.BlockType.SAPLING).get().defaultBlockState();
                 }
 
                 this.lumber.level().setBlock(blockPos, placedSaplingBlock, 3);

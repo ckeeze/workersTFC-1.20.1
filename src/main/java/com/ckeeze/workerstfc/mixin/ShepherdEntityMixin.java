@@ -2,6 +2,9 @@ package com.ckeeze.workerstfc.mixin;
 
 import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.ShepherdEntity;
+import net.dries007.tfc.common.blocks.rock.RockCategory;
+import net.dries007.tfc.common.items.TFCItems;
+import net.dries007.tfc.util.Metal;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -22,9 +25,9 @@ public abstract class ShepherdEntityMixin extends AbstractWorkerEntity {
     }
 
     public void setEquipment() {
-        ItemStack initialTool = new ItemStack(IFS("tfc:metal/shears/copper"));
+        ItemStack initialTool = new ItemStack(TFCItems.METAL_ITEMS.get(Metal.Default.WROUGHT_IRON).get(Metal.ItemType.AXE).get());
         this.updateInventory(0, initialTool);
-        ItemStack initialTool2 = new ItemStack(IFS("tfc:stone/axe/igneous_extrusive"));
+        ItemStack initialTool2 = new ItemStack(TFCItems.ROCK_TOOLS.get(RockCategory.IGNEOUS_EXTRUSIVE).get(RockCategory.ItemType.AXE).get());
         this.updateInventory(1, initialTool2);
 
         this.equipTool(initialTool);
