@@ -5,42 +5,22 @@ import com.talhanation.workers.entities.CattleFarmerEntity;
 import com.talhanation.workers.entities.ai.AnimalFarmerAI;
 import com.talhanation.workers.entities.ai.CattleFarmerAI;
 import net.dries007.tfc.common.capabilities.Capabilities;
-import net.dries007.tfc.common.capabilities.ItemStackFluidHandler;
 import net.dries007.tfc.common.entities.TFCEntities;
 import net.dries007.tfc.common.entities.livestock.DairyAnimal;
-import net.dries007.tfc.common.entities.livestock.Mammal;
-import net.dries007.tfc.common.entities.livestock.TFCAnimal;
 import net.dries007.tfc.common.entities.livestock.TFCAnimalProperties;
-import net.dries007.tfc.common.fluids.FluidHelpers;
-import net.dries007.tfc.common.fluids.TFCFluids;
-import net.dries007.tfc.common.items.FluidContainerItem;
 import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.TFCItems;
-import net.dries007.tfc.common.recipes.ingredients.FluidStackIngredient;
 import net.dries007.tfc.util.Helpers;
 import net.dries007.tfc.util.calendar.Calendars;
-import net.dries007.tfc.util.events.AnimalProductEvent;
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
-import net.minecraftforge.common.extensions.IForgeFluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.EnumSet;
@@ -51,6 +31,7 @@ import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
 
+@SuppressWarnings("unused")
 @Mixin(CattleFarmerAI.class)
 public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
     private Optional<DairyAnimal> cow;

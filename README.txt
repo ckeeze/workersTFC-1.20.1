@@ -23,6 +23,8 @@ Features:
   - Farmer replenishes nutrients
   - Merchant can ride TFC horses
   - Swineherd feeds TFC pigs, kills old pigs, slaughters excess lifestock and collects materials from slain pigs
+  - Shepherd works with every Wooly animal in TFC
+  - Cattlefarmer works with every Dairy animal in TFC
 
 Planned:
   - Full moon spawn event to help players gather zombie villagers as their initial workers/recruits
@@ -76,9 +78,9 @@ DONE - Remove cleric
 DONE - Remove toolsmith
 DONE - Remove leatherworker
 
-- Shepherd
+DONE - Shepherd
 - chickenfarmer
-- cattlefarmer
+DONE - cattlefarmer
 DONE - swineherd
 
 DONE - make merchant able to use tfc horses, donkeys, mules
