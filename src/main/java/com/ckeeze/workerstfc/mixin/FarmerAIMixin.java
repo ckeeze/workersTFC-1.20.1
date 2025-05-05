@@ -93,7 +93,7 @@ public abstract class FarmerAIMixin extends Goal {
         // Make sure the center block remains waterlogged.
         BlockState blockState = this.farmer.getCommandSenderWorld().getBlockState(blockPos);
         Block block = blockState.getBlock();
-        if(blockPos != waterPos && FarmerEntity.TILLABLES.contains(block)) {
+        if(FarmerEntity.TILLABLES.contains(block)) {
             if (block == TFCBlocks.SOIL.get(SoilBlockType.DIRT).get(SoilBlockType.Variant.SILT).get() || block == TFCBlocks.SOIL.get(SoilBlockType.GRASS).get(SoilBlockType.Variant.SILT).get()|| block == TFCBlocks.SOIL.get(SoilBlockType.ROOTED_DIRT).get(SoilBlockType.Variant.SILT).get()){
                 farmer.getCommandSenderWorld().setBlock(blockPos, TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SILT).get().defaultBlockState(), 3);
             }

@@ -5,15 +5,19 @@ import com.talhanation.workers.entities.AbstractWorkerEntity;
 import com.talhanation.workers.entities.CattleFarmerEntity;
 import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.blocks.rock.RockCategory;
+import net.dries007.tfc.common.capabilities.Capabilities;
 import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.HideItemType;
 import net.dries007.tfc.common.items.TFCItems;
+import net.dries007.tfc.util.Helpers;
 import net.dries007.tfc.util.Metal;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Arrays;
@@ -45,7 +49,7 @@ public abstract class CattleFarmerEntityMixin extends AbstractWorkerEntity {
             TFCItems.HIDES.get(HideItemType.RAW).get(HideItemType.Size.LARGE).get());
 
     public boolean wantsToKeep(ItemStack itemStack) {
-        return super.wantsToKeep(itemStack) || itemStack.is(TFCItems.WOODEN_BUCKET.get()) || itemStack.is(TFCTags.Items.COW_FOOD);
+        return super.wantsToKeep(itemStack) || itemStack.is(TFCTags.Items.COW_FOOD) || itemStack.is(TFCItems.WOODEN_BUCKET.get());
     }
 
     public boolean wantsToPickUp(ItemStack itemStack) {

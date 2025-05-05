@@ -1,5 +1,6 @@
 package com.ckeeze.workerstfc.mixin;
 
+import com.google.common.collect.ImmutableSet;
 import com.talhanation.workers.entities.CattleFarmerEntity;
 import com.talhanation.workers.entities.ai.AnimalFarmerAI;
 import com.talhanation.workers.entities.ai.CattleFarmerAI;
@@ -13,9 +14,11 @@ import net.dries007.tfc.common.entities.livestock.TFCAnimalProperties;
 import net.dries007.tfc.common.fluids.FluidHelpers;
 import net.dries007.tfc.common.fluids.TFCFluids;
 import net.dries007.tfc.common.items.FluidContainerItem;
+import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.ingredients.FluidStackIngredient;
 import net.dries007.tfc.util.Helpers;
+import net.dries007.tfc.util.calendar.Calendars;
 import net.dries007.tfc.util.events.AnimalProductEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.tags.TagsProvider;
@@ -43,6 +46,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
@@ -60,9 +64,10 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
-    private static Item IFS(String S){
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
-    }
+    private static final Set<Item> CATTLEFEED = ImmutableSet.of(
+            TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), TFCItems.FOOD.get(Food.OAT_GRAIN).get(),TFCItems.FOOD.get(Food.RICE_GRAIN).get(),
+            TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(),TFCItems.FOOD.get(Food.RYE_GRAIN).get(),TFCItems.FOOD.get(Food.BARLEY_GRAIN).get()
+            );
 
     public void performWork() {
         if (!workPos.closerThan(animalFarmer.getOnPos(), 10D) && workPos != null)
@@ -97,7 +102,7 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
 
                     animalFarmer.workerSwingArm();
                     animalFarmer.increaseFarmedItems();
-                    milkYak(this.cow.get());
+                    milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
             }
@@ -113,7 +118,7 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
 
                     animalFarmer.workerSwingArm();
                     animalFarmer.increaseFarmedItems();
-                    milkGoat(this.cow.get());
+                    milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
             }
@@ -126,20 +131,29 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
 
         if (breeding){
             this.cow = findCowfeeding();
+            if (!this.cow.isPresent()){
+                this.cow = findYakfeeding();
+                if(!this.cow.isPresent()){
+                    this.cow = findGoatfeeding();
+                }
+            }
             if (this.cow.isPresent() ) {
                 int i = cow.get().getAge();
 
-                if (i == 0 && this.hasBreedItem(Items.WHEAT)) {
+                ItemStack CattleFeed = this.hasCattleFeed();
+                if (CattleFeed != null) {
                     this.animalFarmer.getNavigation().moveTo(this.cow.get(), 1);
-                    this.animalFarmer.changeToBreedItem(Items.WHEAT);
+                    this.animalFarmer.changeToBreedItem(CattleFeed.getItem());
 
                     if (cow.get().closerThan(this.animalFarmer, 2)) {
-
+                        this.animalFarmer.workerSwingArm();
+                        cow.get().playSound(SoundEvents.GENERIC_EAT);
+                        this.consumeBreedItem(CattleFeed.getItem());
                         this.animalFarmer.getLookControl().setLookAt(cow.get().getX(), cow.get().getEyeY(), cow.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
+                        cow.get().setFamiliarity(cow.get().getFamiliarity() + 0.07F);
+                        cow.get().setLastFed(Calendars.get(cow.get().level()).getTotalDays());
+                        cow.get().setLastFamiliarityDecay(Calendars.get(cow.get().level()).getTotalDays());
 
-                        this.consumeBreedItem(Items.WHEAT);
-                        animalFarmer.workerSwingArm();
-                        this.cow.get().setInLove(null);
                         this.cow = Optional.empty();
                     }
                 }
@@ -147,15 +161,45 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                     breeding = false;
                     slaughtering = true;
                 }
-            } else {
+            }
+
+            else {
                 breeding = false;
                 slaughtering = true;
             }
         }
 
         if (slaughtering) {
-            List<DairyAnimal> cows = findCowSlaughtering();
-            if (cows.size() > animalFarmer.getMaxAnimalCount() && animalFarmer.hasMainToolInInv()) {
+            boolean kill = false;
+            List<DairyAnimal> cows = findOldCow();
+            if (cows.isEmpty()){
+                cows = findOldGoats();
+                if (cows.isEmpty()){
+                    cows = findOldYaks();
+                }
+            }
+            if (cows.isEmpty()){
+                cows = findCowSlaughtering();
+                if(cows.size() <= animalFarmer.getMaxAnimalCount()){
+                    cows = findYakSlaughtering();
+                    if(cows.size() <= animalFarmer.getMaxAnimalCount()){
+                        cows = findGoatlaughtering();
+                        if(cows.size() > animalFarmer.getMaxAnimalCount()){
+                            kill = true;
+                        }
+                    }
+                    else{
+                        kill = true;
+                    }
+                }
+                else{
+                    kill = true;
+                }
+            }
+            else{
+                kill = true;
+            }
+            if (kill && animalFarmer.hasMainToolInInv()) {
                 cow = cows.stream().findFirst();
 
                 if(!animalFarmer.isRequiredSecondTool(animalFarmer.getMainHandItem())) this.animalFarmer.changeToTool(false);
@@ -167,7 +211,9 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                         animalFarmer.playSound(SoundEvents.PLAYER_ATTACK_STRONG);
 
                         this.animalFarmer.consumeToolDurability();
-                        animalFarmer.increaseFarmedItems();
+                        this.animalFarmer.increaseFarmedItems();
+                        this.animalFarmer.increaseFarmedItems();
+                        this.animalFarmer.increaseFarmedItems();
                         animalFarmer.workerSwingArm();
                     }
                 }
@@ -189,11 +235,27 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.getItem().equals(IFS("tfc:wooden_bucket"))){
-                return true;
+            if (itemStack.getItem().equals(TFCItems.WOODEN_BUCKET.get())){
+                final IFluidHandlerItem destFluidItemHandler = Helpers.getCapability(itemStack, Capabilities.FLUID_ITEM);
+                if (destFluidItemHandler != null){
+                    return destFluidItemHandler.getFluidInTank(1) == FluidStack.EMPTY;
+                }
+                else{
+                    return true;
+                }
             }
         }
         return false;
+    }
+
+    public ItemStack hasCattleFeed() {
+        SimpleContainer inventory = animalFarmer.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack itemStack = inventory.getItem(i);
+            if (CATTLEFEED.contains(itemStack.getItem()))
+                return itemStack;
+        }
+        return null;
     }
 
     //COWS
@@ -202,13 +264,21 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.getItem().equals(IFS("tfc:wooden_bucket"))){
-                itemStack.shrink(1);
+            if (itemStack.getItem().equals(TFCItems.WOODEN_BUCKET.get())){
+                final IFluidHandlerItem destFluidItemHandler = Helpers.getCapability(itemStack, Capabilities.FLUID_ITEM);
+                if (destFluidItemHandler != null){
+                    if(destFluidItemHandler.getFluidInTank(1) == FluidStack.EMPTY){
+                        itemStack.shrink(1);
+                    }
+                }
+                else{
+                    itemStack.shrink(1);
+                }
             }
         }
         cow.addUses(1);
         cow.setProductsCooldown();
-        ItemStack bucket = IFS("tfc:wooden_bucket").getDefaultInstance();
+        ItemStack bucket = TFCItems.WOODEN_BUCKET.get().getDefaultInstance();
         FluidStack milk = new FluidStack(ForgeMod.MILK.get(), 1000);
         final IFluidHandlerItem destFluidItemHandler = Helpers.getCapability(bucket, Capabilities.FLUID_ITEM);
         if (destFluidItemHandler != null){
@@ -224,6 +294,7 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(DairyAnimal::hasProduct)
+                .filter(DairyAnimal -> DairyAnimal.getFamiliarity() >= 0.15F)
                 .findAny();
     }
 
@@ -242,12 +313,11 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(not(DairyAnimal::isBaby))
-                .filter(not(DairyAnimal::isInLove))
-                .filter(not(DairyAnimal::hasProduct))
+                .filter(not(DairyAnimal::isFertilized))
                 .collect(Collectors.toList());
     }
 
-    private List<DairyAnimal> findOldDairyAnimal() {
+    private List<DairyAnimal> findOldCow() {
         return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.COW.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -261,13 +331,13 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.getItem().equals(IFS("tfc:wooden_bucket"))){
+            if (itemStack.getItem().equals(TFCItems.WOODEN_BUCKET.get())){
                 itemStack.shrink(1);
             }
         }
         cow.addUses(1);
         cow.setProductsCooldown();
-        ItemStack bucket = IFS("tfc:wooden_bucket").getDefaultInstance();
+        ItemStack bucket = TFCItems.WOODEN_BUCKET.get().getDefaultInstance();
         FluidStack milk = new FluidStack(ForgeMod.MILK.get(), 1000);
         final IFluidHandlerItem destFluidItemHandler = Helpers.getCapability(bucket, Capabilities.FLUID_ITEM);
         if (destFluidItemHandler != null){
@@ -283,6 +353,17 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(DairyAnimal::hasProduct)
+                .filter(DairyAnimal -> DairyAnimal.getFamiliarity() >= 0.15F)
+                .findAny();
+    }
+
+    private Optional<DairyAnimal> findYakfeeding() {
+        return  this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.YAK.get(), this.animalFarmer.getBoundingBox()
+                        .inflate(8D), DairyAnimal::isAlive)
+                .stream()
+                .filter(DairyAnimal -> DairyAnimal.getAgeType() != TFCAnimalProperties.Age.OLD)
+                .filter(DairyAnimal -> DairyAnimal.getFamiliarity() <= 0.5)
+                .filter(DairyAnimal::isHungry)
                 .findAny();
     }
 
@@ -291,8 +372,7 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(not(DairyAnimal::isBaby))
-                .filter(not(DairyAnimal::isInLove))
-                .filter(not(DairyAnimal::hasProduct))
+                .filter(not(DairyAnimal::isFertilized))
                 .collect(Collectors.toList());
     }
 
@@ -311,13 +391,13 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.getItem().equals(IFS("tfc:wooden_bucket"))){
+            if (itemStack.getItem().equals(TFCItems.WOODEN_BUCKET.get())){
                 itemStack.shrink(1);
             }
         }
         cow.addUses(1);
         cow.setProductsCooldown();
-        ItemStack bucket = IFS("tfc:wooden_bucket").getDefaultInstance();
+        ItemStack bucket = TFCItems.WOODEN_BUCKET.get().getDefaultInstance();
         FluidStack milk = new FluidStack(ForgeMod.MILK.get(), 1000);
         final IFluidHandlerItem destFluidItemHandler = Helpers.getCapability(bucket, Capabilities.FLUID_ITEM);
         if (destFluidItemHandler != null){
@@ -333,6 +413,17 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(DairyAnimal::hasProduct)
+                .filter(DairyAnimal -> DairyAnimal.getFamiliarity() >= 0.15F)
+                .findAny();
+    }
+
+    private Optional<DairyAnimal> findGoatfeeding() {
+        return  this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.GOAT.get(), this.animalFarmer.getBoundingBox()
+                        .inflate(8D), DairyAnimal::isAlive)
+                .stream()
+                .filter(DairyAnimal -> DairyAnimal.getAgeType() != TFCAnimalProperties.Age.OLD)
+                .filter(DairyAnimal -> DairyAnimal.getFamiliarity() <= 0.5)
+                .filter(DairyAnimal::isHungry)
                 .findAny();
     }
 
@@ -341,8 +432,7 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(not(DairyAnimal::isBaby))
-                .filter(not(DairyAnimal::isInLove))
-                .filter(not(DairyAnimal::hasProduct))
+                .filter(not(DairyAnimal::isFertilized))
                 .collect(Collectors.toList());
     }
 
