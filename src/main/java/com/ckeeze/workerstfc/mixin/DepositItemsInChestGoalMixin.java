@@ -31,6 +31,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
+@SuppressWarnings("unused")
 @Mixin(DepositItemsInChestGoal.class)
 public abstract class DepositItemsInChestGoalMixin extends Goal {
     private final AbstractWorkerEntity worker;
@@ -208,6 +209,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
 
                         if(this.worker instanceof CattleFarmerEntity){
                             if(!hasEnoughOfItem(Items.MILK_BUCKET, 3)) this.getItemFromChest(Items.BUCKET);
+                            if(!hasEnoughOfItem(TFCItems.WOODEN_BUCKET.get(), 3)) this.getItemFromChest(TFCItems.WOODEN_BUCKET.get());
                             if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.OAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.OAT_GRAIN).get());
                             if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get());
                             if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.MAIZE_GRAIN).get());

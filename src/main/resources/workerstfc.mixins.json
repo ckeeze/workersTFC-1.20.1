@@ -12,6 +12,7 @@
     "CattleFarmerEntityMixin",
     "CattleFarmerAIMixin",
     "ChickenFarmerEntityMixin",
+    "ChickenFarmerAIMixin",
     "CommandEventsMixin",
     "DepositItemsInChestGoalMixin",
     "EatGoalMixin",

@@ -5,13 +5,11 @@ import com.talhanation.workers.CommandEvents;
 import com.talhanation.workers.entities.*;
 import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.dries007.tfc.common.blocks.wood.Wood;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -20,14 +18,9 @@ import java.util.*;
 import static com.talhanation.workers.Translatable.TEXT_CHEST;
 import static com.talhanation.workers.Translatable.TEXT_CHEST_ERROR;
 
-@SuppressWarnings("removal")
+@SuppressWarnings({"removal", "unused"})
 @Mixin(CommandEvents.class)
 public abstract class CommandEventsMixin{
-
-    //Blockfromstring
-    private static Block BFS(String S){
-        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(S));
-    }
 
     private static final Set<Block> VALID_CHESTS = ImmutableSet.of(
             Blocks.CHEST, Blocks.BARREL

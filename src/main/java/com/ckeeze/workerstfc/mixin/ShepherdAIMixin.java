@@ -5,7 +5,6 @@ import com.talhanation.workers.entities.ai.AnimalFarmerAI;
 import com.talhanation.workers.entities.ai.ShepherdAI;
 import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.entities.TFCEntities;
-import net.dries007.tfc.common.entities.livestock.Mammal;
 import net.dries007.tfc.common.entities.livestock.TFCAnimalProperties;
 import net.dries007.tfc.common.entities.livestock.WoolyAnimal;
 import net.dries007.tfc.util.calendar.Calendars;
@@ -22,7 +21,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
-import static net.minecraftforge.client.ForgeHooksClient.playSound;
 
 @SuppressWarnings("unused")
 @Mixin(ShepherdAI.class)
@@ -64,11 +62,9 @@ public abstract class ShepherdAIMixin extends AnimalFarmerAI implements IForgeSh
                 if(!animalFarmer.hasMainToolInInv()){
                     animalFarmer.needsMainTool = true;
                 }
-
                 sheering = false;
                 breeding = true;
             }
-
         }
 
         if (breeding) {
@@ -101,19 +97,14 @@ public abstract class ShepherdAIMixin extends AnimalFarmerAI implements IForgeSh
 
         if (slaughtering) {
             List<WoolyAnimal> sheeps = findOldWoolySlaughtering();
-            boolean kill = false;
+            boolean kill;
             if (sheeps.isEmpty()){
                 sheeps = findSheepSlaughtering();
                 if(sheeps.size() <= animalFarmer.getMaxAnimalCount()){
                     sheeps = findAlpacaSlaughtering();
                     if(sheeps.size() <= animalFarmer.getMaxAnimalCount()){
                         sheeps = findMuskOxSlaughtering();
-                        if (sheeps.size() <= animalFarmer.getMaxAnimalCount()){
-                            kill = false;
-                        }
-                        else{
-                            kill = true;
-                        }
+                        kill = sheeps.size() > animalFarmer.getMaxAnimalCount();
                     }
                     else{
                         kill = true;
@@ -143,6 +134,7 @@ public abstract class ShepherdAIMixin extends AnimalFarmerAI implements IForgeSh
                         animalFarmer.playSound(SoundEvents.PLAYER_ATTACK_STRONG);
 
                         this.animalFarmer.consumeToolDurability();
+                        animalFarmer.increaseFarmedItems();
                         animalFarmer.increaseFarmedItems();
                         animalFarmer.increaseFarmedItems();
                         animalFarmer.increaseFarmedItems();

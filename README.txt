@@ -79,7 +79,7 @@ DONE - Remove toolsmith
 DONE - Remove leatherworker
 
 DONE - Shepherd
-- chickenfarmer
+DONE - chickenfarmer
 DONE - cattlefarmer
 DONE - swineherd
 

@@ -127,6 +127,8 @@ public abstract class SwineherdAIMixin extends AnimalFarmerAI {
                         this.animalFarmer.increaseFarmedItems();
                         this.animalFarmer.increaseFarmedItems();
                         this.animalFarmer.increaseFarmedItems();
+                        animalFarmer.increaseFarmedItems();
+                        animalFarmer.increaseFarmedItems();
                     }
                 }
                 else {
@@ -150,9 +152,6 @@ public abstract class SwineherdAIMixin extends AnimalFarmerAI {
                         this.animalFarmer.workerSwingArm();
                         this.animalFarmer.playSound(SoundEvents.PLAYER_ATTACK_STRONG);
                         this.animalFarmer.consumeToolDurability();
-                        this.animalFarmer.increaseFarmedItems();
-                        this.animalFarmer.increaseFarmedItems();
-                        this.animalFarmer.increaseFarmedItems();
                         this.animalFarmer.increaseFarmedItems();
                     }
                 }

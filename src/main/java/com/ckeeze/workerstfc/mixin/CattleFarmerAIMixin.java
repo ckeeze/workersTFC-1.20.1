@@ -66,7 +66,6 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                     this.animalFarmer.getLookControl().setLookAt(cow.get().getX(), cow.get().getEyeY(), cow.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
 
                     animalFarmer.workerSwingArm();
-                    animalFarmer.increaseFarmedItems();
                     milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
@@ -82,7 +81,6 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                     this.animalFarmer.getLookControl().setLookAt(cow.get().getX(), cow.get().getEyeY(), cow.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
 
                     animalFarmer.workerSwingArm();
-                    animalFarmer.increaseFarmedItems();
                     milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
@@ -98,7 +96,6 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                     this.animalFarmer.getLookControl().setLookAt(cow.get().getX(), cow.get().getEyeY(), cow.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
 
                     animalFarmer.workerSwingArm();
-                    animalFarmer.increaseFarmedItems();
                     milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
@@ -111,13 +108,7 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         }
 
         if (breeding){
-            this.cow = findCowfeeding();
-            if (!this.cow.isPresent()){
-                this.cow = findYakfeeding();
-                if(!this.cow.isPresent()){
-                    this.cow = findGoatfeeding();
-                }
-            }
+            this.cow = findDairyAnimalFeeding();
             if (this.cow.isPresent() ) {
                 int i = cow.get().getAge();
 
@@ -151,65 +142,59 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         }
 
         if (slaughtering) {
-            boolean kill = false;
-            List<DairyAnimal> cows = findOldCow();
-            if (cows.isEmpty()){
-                cows = findOldGoats();
-                if (cows.isEmpty()){
-                    cows = findOldYaks();
-                }
-            }
-            if (cows.isEmpty()){
+            List<DairyAnimal> cows = findOldDairyAnimal();
+            boolean kill;
+            if (cows.isEmpty()) {
                 cows = findCowSlaughtering();
-                if(cows.size() <= animalFarmer.getMaxAnimalCount()){
-                    cows = findYakSlaughtering();
-                    if(cows.size() <= animalFarmer.getMaxAnimalCount()){
-                        cows = findGoatlaughtering();
-                        if(cows.size() > animalFarmer.getMaxAnimalCount()){
-                            kill = true;
-                        }
-                    }
-                    else{
+                if (cows.size() <= animalFarmer.getMaxAnimalCount()) {
+                    cows = findGoatlaughtering();
+                    if (cows.size() <= animalFarmer.getMaxAnimalCount()) {
+                        cows = findYakSlaughtering();
+                        kill = cows.size() > animalFarmer.getMaxAnimalCount();
+                    } else {
                         kill = true;
                     }
-                }
-                else{
+                } else {
                     kill = true;
                 }
-            }
-            else{
+            } else {
                 kill = true;
             }
-            if (kill && animalFarmer.hasMainToolInInv()) {
+            if (kill) {
                 cow = cows.stream().findFirst();
 
-                if(!animalFarmer.isRequiredSecondTool(animalFarmer.getMainHandItem())) this.animalFarmer.changeToTool(false);
-
-                if (cow.isPresent()) {
+                if (cow.isPresent() && animalFarmer.hasSecondToolInInv()) {
                     this.animalFarmer.getNavigation().moveTo(cow.get().getX(), cow.get().getY(), cow.get().getZ(), 1);
-                    if (cow.get().closerThan(this.animalFarmer, 2)) {
+
+                    if (!animalFarmer.isRequiredSecondTool(animalFarmer.getMainHandItem()))
+                        this.animalFarmer.changeToTool(false);
+
+                    if (cow.get().getOnPos().closerThan(animalFarmer.getOnPos(), 2)) {
+
+                        animalFarmer.workerSwingArm();
+
                         cow.get().kill();
                         animalFarmer.playSound(SoundEvents.PLAYER_ATTACK_STRONG);
 
                         this.animalFarmer.consumeToolDurability();
-                        this.animalFarmer.increaseFarmedItems();
-                        this.animalFarmer.increaseFarmedItems();
-                        this.animalFarmer.increaseFarmedItems();
-                        animalFarmer.workerSwingArm();
+                        animalFarmer.increaseFarmedItems();
+                        animalFarmer.increaseFarmedItems();
+                        animalFarmer.increaseFarmedItems();
+                        animalFarmer.increaseFarmedItems();
+                        animalFarmer.increaseFarmedItems();
                     }
+                } else {
+                    if (!animalFarmer.hasSecondToolInInv()) {
+                        animalFarmer.needsSecondTool = true;
+                    }
+                    slaughtering = false;
+                    milking = true;
                 }
-
-            }
-            else {
-                if(!animalFarmer.hasMainToolInInv()){
-                    this.animalFarmer.needsMainTool = true;
-                    this.animalFarmer.updateNeedsTool();
-                }
+            } else {
                 slaughtering = false;
                 milking = true;
             }
         }
-
     }
 
     public boolean hasBucket(){
@@ -279,8 +264,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .findAny();
     }
 
-    private Optional<DairyAnimal> findCowfeeding() {
-        return  this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.COW.get(), this.animalFarmer.getBoundingBox()
+    private Optional<DairyAnimal> findDairyAnimalFeeding() {
+        return  this.animalFarmer.getCommandSenderWorld().getEntitiesOfClass(DairyAnimal.class, this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(DairyAnimal -> DairyAnimal.getAgeType() != TFCAnimalProperties.Age.OLD)
@@ -298,8 +283,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .collect(Collectors.toList());
     }
 
-    private List<DairyAnimal> findOldCow() {
-        return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.COW.get(), this.animalFarmer.getBoundingBox()
+    private List<DairyAnimal> findOldDairyAnimal() {
+        return this.animalFarmer.getCommandSenderWorld().getEntitiesOfClass(DairyAnimal.class, this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
                 .filter(DairyAnimal -> DairyAnimal.getAgeType() == TFCAnimalProperties.Age.OLD)
@@ -338,16 +323,6 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .findAny();
     }
 
-    private Optional<DairyAnimal> findYakfeeding() {
-        return  this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.YAK.get(), this.animalFarmer.getBoundingBox()
-                        .inflate(8D), DairyAnimal::isAlive)
-                .stream()
-                .filter(DairyAnimal -> DairyAnimal.getAgeType() != TFCAnimalProperties.Age.OLD)
-                .filter(DairyAnimal -> DairyAnimal.getFamiliarity() <= 0.5)
-                .filter(DairyAnimal::isHungry)
-                .findAny();
-    }
-
     private List<DairyAnimal> findYakSlaughtering() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.YAK.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
@@ -357,13 +332,6 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .collect(Collectors.toList());
     }
 
-    private List<DairyAnimal> findOldYaks() {
-        return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.YAK.get(), this.animalFarmer.getBoundingBox()
-                        .inflate(8D), DairyAnimal::isAlive)
-                .stream()
-                .filter(DairyAnimal -> DairyAnimal.getAgeType() == TFCAnimalProperties.Age.OLD)
-                .collect(Collectors.toList());
-    }
 
     //GOATS
 
@@ -398,16 +366,6 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .findAny();
     }
 
-    private Optional<DairyAnimal> findGoatfeeding() {
-        return  this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.GOAT.get(), this.animalFarmer.getBoundingBox()
-                        .inflate(8D), DairyAnimal::isAlive)
-                .stream()
-                .filter(DairyAnimal -> DairyAnimal.getAgeType() != TFCAnimalProperties.Age.OLD)
-                .filter(DairyAnimal -> DairyAnimal.getFamiliarity() <= 0.5)
-                .filter(DairyAnimal::isHungry)
-                .findAny();
-    }
-
     private List<DairyAnimal> findGoatlaughtering() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.GOAT.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
@@ -417,11 +375,4 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .collect(Collectors.toList());
     }
 
-    private List<DairyAnimal> findOldGoats() {
-        return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.GOAT.get(), this.animalFarmer.getBoundingBox()
-                        .inflate(8D), DairyAnimal::isAlive)
-                .stream()
-                .filter(DairyAnimal -> DairyAnimal.getAgeType() == TFCAnimalProperties.Age.OLD)
-                .collect(Collectors.toList());
-    }
 }
