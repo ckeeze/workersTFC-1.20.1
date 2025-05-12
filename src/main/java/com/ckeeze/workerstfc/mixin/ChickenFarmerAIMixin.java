@@ -5,7 +5,6 @@ import com.talhanation.workers.entities.ChickenFarmerEntity;
 import com.talhanation.workers.entities.ai.AnimalFarmerAI;
 import com.talhanation.workers.entities.ai.ChickenFarmerAI;
 
-import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.blocks.crop.Crop;
 import net.dries007.tfc.common.entities.TFCEntities;
 import net.dries007.tfc.common.entities.livestock.OviparousAnimal;
@@ -18,7 +17,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.EnumSet;

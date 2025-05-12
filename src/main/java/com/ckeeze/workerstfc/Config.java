@@ -42,7 +42,7 @@ public class Config
             .define("recruitHorseUnitsHorse", false);
 
     private static final ForgeConfigSpec.BooleanValue REPLACE_STARTER_EQUIPMENT = BUILDER
-            .comment("Should the starter equipment of Workers and Recruits be replaced with TFC tools and weapons?")
+            .comment("Should the starter equipment of Recruits be replaced with TFC weapons?")
             .comment("Ex: true, false")
             .comment("Default: true")
             .define("replaceStarterEquipment", true);

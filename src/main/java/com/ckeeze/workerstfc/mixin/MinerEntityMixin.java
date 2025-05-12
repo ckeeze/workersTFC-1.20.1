@@ -93,7 +93,7 @@ public abstract class MinerEntityMixin extends AbstractInventoryEntity {
     }
 
     public int getFarmedItemsDepositAmount(){
-        return 64;
+        return 128;
     }
 
     public List<Item> inventoryInputHelp() {

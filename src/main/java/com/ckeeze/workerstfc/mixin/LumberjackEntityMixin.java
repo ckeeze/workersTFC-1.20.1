@@ -31,6 +31,10 @@ public abstract class LumberjackEntityMixin extends AbstractInventoryEntity {
         this.equipTool(initialTool);
     }
 
+    public int getFarmedItemsDepositAmount(){
+        return 64;
+    }
+
     public List<Item> inventoryInputHelp() {
         return Arrays.asList(TFCItems.METAL_ITEMS.get(Metal.Default.WROUGHT_IRON).get(Metal.ItemType.AXE).get(), TFCBlocks.WOODS.get(Wood.MAPLE).get(Wood.BlockType.SAPLING).get().asItem());
     }

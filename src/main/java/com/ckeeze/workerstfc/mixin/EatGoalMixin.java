@@ -6,15 +6,14 @@ import com.talhanation.workers.entities.ai.EatGoal;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.TFCItems;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Set;
 
+@SuppressWarnings("unused")
 @Mixin(EatGoal.class)
 public class EatGoalMixin {
 
@@ -23,10 +22,6 @@ public class EatGoalMixin {
 
     public EatGoalMixin(AbstractWorkerEntity worker) {
         this.worker = worker;
-    }
-
-    private static Item IFS(String S){
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
     }
 
     private static final Set<Item> RAW_FOOD = ImmutableSet.of(

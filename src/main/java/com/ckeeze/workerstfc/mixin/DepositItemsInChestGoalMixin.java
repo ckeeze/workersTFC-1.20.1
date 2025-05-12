@@ -12,8 +12,9 @@ import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.Powder;
 import net.dries007.tfc.common.items.TFCItems;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -27,7 +28,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import net.minecraftforge.common.data.ForgeItemTagsProvider;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -62,10 +62,6 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
     public DepositItemsInChestGoalMixin(AbstractWorkerEntity worker) {
         this.worker = worker;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-    }
-
-    private static Item IFS(String S){
-        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(S));
     }
 
     //FOOD CHANGES
@@ -154,15 +150,16 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                         this.depositItems(container);
 
                         if(!canAddItemsInInventory()){
-                            if(worker.getOwner() != null && noSpaceInvMessage){
+                            if(worker.getOwner() != null && noSpaceInvMessage) {
                                 worker.tellPlayer(worker.getOwner(), Translatable.TEXT_NO_SPACE_INV);
                                 noSpaceInvMessage = false;
                             }
-
                         }
 
                         this.reequipMainTool();
                         this.reequipSecondTool();
+
+                        this.worker.updateNeedsTool();
 
                         if(this.worker instanceof MinerEntity){
                             if(!hasEnoughOfItem(TFCItems.TORCH.get(), 16)) this.getItemFromChest(TFCItems.TORCH.get());
@@ -186,7 +183,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                             if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.RICE_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.RICE_GRAIN).get());
                         }
 
-                        if(this.worker instanceof ShepherdEntity || this.worker instanceof CattleFarmerEntity){
+                        if(this.worker instanceof ShepherdEntity){
                             if(!hasEnoughOfItem(Items.WHEAT, 32)) this.getItemFromChest(Items.WHEAT);
                             if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.OAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.OAT_GRAIN).get());
                             if(!hasEnoughOfItem(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), 32)) this.getItemFromChest(TFCItems.FOOD.get(Food.WHEAT_GRAIN).get());
@@ -219,11 +216,11 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                         }
 
                         if(this.worker.needsToGetFood() && !this.hasFoodInInv()){
+
                             if (isFoodInChest(container)) {
                                 for (int i = 0; i < 3; i++) {
                                     ItemStack foodItem = this.getFoodFromInv(container);
                                     ItemStack food;
-
                                     if (foodItem != null){
                                         food = foodItem.copy();
                                         food.setCount(1);
@@ -247,7 +244,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                             }
                         }
 
-                        timer = 15;
+                        timer = 30;
                         setTimer = true;
                     }
                 }
@@ -273,6 +270,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
         }
 
         if(setTimer){
+            worker.updateNeedsTool();
             if(timer > 0) timer--;
             if(timer == 0) stop();
         }
@@ -302,7 +300,51 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
     private void getItemFromChest(Item item){}
 
     @Shadow
-    private void depositItems(Container container){}
+    private void depositItems(Container container) {
+        SimpleContainer inventory = worker.getInventory();
+
+        if (this.isContainerFull(container)) {
+
+            if(worker.getOwner() != null && messageChestFull) {
+                this.worker.tellPlayer(worker.getOwner(), Translatable.TEXT_CHEST_FULL);
+                messageChestFull = false;
+            }
+            return;
+        }
+
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+
+            // This avoids depositing items such as tools, food,
+            // or anything the workers wouldn't pick up while they're working.
+            // It also avoids depositing items that the worker needs to continue working.
+            if (stack.is(Items.AIR) || stack.isEmpty() || !worker.wantsToPickUp(stack) || (worker.wantsToKeep(stack) && getAmountOfItem(stack.getItem()) <= 64)) {
+                continue;
+            }
+            // Attempt to deposit the stack in the container, keep the remainder
+            ItemStack remainder = this.deposit(stack, container);
+            inventory.setItem(i, remainder);
+
+
+            //Main.LOGGER.debug("Stored {} x {}", stack.getCount() - remainder.getCount(), stack.getDisplayName().getString());
+            //Main.LOGGER.debug("Kept {} x {}", remainder.getCount(), stack.getDisplayName().getString());
+        }
+    }
+
+    @Shadow
+    private boolean isContainerFull(Container c){
+        return 1 == 1;
+    }
+
+    @Shadow
+    private int getAmountOfItem(Item i){
+        return 64;
+    }
+
+    @Shadow
+    private ItemStack deposit(ItemStack a, Container c){
+        return a;
+    }
 
     @Shadow
     private void reequipSecondTool(){}
