@@ -60,8 +60,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             TFCItems.CROP_SEEDS.get(Crop.POTATO).get(),
             TFCItems.CROP_SEEDS.get(Crop.CARROT).get(),
             TFCItems.CROP_SEEDS.get(Crop.GARLIC).get(),
-            TFCItems.CROP_SEEDS.get(Crop.GREEN_BEAN).get(), //sticks
-            Items.STICK
+            TFCItems.CROP_SEEDS.get(Crop.GREEN_BEAN).get() //sticks
             );
 
     private static final Set<Item> FARMED_ITEMS = ImmutableSet.of(
@@ -117,7 +116,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
 
     public boolean wantsToPickUp(ItemStack itemStack) {
         Item item = itemStack.getItem();
-        return (FARMED_ITEMS.contains(item) || WANTED_SEEDS.contains(item) || itemStack.is(TFCTags.Items.GOAT_FOOD));
+        return (FARMED_ITEMS.contains(item) || WANTED_SEEDS.contains(item) || itemStack.is(TFCTags.Items.GOAT_FOOD) || itemStack.is(Items.STICK));
     }
 
     public void setEquipment() {

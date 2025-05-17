@@ -7,14 +7,12 @@ import com.talhanation.workers.entities.ai.FarmerAI;
 
 import net.dries007.tfc.client.TFCSounds;
 import net.dries007.tfc.common.blockentities.IFarmland;
-import net.dries007.tfc.common.blockentities.TFCBlockEntities;
 import net.dries007.tfc.common.blocks.GroundcoverBlockType;
 import net.dries007.tfc.common.blocks.TFCBlockStateProperties;
 import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.dries007.tfc.common.blocks.crop.Crop;
 import net.dries007.tfc.common.blocks.crop.CropBlock;
 import net.dries007.tfc.common.blocks.crop.DoubleCropBlock;
-import net.dries007.tfc.common.blocks.plant.ITallPlant;
 import net.dries007.tfc.common.blocks.soil.SoilBlockType;
 import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.Powder;
