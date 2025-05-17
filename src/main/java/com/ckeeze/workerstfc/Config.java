@@ -23,7 +23,7 @@ public class Config
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     private static final ForgeConfigSpec.BooleanValue FULL_MOON_VILLAGER_ZOMBIES = BUILDER
-            .comment("Should Villager Zombies spawn on the surface every full moon?")
+            .comment("Should Villager Zombies spawn on the surface every full moon? (not yet implemented")
             .comment("Does not affect underground spawns")
             .comment("Ex: true, false")
             .comment("Default: true")

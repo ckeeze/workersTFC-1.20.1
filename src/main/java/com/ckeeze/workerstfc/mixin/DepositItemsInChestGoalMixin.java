@@ -167,6 +167,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
                         //TODO: ADD fisherman takes boat
                         if(this.worker instanceof FarmerEntity){
                             if(!hasEnoughOfItem(Items.BONE_MEAL, 32)) this.getItemFromChest(Items.BONE_MEAL);
+                            if(!hasEnoughOfItem(Items.STICK, 32)) this.getItemFromChest(Items.STICK);
                             if(!hasEnoughOfItem(TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), 32)) this.getItemFromChest(TFCItems.POWDERS.get(Powder.WOOD_ASH).get());
                             if(!hasEnoughOfItem(TFCItems.POWDERS.get(Powder.SYLVITE).get(), 32)) this.getItemFromChest(TFCItems.POWDERS.get(Powder.SYLVITE).get());
                             if(!hasEnoughOfItem(TFCItems.POWDERS.get(Powder.SALTPETER).get(), 32)) this.getItemFromChest(TFCItems.POWDERS.get(Powder.SALTPETER).get());

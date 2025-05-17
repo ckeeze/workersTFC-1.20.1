@@ -44,7 +44,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             //IFS("tfc:seeds/pumpkin"), spreading
             TFCItems.CROP_SEEDS.get(Crop.PAPYRUS).get(),
             TFCItems.CROP_SEEDS.get(Crop.JUTE).get(),
-            //IFS("tfc:seeds/tomato"), sticks
+            TFCItems.CROP_SEEDS.get(Crop.TOMATO).get(), // sticks
             TFCItems.CROP_SEEDS.get(Crop.SUGARCANE).get(),
             TFCItems.CROP_SEEDS.get(Crop.SQUASH).get(),
             TFCItems.CROP_SEEDS.get(Crop.BEET).get(),
@@ -60,7 +60,8 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             TFCItems.CROP_SEEDS.get(Crop.POTATO).get(),
             TFCItems.CROP_SEEDS.get(Crop.CARROT).get(),
             TFCItems.CROP_SEEDS.get(Crop.GARLIC).get(),
-            TFCItems.CROP_SEEDS.get(Crop.GREEN_BEAN).get() //sticks
+            TFCItems.CROP_SEEDS.get(Crop.GREEN_BEAN).get(), //sticks
+            Items.STICK
             );
 
     private static final Set<Item> FARMED_ITEMS = ImmutableSet.of(
@@ -95,7 +96,8 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             TFCBlocks.CROPS.get(Crop.POTATO).get(),
             TFCBlocks.CROPS.get(Crop.CARROT).get(),
             TFCBlocks.CROPS.get(Crop.GARLIC).get(),
-            TFCBlocks.CROPS.get(Crop.GREEN_BEAN).get()
+            TFCBlocks.CROPS.get(Crop.GREEN_BEAN).get(),
+            TFCBlocks.CROPS.get(Crop.TOMATO).get()
     );
 
     //HoeItem

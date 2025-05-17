@@ -7,10 +7,14 @@ import com.talhanation.workers.entities.ai.FarmerAI;
 
 import net.dries007.tfc.client.TFCSounds;
 import net.dries007.tfc.common.blockentities.IFarmland;
+import net.dries007.tfc.common.blockentities.TFCBlockEntities;
 import net.dries007.tfc.common.blocks.GroundcoverBlockType;
+import net.dries007.tfc.common.blocks.TFCBlockStateProperties;
 import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.dries007.tfc.common.blocks.crop.Crop;
 import net.dries007.tfc.common.blocks.crop.CropBlock;
+import net.dries007.tfc.common.blocks.crop.DoubleCropBlock;
+import net.dries007.tfc.common.blocks.plant.ITallPlant;
 import net.dries007.tfc.common.blocks.soil.SoilBlockType;
 import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.Powder;
@@ -140,6 +144,12 @@ public abstract class FarmerAIMixin extends Goal {
         SimpleContainer inventory = farmer.getInventory();
         int Hyd = getHydration(this.farmer.level(), blockPos.below());
         float Temp = Climate.getTemperature(this.farmer.level(), blockPos.below());
+        ItemStack stickstack = null;
+        for (int i = 0; i < inventory.getContainerSize(); ++i) {
+            if (inventory.getItem(i).getItem() == Items.STICK){
+                stickstack = inventory.getItem(i);
+            }
+        }
 
         for (int i = 0; i < inventory.getContainerSize(); ++i) {
             ItemStack itemstack = inventory.getItem(i);
@@ -267,6 +277,24 @@ public abstract class FarmerAIMixin extends Goal {
                 else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.GARLIC).get()){
                     if(Hyd >= 15 && Hyd <= 75 && Temp >= -17.0 && Temp <= 15.0) {
                         this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.GARLIC).get().defaultBlockState(), 3);
+                        flag = true;
+                    }
+                }
+
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.TOMATO).get() && stickstack != null){
+                    if(Hyd >= 30 && Hyd <= 95 && Temp >= 3.0 && Temp <= 33.0 ) {
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.TOMATO).get().defaultBlockState().setValue(TFCBlockStateProperties.STICK, true), 3);
+                        this.farmer.level().setBlock(blockPos.above(), TFCBlocks.CROPS.get(Crop.TOMATO).get().defaultBlockState().setValue(TFCBlockStateProperties.STICK, true).setValue(TFCBlockStateProperties.DOUBLE_CROP_PART, DoubleCropBlock.Part.TOP), 3);
+                        stickstack.shrink(1);
+                        flag = true;
+                    }
+                }
+
+                else if (itemstack.getItem() == TFCItems.CROP_SEEDS.get(Crop.GREEN_BEAN).get() && stickstack != null){
+                    if(Hyd >= 38 && Temp >= 5.0 && Temp <= 32.0) {
+                        this.farmer.level().setBlock(blockPos, TFCBlocks.CROPS.get(Crop.GREEN_BEAN).get().defaultBlockState().setValue(TFCBlockStateProperties.STICK, true), 3);
+                        this.farmer.level().setBlock(blockPos.above(), TFCBlocks.CROPS.get(Crop.GREEN_BEAN).get().defaultBlockState().setValue(TFCBlockStateProperties.STICK, true).setValue(TFCBlockStateProperties.DOUBLE_CROP_PART, DoubleCropBlock.Part.TOP), 3);
+                        stickstack.shrink(1);
                         flag = true;
                     }
                 }
