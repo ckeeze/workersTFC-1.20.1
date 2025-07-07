@@ -12,9 +12,7 @@ import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.Powder;
 import net.dries007.tfc.common.items.TFCItems;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -334,7 +332,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
 
     @Shadow
     private boolean isContainerFull(Container c){
-        return 1 == 1;
+        return true;
     }
 
     @Shadow

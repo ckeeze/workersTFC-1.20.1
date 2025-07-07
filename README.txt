@@ -116,6 +116,6 @@ DONE - make farmer manage nutrients
 - make farmer plant and harvest special crops (sticks, waterlogged, spreading)
 - make saddles mandatory
 DONE - make custom item "golden fruit" to replace gapple
-- update weakness clay pot textures
+DONE - update weakness clay pot textures
 - make fisherman consume bait (revert nerf after?)
 - make woodcutter actively collect tfc sapplings with sychte

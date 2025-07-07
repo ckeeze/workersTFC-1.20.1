@@ -10,6 +10,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 
+@SuppressWarnings("unused")
 @Mixin(AbstractRecruitEntity.class)
 public class AbstractRecruitEntityMixin {
 
