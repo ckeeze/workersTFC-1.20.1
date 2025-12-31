@@ -8,8 +8,6 @@ import net.dries007.tfc.common.blocks.crop.Crop;
 import net.dries007.tfc.common.blocks.rock.Ore;
 import net.dries007.tfc.common.blocks.rock.Rock;
 import net.dries007.tfc.common.blocks.soil.SandBlockType;
-import net.dries007.tfc.common.fluids.Alcohol;
-import net.dries007.tfc.common.fluids.TFCFluids;
 import net.dries007.tfc.common.items.*;
 
 import com.ckeeze.workerstfc.Workerstfc;
@@ -19,12 +17,10 @@ import net.dries007.tfc.util.Metal;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.MerchantOffer; //
-import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.event.village.VillagerTradesEvent; //
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraft.world.entity.npc.VillagerProfession; //
 import net.minecraft.world.entity.npc.VillagerTrades; //
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
