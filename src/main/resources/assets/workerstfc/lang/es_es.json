@@ -5,5 +5,9 @@
   "item.workerstfc.weaknessbomb": "Debilidad Bomba",
   "item.workerstfc.gildedfruit": "Fruta Dorada",
 
-  "creativetab.workerstfc.items": "WorkersTFC"
+  "creativetab.workerstfc.items": "WorkersTFC",
+
+  "item.minecraft.explorer_pottery_sherd": "Sestert",
+  "item.minecraft.danger_pottery_sherd": "Aureus",
+  "item.minecraft.brewer_pottery_sherd": "Denar"
 }

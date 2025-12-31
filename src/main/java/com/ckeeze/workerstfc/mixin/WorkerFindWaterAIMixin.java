@@ -29,7 +29,7 @@ public abstract class WorkerFindWaterAIMixin extends Goal{
             while(this.worker.level().isEmptyBlock(blockpos1) && blockpos1.getY() > 1){
                 blockpos1 = blockpos1.below();
             }
-            if(this.worker.getCommandSenderWorld().getFluidState(blockpos1).is(TFCTags.Fluids.WATER_LIKE)){
+            if(this.worker.getCommandSenderWorld().getFluidState(blockpos1).is(TFCTags.Fluids.ANY_WATER)){
                 blockpos = blockpos1;
             }
         }

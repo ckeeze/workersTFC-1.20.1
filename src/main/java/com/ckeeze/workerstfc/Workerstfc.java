@@ -1,8 +1,10 @@
 package com.ckeeze.workerstfc;
 
+import com.ckeeze.workerstfc.block.ModBlocks;
 import com.ckeeze.workerstfc.entity.ModEntities;
 import com.ckeeze.workerstfc.item.ModCreativeTabs;
 import com.ckeeze.workerstfc.item.ModItems;
+import com.ckeeze.workerstfc.villager.ModVillagers;
 import com.mojang.logging.LogUtils;
 import com.talhanation.recruits.config.RecruitsServerConfig;
 import com.talhanation.workers.config.WorkersModConfig;
@@ -59,7 +61,9 @@ public class Workerstfc
         ModCreativeTabs.register(modEventBus);
 
         ModItems.refister(modEventBus);
+        ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModVillagers.register(modEventBus);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -75,9 +79,9 @@ public class Workerstfc
         RECRUITMOUNTS = RecruitsServerConfig.MOUNTS;
         RECRUITMOUNTS.add("tfc:horse");
 
-        RecruitsServerConfig.RecruitCurrency.set(Config.workersAndRecruitsCurrency);
+        RecruitsServerConfig.RecruitCurrency.set(Config.recruitsCurrency);
         RecruitsServerConfig.RecruitHorseUnitsHorse.set(Config.recruitHorseUnitHorse);
-        WorkersModConfig.WorkersCurrency.set(Config.workersAndRecruitsCurrency);
+        WorkersModConfig.WorkersCurrency.set(Config.workersCurrency);
         if (Config.replaceStarterEquipment)
         {
             RecruitsServerConfig.RecruitStartEquipments.set(START_EQUIPMENT_RECRUIT);

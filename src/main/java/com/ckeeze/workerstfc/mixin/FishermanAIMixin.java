@@ -58,7 +58,7 @@ public abstract class FishermanAIMixin extends Goal {
                 if(DEBUG) fisherman.getCommandSenderWorld().setBlock(pos.above(4), Blocks.ICE.defaultBlockState(), 3);
 
                 double distance = fisherman.distanceToSqr(pos.getX(), pos.getY(), pos.getZ());
-                if(targetBlock.getFluidState().is(TFCTags.Fluids.WATER_LIKE) && distance > fishingRange) {
+                if(targetBlock.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER) && distance > fishingRange) {
                     for (int i = 0; i < 4; i++) {
                         if (this.fisherman.getCommandSenderWorld().getBlockState(pos.above(i)).isAir() && i == 3) {
                             waterBlocks.add(pos);
@@ -74,7 +74,7 @@ public abstract class FishermanAIMixin extends Goal {
                 if(DEBUG) fisherman.getCommandSenderWorld().setBlock(pos.above(4), Blocks.ICE.defaultBlockState(), 3);
 
                 double distance = fisherman.distanceToSqr(pos.getX(), pos.getY(), pos.getZ());
-                if (targetBlock.getFluidState().is(TFCTags.Fluids.WATER_LIKE) && distance > fishingRange) {
+                if (targetBlock.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER) && distance > fishingRange) {
                     for (int i = 0; i < 4; i++) {
                         if (this.fisherman.getCommandSenderWorld().getBlockState(pos.above(i)).isAir() && i == 3) {
                             waterBlocks.add(pos);
@@ -90,7 +90,7 @@ public abstract class FishermanAIMixin extends Goal {
                 if(DEBUG) fisherman.getCommandSenderWorld().setBlock(pos.above(4), Blocks.ICE.defaultBlockState(), 3);
 
                 double distance = fisherman.distanceToSqr(pos.getX(), pos.getY(), pos.getZ());
-                if (targetBlock.getFluidState().is(TFCTags.Fluids.WATER_LIKE) && distance > fishingRange) {
+                if (targetBlock.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER) && distance > fishingRange) {
                     for (int i = 0; i < 4; i++) {
                         if (this.fisherman.getCommandSenderWorld().getBlockState(pos.above(i)).isAir() && i == 3) {
                             waterBlocks.add(pos);
@@ -106,7 +106,7 @@ public abstract class FishermanAIMixin extends Goal {
                 if(DEBUG) fisherman.getCommandSenderWorld().setBlock(pos.above(4), Blocks.ICE.defaultBlockState(), 3);
 
                 double distance = fisherman.distanceToSqr(pos.getX(), pos.getY(), pos.getZ());
-                if (targetBlock.getFluidState().is(TFCTags.Fluids.WATER_LIKE) && distance > fishingRange) {
+                if (targetBlock.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER) && distance > fishingRange) {
                     for (int i = 0; i < 4; i++) {
                         if (this.fisherman.getCommandSenderWorld().getBlockState(pos.above(i)).isAir() && i == 3) {
                             waterBlocks.add(pos);
@@ -182,7 +182,7 @@ public abstract class FishermanAIMixin extends Goal {
                 BlockPos pos = pos1.offset(i, 0, k);
                 BlockState state = this.fisherman.getCommandSenderWorld().getBlockState(pos);
 
-                if (state.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
+                if (state.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER)){
                     return true;
                 }
                 //debug
@@ -232,7 +232,7 @@ public abstract class FishermanAIMixin extends Goal {
         int depth = 0;
         for(int i = 0; i < 10; i++){
             BlockState state = fisherman.getCommandSenderWorld().getBlockState(pos.below(i));
-            if(state.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
+            if(state.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER)){
                 depth++;
             }
             else break;
@@ -253,7 +253,7 @@ public abstract class FishermanAIMixin extends Goal {
                 BlockState targetBlockS = this.fisherman.getCommandSenderWorld().getBlockState(pos.south());
                 BlockState targetBlockW = this.fisherman.getCommandSenderWorld().getBlockState(pos.west());
 
-                if ((state.getFluidState().is(TFCTags.Fluids.WATER_LIKE)) && targetBlockN.getFluidState().is(TFCTags.Fluids.WATER_LIKE) || targetBlockE.getFluidState().is(TFCTags.Fluids.WATER_LIKE) || targetBlockS.getFluidState().is(TFCTags.Fluids.WATER_LIKE) || targetBlockW.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
+                if ((state.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER)) && targetBlockN.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER) || targetBlockE.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER) || targetBlockS.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER) || targetBlockW.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER)){
                     list.add(pos);
                 }
             }
@@ -280,7 +280,7 @@ public abstract class FishermanAIMixin extends Goal {
         int distance = 0;
         for(int i = 0; i < fishingRange; i++){
             BlockState targetBlockN = this.fisherman.getCommandSenderWorld().getBlockState(pos.relative(direction, i));
-            if (targetBlockN.getFluidState().is(TFCTags.Fluids.WATER_LIKE)){
+            if (targetBlockN.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER)){
                 distance++;
             }
             else break;
@@ -314,7 +314,7 @@ public abstract class FishermanAIMixin extends Goal {
 
                 BlockState targetBlock = this.fisherman.level().getBlockState(pos);
 
-                if (targetBlock.getFluidState().is(TFCTags.Fluids.WATER_LIKE)) {
+                if (targetBlock.getFluidState().is(TFCTags.Fluids.ANY_INFINITE_WATER)) {
                     list.add(pos);
                 }
             }

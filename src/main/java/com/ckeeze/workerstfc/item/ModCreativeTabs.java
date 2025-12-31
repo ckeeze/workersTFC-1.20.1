@@ -1,6 +1,7 @@
 package com.ckeeze.workerstfc.item;
 
 import com.ckeeze.workerstfc.Workerstfc;
+import com.ckeeze.workerstfc.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -23,6 +24,11 @@ public class ModCreativeTabs {
                         output.accept(ModItems.CERAMICROUNDJAR.get());
                         output.accept(ModItems.WEAKNESSBOMB.get());
                         output.accept(ModItems.GILDEDFRUIT.get());
+
+                        output.accept(ModBlocks.KEG.get());
+                        output.accept(ModBlocks.POTTERY_WHEEL.get());
+                        output.accept(ModBlocks.SPICE_TABLE.get());
+                        output.accept(ModBlocks.DYE_TABLE.get());
                     }).build());
 
     public static void register(IEventBus eventBus){

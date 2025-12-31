@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "tfc:lumber"
+    }
+  },
+  "pattern": [
+    "###",
+    "  #",
+    "###"
+  ],
+  "result": {
+    "item": "workerstfc:keg"
+  },
+  "show_notification": false
+}

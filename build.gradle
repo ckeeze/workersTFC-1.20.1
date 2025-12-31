@@ -66,7 +66,7 @@ dependencies {
 
     //workers and recruits from talhanation
     implementation fg.deobf("curse.maven:workers-567450:${workers_identifier}")
-    implementation fg.deobf("curse.maven:workers-523860:${recruits_identifier}")
+    implementation fg.deobf("curse.maven:recruits-523860:${recruits_identifier}")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }

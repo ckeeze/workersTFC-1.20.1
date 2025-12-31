@@ -1,0 +1,14 @@
+{
+  "values": [
+    "workerstfc:jeweler_poi",
+    "workerstfc:potter_poi",
+    "workerstfc:tavernkeep_poi",
+    "workerstfc:hunter_poi",
+    "workerstfc:weaver_poi",
+    "workerstfc:tfcfarmer_poi",
+    "workerstfc:tfcmason_poi",
+    "workerstfc:druid_poi",
+    "workerstfc:dyetrader_poi",
+    "workerstfc:spicetrader_poi"
+  ]
+}

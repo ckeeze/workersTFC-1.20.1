@@ -5,5 +5,25 @@
   "item.workerstfc.weaknessbomb": "Weakness Bomb",
   "item.workerstfc.gildedfruit": "Gilded Fruit",
 
-  "creativetab.workerstfc.items": "WorkersTFC"
+  "creativetab.workerstfc.items": "WorkersTFC",
+
+  "item.minecraft.explorer_pottery_sherd": "Sestert",
+  "item.minecraft.danger_pottery_sherd": "Aureus",
+  "item.minecraft.brewer_pottery_sherd": "Denar",
+
+  "entity.minecraft.villager.workerstfc.potter": "Potter",
+  "entity.minecraft.villager.workerstfc.hunter": "Hunter",
+  "entity.minecraft.villager.workerstfc.tfcfarmer": "Farmer",
+  "entity.minecraft.villager.workerstfc.weaver": "Weaver",
+  "entity.minecraft.villager.workerstfc.jeweler": "Jeweler",
+  "entity.minecraft.villager.workerstfc.tavernkeep": "Tavernkeep",
+  "entity.minecraft.villager.workerstfc.druid": "Druid",
+  "entity.minecraft.villager.workerstfc.tfcmason": "Stone Mason",
+  "entity.minecraft.villager.workerstfc.dyetrader": "Dye Trader",
+  "entity.minecraft.villager.workerstfc.spicetrader": "Spice Trader",
+
+  "block.workerstfc.keg": "Keg",
+  "block.workerstfc.pottery_wheel": "Pottery Wheel",
+  "block.workerstfc.spice_table": "Spice Table",
+  "block.workerstfc.dye_table": "Dye Table"
 }

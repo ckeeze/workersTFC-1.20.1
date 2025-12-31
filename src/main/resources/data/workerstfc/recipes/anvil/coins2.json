@@ -1,11 +1,11 @@
 {
   "type": "tfc:anvil",
   "input": {
-    "item": "tfc:metal/rod/bronze"
+    "item": "tfc:metal/ingot/bronze"
   },
   "result": {
     "item": "workerstfc:coin",
-    "count": 1
+    "count": 2
   },
   "tier": 1,
   "rules": [

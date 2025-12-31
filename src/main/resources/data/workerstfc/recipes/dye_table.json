@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "tfc:lumber"
+    },
+    "A": {
+      "tag": "forge:dyes"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "###",
+    "# #"
+  ],
+  "result": {
+    "item": "workerstfc:dye_table"
+  },
+  "show_notification": false
+}

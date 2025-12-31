@@ -5,5 +5,9 @@
   "item.workerstfc.weaknessbomb": "Gyengeség Bomba",
   "item.workerstfc.gildedfruit": "Aranyozott Gyümölcs",
 
-  "creativetab.workerstfc.items": "WorkersTFC"
+  "creativetab.workerstfc.items": "WorkersTFC",
+
+  "item.minecraft.explorer_pottery_sherd": "Szesztercius",
+  "item.minecraft.danger_pottery_sherd": "Áureus",
+  "item.minecraft.brewer_pottery_sherd": "Dénar"
 }

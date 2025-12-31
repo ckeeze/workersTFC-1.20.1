@@ -26,7 +26,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "tfc:metal/wrought_iron"
+          "name": "tfc:metal/chain/wrought_iron"
         }
       ],
       "rolls": 1.0

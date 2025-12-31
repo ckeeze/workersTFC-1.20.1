@@ -29,8 +29,14 @@ public class Config
             .comment("Default: true")
             .define("fullMoonVillagerZombies",true);
 
-    private static final ForgeConfigSpec.ConfigValue<String> WORKER_RECRUIT_CURRENCY = BUILDER
-            .comment("Overrides the default currency Villager Workers and Villager Recruits mods use")
+    private static final ForgeConfigSpec.ConfigValue<String> WORKER_CURRENCY = BUILDER
+            .comment("Overrides the default currency Villager Workers mod")
+            .comment("Ex: tfc:metal/bars/gold, minecraft:emerald") //tfc example incorrect
+            .comment("Default: workerstfc:coin")
+            .define("workersAndRecruitsCurrency", "workerstfc:coin");
+
+    private static final ForgeConfigSpec.ConfigValue<String> RECRUIT_CURRENCY = BUILDER
+            .comment("Overrides the default currency Villager Recruits mod")
             .comment("Ex: tfc:metal/bars/gold, minecraft:emerald") //tfc example incorrect
             .comment("Default: workerstfc:coin")
             .define("workersAndRecruitsCurrency", "workerstfc:coin");
@@ -56,7 +62,8 @@ public class Config
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean fullMoonVillagerZombies;
-    public static String workersAndRecruitsCurrency;
+    public static String workersCurrency;
+    public static String recruitsCurrency;
     public static boolean recruitHorseUnitHorse;
     public static boolean replaceStarterEquipment;
     public static List<String> recruitTFCMounts;
@@ -65,7 +72,8 @@ public class Config
     static void onLoad(final ModConfigEvent event)
     {
         fullMoonVillagerZombies = FULL_MOON_VILLAGER_ZOMBIES.get();
-        workersAndRecruitsCurrency = WORKER_RECRUIT_CURRENCY.get();
+        workersCurrency = WORKER_CURRENCY.get();
+        recruitsCurrency = RECRUIT_CURRENCY.get();
         recruitHorseUnitHorse = RECRUIT_HORSE_SPAWN.get();
         replaceStarterEquipment = REPLACE_STARTER_EQUIPMENT.get();
         recruitTFCMounts = TFC_MOUNT_LIST.get();

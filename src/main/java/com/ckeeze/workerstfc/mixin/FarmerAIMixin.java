@@ -23,6 +23,7 @@ import net.dries007.tfc.util.climate.Climate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
@@ -316,11 +317,33 @@ public abstract class FarmerAIMixin extends Goal {
         }
     }
 
+    public BlockPos getHoePos() {
+        // int range = 8;
+        for (int j = 0; j <= 14; j++) {
+            for (int i = 0; i <= 14; i++) {
+                BlockPos blockPos = this.waterPos.offset(j - 7, 0, i - 7);
+                BlockPos aboveBlockPos = blockPos.above();
+                BlockState blockState = this.farmer.getCommandSenderWorld().getBlockState(blockPos);
+                BlockState aboveBlockState = this.farmer.getCommandSenderWorld().getBlockState(aboveBlockPos);
+
+                Block block = blockState.getBlock();
+
+                boolean canSustainSeeds = FarmerEntity.TILLABLES.contains(block);
+                boolean hasSpaceAbove = (aboveBlockState.is(Blocks.AIR) || aboveBlockState.is(BlockTags.REPLACEABLE));
+
+                if (canSustainSeeds && hasSpaceAbove) {
+                    return blockPos;
+                }
+            }
+        }
+        return null;
+    }
+
     public BlockPos getPlantPos() {
         // int range = 8;
-        for (int j = 0; j <= 8; j++) {
-            for (int i = 0; i <= 8; i++) {
-                BlockPos blockPos = this.waterPos.offset(j - 4, 0, i - 4);
+        for (int j = 0; j <= 14; j++) {
+            for (int i = 0; i <= 14; i++) {
+                BlockPos blockPos = this.waterPos.offset(j - 7, 0, i - 7);
                 BlockPos aboveBlockPos = blockPos.above();
                 BlockState blockState = this.farmer.level().getBlockState(blockPos);
                 BlockState aboveBlockState = this.farmer.level().getBlockState(aboveBlockPos);
@@ -341,9 +364,9 @@ public abstract class FarmerAIMixin extends Goal {
     //HARVESTING
     public BlockPos getHarvestPos() {
         // int range = 8;
-        for (int j = 0; j <= 8; j++) {
-            for (int i = 0; i <= 8; i++) {
-                BlockPos blockPos = waterPos.offset(j - 4, 1, i - 4);
+        for (int j = 0; j <= 14; j++) {
+            for (int i = 0; i <= 14; i++) {
+                BlockPos blockPos = waterPos.offset(j - 7, 1, i - 7);
                 BlockState blockState = this.farmer.level().getBlockState(blockPos);
                 Block block = blockState.getBlock();
 
@@ -377,9 +400,9 @@ public abstract class FarmerAIMixin extends Goal {
     public BlockPos getFertilizePos() {
         SimpleContainer inventory = farmer.getInventory();
         // int range = 8;
-        for (int j = 0; j <= 8; j++) {
-            for (int i = 0; i <= 8; i++) {
-                BlockPos blockPos = waterPos.offset(j - 4, 1, i - 4);
+        for (int j = 0; j <= 14; j++) {
+            for (int i = 0; i <= 14; i++) {
+                BlockPos blockPos = waterPos.offset(j - 7, 1, i - 7);
                 BlockState blockState = this.farmer.getCommandSenderWorld().getBlockState(blockPos);
                 Block block = blockState.getBlock();
 

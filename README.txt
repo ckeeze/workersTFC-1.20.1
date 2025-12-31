@@ -28,7 +28,6 @@ Features:
 
 Planned:
   - Full moon spawn event to help players gather zombie villagers as their initial workers/recruits
-  - Animal farmers fully manage TFC animals
   - Miner Placing support beams when digging sideways
   - Lumberjack uses schyte to collect saplings
   - Fisherman consumes bait
@@ -61,6 +60,7 @@ DONE - make workers unwilling to eat spoilt food, or raw food
 
 DONE - make fisherman fish in saltwater (sometimes does wierd things)
 DONE - change fisherman items to TFC seafood items
+DONE - fix fisherman not detecting flowing water blocks
 - fix issue with flowing rivers (possibly make them not effect boats)
 DONE - nerf fisherman output (Way out of line of what's expected in Terrafirmacraft)
 
@@ -96,7 +96,6 @@ DONE - make vanilla villagers reproduce with tfc food
   - hunter (exchanges animal products, high level trade: big hide, wool)
   - potter (exchanges clay and pottery, High level trade: kaolin clay)
   - carpenter (exchanges wood types, high level trade: seqioa sapling)
-  - geologist (echanges ores and minerals)
   - gardener (exchanges seeds, fruits and saplings)
   - dye trader (exchanges dusts and dyes, high level trade: lapis)
   - jeweler (exchanges precious metals and gems)
@@ -107,7 +106,7 @@ DONE - make vanilla villagers reproduce with tfc food
 - make tfc villagers trade with coins (helps with food security/rare resources)
 - make tfc field guide entries for workers and recruits
 - update coins texture to something nicer
-- make 3x3 coinstack item for easier money storage
+- make coinpile block for easier money storage
 - make miner create support beams when tunneling sideways (disable 1 by 2 tunneling)
 - make farmer harvest fruits from bushes
 - make farmer harvest fruits from trees

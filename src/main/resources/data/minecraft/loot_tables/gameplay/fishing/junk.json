@@ -31,7 +31,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "tfc:flower_pot",
+          "name": "minecraft:flower_pot",
           "weight": 4
         },
         {

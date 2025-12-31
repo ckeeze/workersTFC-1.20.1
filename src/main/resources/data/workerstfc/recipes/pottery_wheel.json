@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "tfc:lumber"
+    },
+    "I": {
+      "tag": "tfc:axles"
+    },
+    "S": {
+      "tag": "tfc:rock/raw"
+    }
+  },
+  "pattern": [
+    " S ",
+    "#I#",
+    "#S#"
+  ],
+  "result": {
+    "item": "workerstfc:pottery_wheel"
+  },
+  "show_notification": false
+}
