@@ -119,7 +119,6 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
     //FOOD CHANGES
 
     private boolean hasEnoughofTag(ForgeItemTagsProvider Tag) {
-
         return true;
     }
 

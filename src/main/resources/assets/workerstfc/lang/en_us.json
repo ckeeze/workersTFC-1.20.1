@@ -22,6 +22,17 @@
   "entity.minecraft.villager.workerstfc.dyetrader": "Dye Trader",
   "entity.minecraft.villager.workerstfc.spicetrader": "Spice Trader",
 
+  "entity.minecraft.villager.potter": "Potter",
+  "entity.minecraft.villager.hunter": "Hunter",
+  "entity.minecraft.villager.tfcfarmer": "Farmer",
+  "entity.minecraft.villager.weaver": "Weaver",
+  "entity.minecraft.villager.jeweler": "Jeweler",
+  "entity.minecraft.villager.tavernkeep": "Tavernkeep",
+  "entity.minecraft.villager.druid": "Druid",
+  "entity.minecraft.villager.tfcmason": "Stone Mason",
+  "entity.minecraft.villager.dyetrader": "Dye Trader",
+  "entity.minecraft.villager.spicetrader": "Spice Trader",
+
   "block.workerstfc.keg": "Keg",
   "block.workerstfc.pottery_wheel": "Pottery Wheel",
   "block.workerstfc.spice_table": "Spice Table",

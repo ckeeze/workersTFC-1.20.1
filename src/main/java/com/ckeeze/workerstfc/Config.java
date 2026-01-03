@@ -28,7 +28,7 @@ public class Config
             .define("fullMoonVillagerZombies",true);
 
     private static final ForgeConfigSpec.ConfigValue<String> WORKER_CURRENCY = BUILDER
-            .comment("Overrides the default currency Villager Workers mod")
+            .comment("Overrides the default currency Villager Workers mod, it's also used by the modded villager professions as currency")
             .comment("Ex: tfc:metal/bars/gold, minecraft:emerald") //tfc example incorrect
             .comment("Default: workerstfc:coin")
             .define("workersAndRecruitsCurrency", "workerstfc:coin");

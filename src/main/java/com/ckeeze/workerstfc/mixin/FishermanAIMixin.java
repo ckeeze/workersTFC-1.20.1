@@ -39,6 +39,10 @@ public abstract class FishermanAIMixin extends Goal {
     }
 
     //Changed for modded water fishing
+    /**
+     * @author Ckeeze
+     * @reason detect TFC water blocks
+     */
     @Overwrite(remap = false)
     private BlockPos findWaterBlocks() {
         List<BlockPos> waterBlocks = new ArrayList<>();

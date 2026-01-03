@@ -22,6 +22,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -45,7 +46,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
-    private static final Set<Item> CATTLEFEED = ImmutableSet.of(
+    @Unique
+    private static final Set<Item> workersTFC_1_20_X$CATTLEFEED = ImmutableSet.of(
             TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(), TFCItems.FOOD.get(Food.OAT_GRAIN).get(),TFCItems.FOOD.get(Food.RICE_GRAIN).get(),
             TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(),TFCItems.FOOD.get(Food.RYE_GRAIN).get(),TFCItems.FOOD.get(Food.BARLEY_GRAIN).get()
             );
@@ -55,8 +57,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
             this.animalFarmer.getNavigation().moveTo(workPos.getX(), workPos.getY(), workPos.getZ(), 1);
 
         if (milking){
-            this.cow = findCowMilking();
-            if (this.cow.isPresent() && hasBucket()) {
+            this.cow = workersTFC_1_20_X$findCowMilking();
+            if (this.cow.isPresent() && workersTFC_1_20_X$hasBucket()) {
                 this.animalFarmer.getNavigation().moveTo(this.cow.get(), 1);
 
                 if(!animalFarmer.isRequiredMainTool(animalFarmer.getMainHandItem())) this.animalFarmer.changeToTool(true);
@@ -66,12 +68,12 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                     this.animalFarmer.getLookControl().setLookAt(cow.get().getX(), cow.get().getEyeY(), cow.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
 
                     animalFarmer.workerSwingArm();
-                    milkCow(this.cow.get());
+                    workersTFC_1_20_X$milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
             }
-            this.cow = findYakMilking();
-            if (this.cow.isPresent() && hasBucket()) {
+            this.cow = workersTFC_1_20_X$findYakMilking();
+            if (this.cow.isPresent() && workersTFC_1_20_X$hasBucket()) {
                 this.animalFarmer.getNavigation().moveTo(this.cow.get(), 1);
 
                 if(!animalFarmer.isRequiredMainTool(animalFarmer.getMainHandItem())) this.animalFarmer.changeToTool(true);
@@ -81,12 +83,12 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                     this.animalFarmer.getLookControl().setLookAt(cow.get().getX(), cow.get().getEyeY(), cow.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
 
                     animalFarmer.workerSwingArm();
-                    milkCow(this.cow.get());
+                    workersTFC_1_20_X$milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
             }
-            this.cow = findGoatMilking();
-            if (this.cow.isPresent() && hasBucket()) {
+            this.cow = workersTFC_1_20_X$findGoatMilking();
+            if (this.cow.isPresent() && workersTFC_1_20_X$hasBucket()) {
                 this.animalFarmer.getNavigation().moveTo(this.cow.get(), 1);
 
                 if(!animalFarmer.isRequiredMainTool(animalFarmer.getMainHandItem())) this.animalFarmer.changeToTool(true);
@@ -96,7 +98,7 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                     this.animalFarmer.getLookControl().setLookAt(cow.get().getX(), cow.get().getEyeY(), cow.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
 
                     animalFarmer.workerSwingArm();
-                    milkCow(this.cow.get());
+                    workersTFC_1_20_X$milkCow(this.cow.get());
                     this.cow = Optional.empty();
                 }
             }
@@ -108,11 +110,11 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         }
 
         if (breeding){
-            this.cow = findDairyAnimalFeeding();
+            this.cow = workersTFC_1_20_X$findDairyAnimalFeeding();
             if (this.cow.isPresent() ) {
                 int i = cow.get().getAge();
 
-                ItemStack CattleFeed = this.hasCattleFeed();
+                ItemStack CattleFeed = this.workersTFC_1_20_X$hasCattleFeed();
                 if (CattleFeed != null) {
                     this.animalFarmer.getNavigation().moveTo(this.cow.get(), 1);
                     this.animalFarmer.changeToBreedItem(CattleFeed.getItem());
@@ -142,14 +144,14 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         }
 
         if (slaughtering) {
-            List<DairyAnimal> cows = findOldDairyAnimal();
+            List<DairyAnimal> cows = workersTFC_1_20_X$findOldDairyAnimal();
             boolean kill;
             if (cows.isEmpty()) {
-                cows = findCowSlaughtering();
+                cows = workersTFC_1_20_X$findCowSlaughtering();
                 if (cows.size() <= animalFarmer.getMaxAnimalCount()) {
-                    cows = findGoatlaughtering();
+                    cows = workersTFC_1_20_X$findGoatSlaughtering();
                     if (cows.size() <= animalFarmer.getMaxAnimalCount()) {
-                        cows = findYakSlaughtering();
+                        cows = workersTFC_1_20_X$findYakSlaughtering();
                         kill = cows.size() > animalFarmer.getMaxAnimalCount();
                     } else {
                         kill = true;
@@ -197,7 +199,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         }
     }
 
-    public boolean hasBucket(){
+    @Unique
+    public boolean workersTFC_1_20_X$hasBucket(){
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
@@ -214,18 +217,20 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         return false;
     }
 
-    public ItemStack hasCattleFeed() {
+    @Unique
+    public ItemStack workersTFC_1_20_X$hasCattleFeed() {
         SimpleContainer inventory = animalFarmer.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (CATTLEFEED.contains(itemStack.getItem()))
+            if (workersTFC_1_20_X$CATTLEFEED.contains(itemStack.getItem()))
                 return itemStack;
         }
         return null;
     }
 
     //COWS
-    public void milkCow(DairyAnimal cow) {
+    @Unique
+    public void workersTFC_1_20_X$milkCow(DairyAnimal cow) {
         animalFarmer.workerSwingArm();
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
@@ -255,7 +260,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         cow.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
     }
 
-    private Optional<DairyAnimal> findCowMilking() {
+    @Unique
+    private Optional<DairyAnimal> workersTFC_1_20_X$findCowMilking() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.COW.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -264,7 +270,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .findAny();
     }
 
-    private Optional<DairyAnimal> findDairyAnimalFeeding() {
+    @Unique
+    private Optional<DairyAnimal> workersTFC_1_20_X$findDairyAnimalFeeding() {
         return  this.animalFarmer.getCommandSenderWorld().getEntitiesOfClass(DairyAnimal.class, this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -274,7 +281,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .findAny();
     }
 
-    private List<DairyAnimal> findCowSlaughtering() {
+    @Unique
+    private List<DairyAnimal> workersTFC_1_20_X$findCowSlaughtering() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.COW.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -283,7 +291,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .collect(Collectors.toList());
     }
 
-    private List<DairyAnimal> findOldDairyAnimal() {
+    @Unique
+    private List<DairyAnimal> workersTFC_1_20_X$findOldDairyAnimal() {
         return this.animalFarmer.getCommandSenderWorld().getEntitiesOfClass(DairyAnimal.class, this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -292,7 +301,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
     }
 
     //YAKS-------------------------------------------------------
-    public void milkYak(DairyAnimal cow) {
+    @Unique
+    public void workersTFC_1_20_X$milkYak(DairyAnimal cow) {
         animalFarmer.workerSwingArm();
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
@@ -314,7 +324,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         cow.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
     }
 
-    private Optional<DairyAnimal> findYakMilking() {
+    @Unique
+    private Optional<DairyAnimal> workersTFC_1_20_X$findYakMilking() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.YAK.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -323,7 +334,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .findAny();
     }
 
-    private List<DairyAnimal> findYakSlaughtering() {
+    @Unique
+    private List<DairyAnimal> workersTFC_1_20_X$findYakSlaughtering() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.YAK.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -335,7 +347,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
 
     //GOATS
 
-    public void milkGoat(DairyAnimal cow) {
+    @Unique
+    public void workersTFC_1_20_X$milkGoat(DairyAnimal cow) {
         animalFarmer.workerSwingArm();
         SimpleContainer inventory = animalFarmer.getInventory();
         for(int i = 0; i < inventory.getContainerSize(); i++) {
@@ -357,7 +370,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
         cow.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
     }
 
-    private Optional<DairyAnimal> findGoatMilking() {
+    @Unique
+    private Optional<DairyAnimal> workersTFC_1_20_X$findGoatMilking() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.GOAT.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()
@@ -366,7 +380,8 @@ public abstract class CattleFarmerAIMixin extends AnimalFarmerAI {
                 .findAny();
     }
 
-    private List<DairyAnimal> findGoatlaughtering() {
+    @Unique
+    private List<DairyAnimal> workersTFC_1_20_X$findGoatSlaughtering() {
         return  animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.GOAT.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), DairyAnimal::isAlive)
                 .stream()

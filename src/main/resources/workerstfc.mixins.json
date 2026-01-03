@@ -9,6 +9,7 @@
   "mixins": [
     "AbstractRecruitEntityMixin",
     "AbstractWorkerEntityMixin",
+    "BlunderbusWeaponMixin",
     "CattleFarmerEntityMixin",
     "CattleFarmerAIMixin",
     "ChickenFarmerEntityMixin",
@@ -24,6 +25,9 @@
     "LumberjackEntityMixin",
     "MinerAIMixin",
     "MinerEntityMixin",
+    "MusketBayonetWeaponMixin",
+    "MusketWeaponMixin",
+    "PistolWeaponMixin",
     "PoiTypesMixin",
     "ShepherdEntityMixin",
     "ShepherdAIMixin",

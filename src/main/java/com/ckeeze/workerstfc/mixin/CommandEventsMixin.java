@@ -32,6 +32,10 @@ public abstract class CommandEventsMixin{
             ,TFCBlocks.WOODS.get(Wood.SEQUOIA).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.SPRUCE).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.SYCAMORE).get(Wood.BlockType.CHEST).get()
             ,TFCBlocks.WOODS.get(Wood.WHITE_CEDAR).get(Wood.BlockType.CHEST).get(),TFCBlocks.WOODS.get(Wood.WILLOW).get(Wood.BlockType.CHEST).get());
 
+    /**
+     * @author Ckeeze
+     * @reason Enable modded chests
+     */
     @Overwrite(remap = false)
     public static void setChestPosWorker(UUID player_uuid, AbstractWorkerEntity worker, BlockPos blockpos) {
         LivingEntity owner = worker.getOwner();

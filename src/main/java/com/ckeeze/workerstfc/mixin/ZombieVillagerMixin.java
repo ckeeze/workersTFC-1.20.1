@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -38,7 +39,7 @@ public abstract class ZombieVillagerMixin extends Zombie implements VillagerData
         });
     }
 
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (itemstack.is(Items.GOLDEN_APPLE) || itemstack.getItem() == ModItems.GILDEDFRUIT.get()) {
             if (this.hasEffect(MobEffects.WEAKNESS)) {

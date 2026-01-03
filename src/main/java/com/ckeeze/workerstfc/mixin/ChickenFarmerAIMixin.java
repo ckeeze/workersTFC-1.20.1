@@ -18,6 +18,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -41,7 +42,8 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
-    private static final Set<Item> CHICKENFEED = ImmutableSet.of(
+    @Unique
+    private static final Set<Item> workersTFC_1_20_X$CHICKENFEED = ImmutableSet.of(
             TFCItems.FOOD.get(Food.WHEAT_GRAIN).get(),
             TFCItems.FOOD.get(Food.OAT_GRAIN).get(),TFCItems.FOOD.get(Food.RICE_GRAIN).get(),TFCItems.FOOD.get(Food.MAIZE_GRAIN).get(),TFCItems.FOOD.get(Food.RYE_GRAIN).get(),TFCItems.FOOD.get(Food.BARLEY_GRAIN).get(),
             TFCItems.FOOD.get(Food.SNOWBERRY).get(),TFCItems.FOOD.get(Food.BLUEBERRY).get(),TFCItems.FOOD.get(Food.BLACKBERRY).get(),TFCItems.FOOD.get(Food.RASPBERRY).get(),TFCItems.FOOD.get(Food.GOOSEBERRY).get(),
@@ -76,9 +78,9 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
             this.animalFarmer.getNavigation().moveTo(workPos.getX(), workPos.getY(), workPos.getZ(), 1);
 
         if (breeding) {
-            this.chicken = findChickenBreeding();
+            this.chicken = workersTFC_1_20_X$findChickenBreeding();
             if (this.chicken.isPresent()) {
-                ItemStack ChickenFeed = this.hasSeeds();
+                ItemStack ChickenFeed = this.workersTFC_1_20_X$hasSeeds();
                 if (ChickenFeed != null) {
                     this.animalFarmer.changeToBreedItem(ChickenFeed.getItem());
 
@@ -104,14 +106,14 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
         }
 
         if (slaughtering) {
-            List<OviparousAnimal> chickens = findOldChickenSlaughtering();
+            List<OviparousAnimal> chickens = workersTFC_1_20_X$findOldChickenSlaughtering();
             boolean kill;
             if (chickens.isEmpty()){
-                chickens = findChickenSlaughtering();
+                chickens = workersTFC_1_20_X$findChickenSlaughtering();
                 if(chickens.size() <= animalFarmer.getMaxAnimalCount()){
-                    chickens = findDuckSlaughtering();
+                    chickens = workersTFC_1_20_X$findDuckSlaughtering();
                     if(chickens.size() <= animalFarmer.getMaxAnimalCount()){
-                        chickens = findQuailSlaughtering();
+                        chickens = workersTFC_1_20_X$findQuailSlaughtering();
                         kill = chickens.size() > animalFarmer.getMaxAnimalCount();
                     }
                     else{
@@ -160,17 +162,19 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
         }
     }
 
-    public ItemStack hasSeeds() {
+    @Unique
+    public ItemStack workersTFC_1_20_X$hasSeeds() {
         SimpleContainer inventory = animalFarmer.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (CHICKENFEED.contains(itemStack.getItem()))
+            if (workersTFC_1_20_X$CHICKENFEED.contains(itemStack.getItem()))
                 return itemStack;
         }
         return null;
     }
 
-    private Optional<OviparousAnimal> findChickenBreeding() {
+    @Unique
+    private Optional<OviparousAnimal> workersTFC_1_20_X$findChickenBreeding() {
         return  this.animalFarmer.getCommandSenderWorld().getEntitiesOfClass(OviparousAnimal.class, this.animalFarmer.getBoundingBox()
                         .inflate(8D), OviparousAnimal::isAlive)
                 .stream()
@@ -180,7 +184,8 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
                 .findAny();
     }
 
-    private List<OviparousAnimal> findOldChickenSlaughtering() {
+    @Unique
+    private List<OviparousAnimal> workersTFC_1_20_X$findOldChickenSlaughtering() {
         return animalFarmer.getCommandSenderWorld()
                 .getEntitiesOfClass(OviparousAnimal.class, animalFarmer.getBoundingBox().inflate(8D), OviparousAnimal::isAlive)
                 .stream()
@@ -189,7 +194,8 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
 
     }
 
-    private List<OviparousAnimal> findChickenSlaughtering() {
+    @Unique
+    private List<OviparousAnimal> workersTFC_1_20_X$findChickenSlaughtering() {
         return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.CHICKEN.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), OviparousAnimal::isAlive)
                 .stream()
@@ -198,7 +204,8 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
                 .collect(Collectors.toList());
     }
 
-    private List<OviparousAnimal> findDuckSlaughtering() {
+    @Unique
+    private List<OviparousAnimal> workersTFC_1_20_X$findDuckSlaughtering() {
         return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.DUCK.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), OviparousAnimal::isAlive)
                 .stream()
@@ -207,7 +214,8 @@ public abstract class ChickenFarmerAIMixin extends AnimalFarmerAI{
                 .collect(Collectors.toList());
     }
 
-    private List<OviparousAnimal> findQuailSlaughtering() {
+    @Unique
+    private List<OviparousAnimal> workersTFC_1_20_X$findQuailSlaughtering() {
         return this.animalFarmer.getCommandSenderWorld().getEntities(TFCEntities.QUAIL.get(), this.animalFarmer.getBoundingBox()
                         .inflate(8D), OviparousAnimal::isAlive)
                 .stream()

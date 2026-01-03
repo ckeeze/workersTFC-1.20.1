@@ -15,9 +15,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 @Mixin(AbstractRecruitEntity.class)
@@ -30,6 +33,11 @@ public abstract class AbstractRecruitEntityMixin extends AbstractInventoryEntity
         this.setMaxUpStep(1.0F);
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Allowing modded food to be eaten
+     */
+    @Overwrite(remap = false)
     public boolean canEatItemStack(ItemStack stack){
         ResourceLocation location = ForgeRegistries.ITEMS.getKey(stack.getItem());
         if(FoodCapability.isRotten(stack) || stack.is(Items.ROTTEN_FLESH) || RecruitsServerConfig.FoodBlackList.get().contains(location.toString())){
@@ -41,14 +49,14 @@ public abstract class AbstractRecruitEntityMixin extends AbstractInventoryEntity
     @Inject(at = @At("HEAD"), method = "disband", remap = false)
     protected void disband(Player player, boolean keepTeam, boolean increaseCost, CallbackInfo ci){
         if (this.getTeam() != null) {
-            TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName()).addNPCs(-1);
+            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName())).addNPCs(-1);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "die")
     public void die(DamageSource dmg, CallbackInfo ci) {
         if (this.getTeam() != null) {
-            TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName()).addNPCs(-1);
+            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName())).addNPCs(-1);
         }
     }
 }

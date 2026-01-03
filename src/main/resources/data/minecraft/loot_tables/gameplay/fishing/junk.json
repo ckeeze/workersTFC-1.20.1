@@ -36,7 +36,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "tfc:driftwood",
+          "name": "tfc:groundcover/driftwood",
           "weight": 30
         },
         {
