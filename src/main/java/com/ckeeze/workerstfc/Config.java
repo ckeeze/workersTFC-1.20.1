@@ -31,13 +31,13 @@ public class Config
             .comment("Overrides the default currency Villager Workers mod, it's also used by the modded villager professions as currency")
             .comment("Ex: tfc:metal/bars/gold, minecraft:emerald") //tfc example incorrect
             .comment("Default: workerstfc:coin")
-            .define("workersAndRecruitsCurrency", "workerstfc:coin");
+            .define("workersCurrency", "workerstfc:coin");
 
     private static final ForgeConfigSpec.ConfigValue<String> RECRUIT_CURRENCY = BUILDER
             .comment("Overrides the default currency Villager Recruits mod")
             .comment("Ex: tfc:metal/bars/gold, minecraft:emerald") //tfc example incorrect
             .comment("Default: workerstfc:coin")
-            .define("workersAndRecruitsCurrency", "workerstfc:coin");
+            .define("RecruitsCurrency", "workerstfc:coin");
 
     private static final ForgeConfigSpec.BooleanValue RECRUIT_HORSE_SPAWN = BUILDER
             .comment("Overrides Horse spawns by horsemen of Villager Recruits mod")
