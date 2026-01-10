@@ -165,8 +165,6 @@ public abstract class LumberjackAIMixin extends Goal {
                     setWorkState(IDLE);
                 }
             }
-
-
         }
     }
 
