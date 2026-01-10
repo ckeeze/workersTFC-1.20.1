@@ -16,15 +16,21 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
 @Mixin(AbstractRecruitEntity.class)
 public abstract class AbstractRecruitEntityMixin extends AbstractInventoryEntity {
+
+    @Shadow @Nullable public abstract Player getOwner();
+
+    @Shadow public abstract boolean isOwned();
 
     public AbstractRecruitEntityMixin(EntityType<? extends AbstractInventoryEntity> entityType, Level world) {
         super(entityType, world);
@@ -53,10 +59,13 @@ public abstract class AbstractRecruitEntityMixin extends AbstractInventoryEntity
         }
     }
 
-    @Inject(at = @At("TAIL"), method = "die")
+    @Inject(at = @At("HEAD"), method = "die")
     public void die(DamageSource dmg, CallbackInfo ci) {
-        if (this.getTeam() != null) {
-            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName())).addNPCs(-1);
+        if (this.isOwned() && this.getTeam() != null) {
+            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(Objects.requireNonNull(Objects.requireNonNull(this.getOwner()).getTeam()).getName())).addNPCs(-1);
+        }
+        if (!this.isOwned() && this.getTeam() != null){
+            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(Objects.requireNonNull(Objects.requireNonNull(this.getTeam()).getName()))).addNPCs(1);
         }
     }
 }

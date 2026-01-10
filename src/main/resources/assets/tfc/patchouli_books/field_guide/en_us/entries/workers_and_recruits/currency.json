@@ -1,0 +1,16 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "name": "Currency",
+  "category": "tfc:workers_and_recruits",
+  "icon": "workerstfc:coin",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "By Default WorkersTFC replaces the currency of recruits to a new item called $(thing)coin$(). It's also used for the custom trades added by the mod. $(br)To craft $(thing)coins$() you need to work an ingot of copper, bronze, silver or gold in an $(thing)anvil$(). Rarer metals yield more $(thing)coin$()."
+    },
+    {
+      "type": "tfc:anvil_recipe",
+      "recipe": "workerstfc:anvil/coins1"
+    }
+  ]
+}

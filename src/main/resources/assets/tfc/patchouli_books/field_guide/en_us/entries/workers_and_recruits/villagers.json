@@ -1,0 +1,27 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "name": "How to get Villagers",
+  "category": "tfc:workers_and_recruits",
+  "icon": "workerstfc:gildedfruit",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "workerstfc:weaknessbomb",
+      "text": "From $(thing)Ceramic Round Jars$() and a few other items you can create an alternative weakness potion. $(br)You can cure zombie villagers who now spawn along with normal zombies underground."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "workerstfc:gapple1",
+      "text": "$(thing)Gilded Fruits$() can not heal you but, they can cure the zombie villagers, just like Golden Apples. You can make them out of any fruit grown on trees."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Once you have at least 2 Villagers, they can breed the same way they breed in Vanilla. You need plenty of beds and food. Except now they can eat any and all Bread types from TFC and any type of vegetables."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "workerstfc:recruitblock",
+      "text": "When you have enough villagers you may convert them to $(thing)Recruits$(), or $(thing)Workers$(), with the various tables. Check JEI for all other recipes."
+    }
+  ]
+}
