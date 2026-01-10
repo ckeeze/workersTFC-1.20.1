@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-@SuppressWarnings({"removal", "unused"})
+@SuppressWarnings("unused")
 @Mixin(MinerEntity.class)
 public abstract class MinerEntityMixin extends AbstractInventoryEntity {
 

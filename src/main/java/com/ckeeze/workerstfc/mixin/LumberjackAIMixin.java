@@ -165,6 +165,13 @@ public abstract class LumberjackAIMixin extends Goal {
                     setWorkState(IDLE);
                 }
             }
+
+            case STOPPING -> {
+                // Handle stopping state
+                lumber.stopRiding();
+                lumber.getNavigation().stop();
+                setWorkState(IDLE);
+            }
         }
     }
 

@@ -26,7 +26,7 @@ public class ModItems {
 
 
 
-    public static void refister(IEventBus eventBus){
+    public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }
 }

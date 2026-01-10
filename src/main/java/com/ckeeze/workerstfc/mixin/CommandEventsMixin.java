@@ -18,7 +18,7 @@ import java.util.*;
 import static com.talhanation.workers.Translatable.TEXT_CHEST;
 import static com.talhanation.workers.Translatable.TEXT_CHEST_ERROR;
 
-@SuppressWarnings({"removal", "unused"})
+@SuppressWarnings("unused")
 @Mixin(CommandEvents.class)
 public abstract class CommandEventsMixin{
 

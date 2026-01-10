@@ -1,6 +1,7 @@
 package com.ckeeze.workerstfc.mixin;
 
-import com.talhanation.recruits.TeamEvents;
+import com.talhanation.recruits.RecruitEvents;
+// import com.talhanation.recruits.TeamEvents; // Commented out - class not found
 import com.talhanation.recruits.config.RecruitsServerConfig;
 import com.talhanation.recruits.entities.AbstractInventoryEntity;
 import com.talhanation.recruits.entities.AbstractRecruitEntity;
@@ -49,14 +50,14 @@ public abstract class AbstractRecruitEntityMixin extends AbstractInventoryEntity
     @Inject(at = @At("HEAD"), method = "disband", remap = false)
     protected void disband(Player player, boolean keepTeam, boolean increaseCost, CallbackInfo ci){
         if (this.getTeam() != null) {
-            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName())).addNPCs(-1);
+            RecruitEvents.recruitsPlayerUnitManager.removeRecruits(this.getUUID(), 1);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "die")
     public void die(DamageSource dmg, CallbackInfo ci) {
         if (this.getTeam() != null) {
-            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName())).addNPCs(-1);
+            RecruitEvents.recruitsPlayerUnitManager.removeRecruits(this.getUUID(), 1);
         }
     }
 }

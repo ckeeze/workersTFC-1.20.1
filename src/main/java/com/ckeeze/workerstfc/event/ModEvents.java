@@ -26,7 +26,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.entity.npc.VillagerTrades; //
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event){
 
-        Item CurrencyItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Config.workersCurrency));
+        Item CurrencyItem = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(Config.workersCurrency));
         if (CurrencyItem == null){
             CurrencyItem = ModItems.COIN.get();
         }
