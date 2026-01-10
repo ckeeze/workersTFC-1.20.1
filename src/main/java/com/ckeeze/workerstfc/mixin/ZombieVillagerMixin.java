@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,9 +35,12 @@ public abstract class ZombieVillagerMixin extends Zombie implements VillagerData
 
     public ZombieVillagerMixin(EntityType<? extends ZombieVillager> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        BuiltInRegistries.VILLAGER_PROFESSION.getRandom(this.random).ifPresent((p_255550_) -> {
-            this.setVillagerData(this.getVillagerData().setProfession(p_255550_.value()));
-        });
+        ForgeRegistries.VILLAGER_PROFESSIONS.getValues().stream()
+                .skip((int) (this.random.nextFloat() * ForgeRegistries.VILLAGER_PROFESSIONS.getValues().size()))
+                .findFirst()
+                .ifPresent((profession) -> {
+                    this.setVillagerData(this.getVillagerData().setProfession(profession));
+                });
     }
 
     public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {

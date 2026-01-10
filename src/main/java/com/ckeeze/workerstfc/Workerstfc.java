@@ -60,7 +60,7 @@ public class Workerstfc
 
         ModCreativeTabs.register(modEventBus);
 
-        ModItems.refister(modEventBus);
+        ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
         ModVillagers.register(modEventBus);

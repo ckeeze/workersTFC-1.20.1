@@ -109,6 +109,6 @@ public class PoiTypesMixin {
 
     @Shadow
     private static ResourceKey<PoiType> createKey(String pName) {
-        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, new ResourceLocation(pName));
+        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.parse(pName));
     }
 }
