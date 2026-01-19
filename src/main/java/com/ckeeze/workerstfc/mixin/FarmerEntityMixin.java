@@ -8,6 +8,7 @@ import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.dries007.tfc.common.blocks.crop.Crop;
 import net.dries007.tfc.common.blocks.rock.RockCategory;
 import net.dries007.tfc.common.blocks.soil.SoilBlockType;
+import net.dries007.tfc.common.items.Food;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.util.Metal;
 import net.minecraft.world.entity.EntityType;
@@ -68,7 +69,13 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             Items.MELON_SLICE,
             Items.POTATO,
             Items.BEETROOT,
-            Items.CARROT);
+            Items.CARROT,
+            TFCItems.FOOD.get(Food.RICE).get(),
+            TFCItems.FOOD.get(Food.OAT).get(),
+            TFCItems.FOOD.get(Food.BARLEY).get(),
+            TFCItems.FOOD.get(Food.RYE).get(),
+            TFCItems.FOOD.get(Food.MAIZE).get(),
+            TFCItems.FOOD.get(Food.WHEAT).get());
 
     private static final Set<Block> CROP_BLOCKS = ImmutableSet.of(
             Blocks.WHEAT,
