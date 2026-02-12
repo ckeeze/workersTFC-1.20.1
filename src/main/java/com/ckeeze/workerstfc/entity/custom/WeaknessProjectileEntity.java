@@ -13,6 +13,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class WeaknessProjectileEntity extends ThrowableItemProjectile {
 
@@ -20,16 +21,12 @@ public class WeaknessProjectileEntity extends ThrowableItemProjectile {
         super(pentityType, plevel);
     }
 
-    public WeaknessProjectileEntity(Level plevel) {
-        super(ModEntities.WEAKNESS_PROJECTILY.get(), plevel);
-    }
-
     public WeaknessProjectileEntity(Level plevel, LivingEntity livingEntity) {
         super(ModEntities.WEAKNESS_PROJECTILY.get(), livingEntity, plevel);
     }
 
     @Override
-    protected Item getDefaultItem() {
+    protected @NotNull Item getDefaultItem() {
         return ModItems.WEAKNESSBOMB.get();
     }
 
@@ -39,7 +36,7 @@ public class WeaknessProjectileEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult pResult){
+    protected void onHitBlock(@NotNull BlockHitResult pResult){
         if(!this.level().isClientSide()){
             this.level().broadcastEntityEvent( this, ((byte) 3));
             this.makeAreaOfEffectWeaknessCloud(Potions.WEAKNESS);

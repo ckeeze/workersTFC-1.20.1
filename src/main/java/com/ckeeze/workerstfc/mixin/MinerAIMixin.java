@@ -10,14 +10,18 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
-import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.*;
 
 import java.util.EnumSet;
 
 @SuppressWarnings("unused")
 @Mixin(MinerAI.class)
 public abstract class MinerAIMixin extends Goal {
+    @Mutable
+    @Final
+    @Shadow
     private final MinerEntity miner;
+    @Shadow
     private BlockPos minePos;
 
     public MinerAIMixin(MinerEntity miner) {
@@ -25,6 +29,11 @@ public abstract class MinerAIMixin extends Goal {
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Changing torch items to TFC torch
+     */
+    @Overwrite(remap = false)
     public void placeTorch(){
         if (hasTorchInInv()){
             miner.level().setBlock(miner.getOnPos().above(), TFCBlocks.TORCH.get().defaultBlockState(), 3);
@@ -37,6 +46,11 @@ public abstract class MinerAIMixin extends Goal {
         }
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Changing torch items to TFC torch
+     */
+    @Overwrite(remap = false)
     public boolean hasTorchInInv() {
         return miner.getInventory().hasAnyOf(ImmutableSet.of(TFCItems.TORCH.get()));
     }

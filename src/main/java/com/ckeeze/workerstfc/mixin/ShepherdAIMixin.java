@@ -14,6 +14,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.IForgeShearable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -44,7 +45,7 @@ public abstract class ShepherdAIMixin extends AnimalFarmerAI implements IForgeSh
             this.animalFarmer.getNavigation().moveTo(workPos.getX(), workPos.getY(), workPos.getZ(), 1);
 
         if (sheering) {
-            this.sheep = findSheepSheering();
+            this.sheep = findSheepShearing();
             if (animalFarmer.hasMainToolInInv() && this.sheep.isPresent()) {
 
                 this.animalFarmer.getNavigation().moveTo(this.sheep.get(), 1);
@@ -52,7 +53,7 @@ public abstract class ShepherdAIMixin extends AnimalFarmerAI implements IForgeSh
                 if(!animalFarmer.isRequiredMainTool(animalFarmer.getMainHandItem())) this.animalFarmer.changeToTool(true);
 
                 if (sheep.get().closerThan(this.animalFarmer, 2)) {
-                    this.sheerSheep(this.sheep.get());
+                    this.shearSheep(this.sheep.get());
                     sheep.get().playSound(SoundEvents.SHEEP_SHEAR);
                     this.animalFarmer.getLookControl().setLookAt(sheep.get().getX(), sheep.get().getEyeY(), sheep.get().getZ(), 10.0F, (float) this.animalFarmer.getMaxHeadXRot());
                     this.sheep = Optional.empty();
@@ -153,7 +154,7 @@ public abstract class ShepherdAIMixin extends AnimalFarmerAI implements IForgeSh
         }
     }
 
-    public void sheerSheep(WoolyAnimal sheepEntity) {
+    public void shearSheep(WoolyAnimal sheepEntity) {
         sheepEntity.addUses(1);
         sheepEntity.setProductsCooldown();
         this.animalFarmer.getInventory().addItem(sheepEntity.getWoolItem());
@@ -164,7 +165,7 @@ public abstract class ShepherdAIMixin extends AnimalFarmerAI implements IForgeSh
         this.animalFarmer.consumeToolDurability();
     }
 
-    private Optional<WoolyAnimal> findSheepSheering() {
+    private Optional<WoolyAnimal> findSheepShearing() {
         return animalFarmer.getCommandSenderWorld()
                 .getEntitiesOfClass(WoolyAnimal.class, animalFarmer.getBoundingBox().inflate(8D), WoolyAnimal::hasProduct)
                 .stream()

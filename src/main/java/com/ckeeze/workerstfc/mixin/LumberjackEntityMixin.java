@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +26,11 @@ public abstract class LumberjackEntityMixin extends AbstractInventoryEntity {
         super(entityType, world);
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Changing starter items to TFC items
+     */
+    @Overwrite(remap = false)
     public void setEquipment() {
         ItemStack initialTool = new ItemStack(TFCItems.ROCK_TOOLS.get(RockCategory.IGNEOUS_EXTRUSIVE).get(RockCategory.ItemType.AXE).get());
         this.updateInventory(0, initialTool);
@@ -35,6 +41,11 @@ public abstract class LumberjackEntityMixin extends AbstractInventoryEntity {
         return 64;
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Changing displayed items to TFC items
+     */
+    @Overwrite(remap = false)
     public List<Item> inventoryInputHelp() {
         return Arrays.asList(TFCItems.METAL_ITEMS.get(Metal.Default.WROUGHT_IRON).get(Metal.ItemType.AXE).get(), TFCBlocks.WOODS.get(Wood.MAPLE).get(Wood.BlockType.SAPLING).get().asItem());
     }

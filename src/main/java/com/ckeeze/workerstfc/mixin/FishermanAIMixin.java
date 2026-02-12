@@ -20,19 +20,26 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.*;
 
 import java.util.*;
 
 @SuppressWarnings("unused")
 @Mixin(FishermanAI.class)
 public abstract class FishermanAIMixin extends Goal {
+    @Mutable
+    @Final
+    @Shadow
     private final FishermanEntity fisherman;
+    @Shadow
     private int fishingTimer = 1000;
+    @Shadow
     private int fishingRange;
+    @Shadow
     private BlockPos coastPos;
+    @Shadow
     private boolean DEBUG = false;
+    @Shadow
     private BlockPos fishingPos = null;
     public FishermanAIMixin(FishermanEntity fishermanEntity) {
         this.fisherman = fishermanEntity;
@@ -170,13 +177,16 @@ public abstract class FishermanAIMixin extends Goal {
                 return null;
         }
     }
-    //needed for findwater method
-    @Overwrite(remap = false)
+    //needed for find water method
+    @Shadow
     private double getDistanceToFisherStartPos(BlockPos pos){
-        return fisherman.getStartPos().distToCenterSqr(pos.getX(), fisherman.getStartPos().getY(), pos.getZ());//Horizontal distance
+        return 0;
     }
 
-    //Changed for modded water fishing
+    /**
+     * @author Ckeeze
+     * @reason Making fisherman work in modded water blocks
+     */
     @Overwrite(remap = false)
     private boolean isValidFishingSpot(BlockPos pos1, boolean coastFishing){
         int range = coastFishing ? 2 : 4;
@@ -198,7 +208,10 @@ public abstract class FishermanAIMixin extends Goal {
         return false;
     }
 
-    //Fisherman nerf
+    /**
+     * @author Ckeeze
+     * @reason Nerf work speed of fisherman
+     */
     @Overwrite(remap = false)
     public void spawnFishingLoot() {
         int depth;
@@ -231,6 +244,10 @@ public abstract class FishermanAIMixin extends Goal {
     }
 
     //Changed for modded water fishing
+    /**
+     * @author Ckeeze
+     * @reason Pinging modded water
+     */
     @Overwrite(remap = false)
     private int getWaterDepth(BlockPos pos){
         int depth = 0;
@@ -244,7 +261,10 @@ public abstract class FishermanAIMixin extends Goal {
         return depth;
     }
 
-    //Changed for modded water fishing
+    /**
+     * @author Ckeeze
+     * @reason Changed for modded water fishing
+     */
     @Overwrite(remap = false)
     private BlockPos getCoastPos() {
         List<BlockPos> list = new ArrayList<>();
@@ -278,7 +298,10 @@ public abstract class FishermanAIMixin extends Goal {
         }
     }
 
-    //Changed for modded water fishing
+    /**
+     * @author Ckeeze
+     * @reason Changed for modded water fishing
+     */
     @Overwrite(remap = false)
     private int getDistanceWithWater(BlockPos pos, Direction direction){
         int distance = 0;
@@ -292,7 +315,10 @@ public abstract class FishermanAIMixin extends Goal {
         return distance;
     }
 
-    //Changed for modded water fishing
+    /**
+     * @author CKeeze
+     * @reason Changed for modded water fishing
+     */
     @Nullable
     @Overwrite(remap = false)
     private BlockPos getWaterField() {

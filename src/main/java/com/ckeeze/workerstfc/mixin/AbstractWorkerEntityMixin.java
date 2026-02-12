@@ -35,6 +35,10 @@ public abstract class AbstractWorkerEntityMixin {
         return 32;
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Nerfing hunger rate to make workers actually viable
+     */
     @Overwrite(remap =false)
     public void updateHunger() {
         AbstractWorkerEntity.Status status = this.getStatus();

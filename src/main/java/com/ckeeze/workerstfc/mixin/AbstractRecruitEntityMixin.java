@@ -1,9 +1,10 @@
 package com.ckeeze.workerstfc.mixin;
 
-import com.talhanation.recruits.TeamEvents;
+import com.talhanation.recruits.FactionEvents;
 import com.talhanation.recruits.config.RecruitsServerConfig;
 import com.talhanation.recruits.entities.AbstractInventoryEntity;
 import com.talhanation.recruits.entities.AbstractRecruitEntity;
+import com.talhanation.recruits.world.RecruitsFaction;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 
 import net.minecraft.resources.ResourceLocation;
@@ -50,22 +51,5 @@ public abstract class AbstractRecruitEntityMixin extends AbstractInventoryEntity
             return false;
         }
         return stack.isEdible();
-    }
-
-    @Inject(at = @At("HEAD"), method = "disband", remap = false)
-    protected void disband(Player player, boolean keepTeam, boolean increaseCost, CallbackInfo ci){
-        if (this.getTeam() != null) {
-            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(this.getTeam().getName())).addNPCs(-1);
-        }
-    }
-
-    @Inject(at = @At("HEAD"), method = "die")
-    public void die(DamageSource dmg, CallbackInfo ci) {
-        if (this.isOwned() && this.getTeam() != null) {
-            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(Objects.requireNonNull(Objects.requireNonNull(this.getOwner()).getTeam()).getName())).addNPCs(-1);
-        }
-        if (!this.isOwned() && this.getTeam() != null){
-            Objects.requireNonNull(TeamEvents.recruitsTeamManager.getTeamByStringID(Objects.requireNonNull(Objects.requireNonNull(this.getTeam()).getName()))).addNPCs(1);
-        }
     }
 }

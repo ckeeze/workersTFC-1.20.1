@@ -9,8 +9,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import static net.minecraftforge.registries.ForgeRegistries.ENTITY_TYPES;
-
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>>ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Workerstfc.MODID);

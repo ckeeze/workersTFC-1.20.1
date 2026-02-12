@@ -35,7 +35,7 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.GrowingPlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.*;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -48,7 +48,11 @@ import static net.dries007.tfc.common.blocks.soil.FarmlandBlock.getHydration;
 @Mixin(FarmerAI.class)
 public abstract class FarmerAIMixin extends Goal {
 
+    @Mutable
+    @Final
+    @Shadow
     private final FarmerEntity farmer;
+    @Shadow
     private BlockPos waterPos;
 
     public FarmerAIMixin(FarmerEntity farmer) {
@@ -56,24 +60,29 @@ public abstract class FarmerAIMixin extends Goal {
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
-    //MEHTODS AND SETS NEEDED FOR TFC
-    private static final Set<Item> FERTILIZER = ImmutableSet.of(
+    //METHODS AND SETS NEEDED FOR TFC
+    @Unique
+    private static final Set<Item> workersTFC_1_20_X$FERTILIZER = ImmutableSet.of(
             TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), TFCItems.POWDERS.get(Powder.SYLVITE).get(), TFCItems.POWDERS.get(Powder.SALTPETER).get(),
             TFCItems.COMPOST.get(), TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem(),
             Items.BONE_MEAL
     );
-    private static final Set<Item> NITROGENF = ImmutableSet.of(
+    @Unique
+    private static final Set<Item> workersTFC_1_20_X$NITROGENF = ImmutableSet.of(
             TFCItems.POWDERS.get(Powder.SALTPETER).get(), TFCItems.COMPOST.get(),TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem()
     );
-    private static final Set<Item> POTASSIUMF = ImmutableSet.of(
+    @Unique
+    private static final Set<Item> workersTFC_1_20_X$POTASSIUMF = ImmutableSet.of(
             TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), TFCItems.POWDERS.get(Powder.SYLVITE).get(), TFCItems.POWDERS.get(Powder.SALTPETER).get(),
             TFCItems.COMPOST.get(),TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem()
     );
-    private static final Set<Item> PHOSPHORF = ImmutableSet.of(
+    @Unique
+    private static final Set<Item> workersTFC_1_20_X$PHOSPHORF = ImmutableSet.of(
             TFCItems.POWDERS.get(Powder.WOOD_ASH).get(), TFCItems.COMPOST.get(),TFCBlocks.GROUNDCOVER.get(GroundcoverBlockType.GUANO).get().asItem(),
             Items.BONE_MEAL
     );
 
+    @Unique
     private static final Set<Item> FARMED_ITEMS = ImmutableSet.of(
             Items.WHEAT,
             Items.MELON_SLICE,
@@ -91,7 +100,11 @@ public abstract class FarmerAIMixin extends Goal {
             TFCItems.FOOD.get(Food.SUGARCANE).get(),TFCItems.FOOD.get(Food.CRANBERRY).get(),TFCItems.FOOD.get(Food.CLOUDBERRY).get(),TFCItems.FOOD.get(Food.BUNCHBERRY).get(),TFCItems.FOOD.get(Food.STRAWBERRY ).get()
     );
 
-    //TILLING
+    /**
+     * @author Ckeeze
+     * @reason Till modded dirt
+     */
+    @Overwrite(remap = false)
     private void prepareFarmLand(BlockPos blockPos) {
         // Make sure the center block remains waterlogged.
         BlockState blockState = this.farmer.getCommandSenderWorld().getBlockState(blockPos);
@@ -127,18 +140,20 @@ public abstract class FarmerAIMixin extends Goal {
 
     }
 
-    //disable water creation for TFC ballance
+    /**
+     * @author Ckeeze
+     * @reason disable water creation for TFC ballance
+     */
+    @Overwrite(remap = false)
     private boolean startPosIsWater() {
         return true;
     }
 
-    //GETTING SEEDS
-    private boolean hasSpaceInInv() {
-        SimpleContainer inventory = farmer.getInventory();
-        return inventory.canAddItem(FARMED_ITEMS.stream().findAny().get().getDefaultInstance());
-    }
-
-    //PLANTING
+    /**
+     * @author Ckeeze
+     * @reason plant modded plants
+     */
+    @Overwrite(remap = false)
     private void plantSeedsFromInv(BlockPos blockPos) {
         SimpleContainer inventory = farmer.getInventory();
         int Hyd = getHydration(this.farmer.level(), blockPos.below());
@@ -298,16 +313,10 @@ public abstract class FarmerAIMixin extends Goal {
                     }
                 }
                 //more plants
-                /*else if (itemstack.getItem() == IFS("tfc:seeds/rice")){
-                    {
-                        this.farmer.level().setBlock(blockPos, BFS("tfc:crop/rice").defaultBlockState(), 3);
-                        flag = true;
-                    }
-                }*/
             }
 
             if (flag) {
-                farmer.level().playSound(null, (double) blockPos.getX(), (double) blockPos.getY(), (double) blockPos.getZ(), SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                farmer.level().playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 itemstack.shrink(1);
                 if (itemstack.isEmpty()) {
                     inventory.setItem(i, ItemStack.EMPTY);
@@ -317,6 +326,11 @@ public abstract class FarmerAIMixin extends Goal {
         }
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Change farm size to 15 by 15
+     */
+    @Overwrite(remap = false)
     public BlockPos getHoePos() {
         // int range = 8;
         for (int j = 0; j <= 14; j++) {
@@ -339,6 +353,11 @@ public abstract class FarmerAIMixin extends Goal {
         return null;
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Change farm size to 15 by 15
+     */
+    @Overwrite(remap = false)
     public BlockPos getPlantPos() {
         // int range = 8;
         for (int j = 0; j <= 14; j++) {
@@ -361,7 +380,11 @@ public abstract class FarmerAIMixin extends Goal {
         return null;
     }
 
-    //HARVESTING
+    /**
+     * @author Ckeeze
+     * @reason Change farm size to 15 by 15
+     */
+    @Overwrite(remap = false)
     public BlockPos getHarvestPos() {
         // int range = 8;
         for (int j = 0; j <= 14; j++) {
@@ -390,13 +413,21 @@ public abstract class FarmerAIMixin extends Goal {
         return null;
     }
 
-
-    //NUTRIENT MANAGEMENT
+    /**
+     * @author Ckeeze
+     * @reason TFC fertilizer management
+     */
+    @Overwrite(remap = false)
     private boolean hasBone() {
         SimpleContainer inventory = farmer.getInventory();
-        return inventory.hasAnyOf(FERTILIZER);
+        return inventory.hasAnyOf(workersTFC_1_20_X$FERTILIZER);
     }
 
+    /**
+     * @author Ckeeze
+     * @reason TFC fertilizer management
+     */
+    @Overwrite(remap = false)
     public BlockPos getFertilizePos() {
         SimpleContainer inventory = farmer.getInventory();
         // int range = 8;
@@ -417,21 +448,21 @@ public abstract class FarmerAIMixin extends Goal {
                             belowBlock == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.SANDY_LOAM).get() ||
                             belowBlock == TFCBlocks.SOIL.get(SoilBlockType.FARMLAND).get(SoilBlockType.Variant.LOAM).get() )) {
                         if (!crop.isMaxAge(blockState)) {
-                            if(inventory.hasAnyOf(PHOSPHORF) && crop.getPrimaryNutrient() == PHOSPHOROUS)
+                            if(inventory.hasAnyOf(workersTFC_1_20_X$PHOSPHORF) && crop.getPrimaryNutrient() == PHOSPHOROUS)
                             {
                                 if(Farmland instanceof IFarmland farmland && farmland.getNutrient(PHOSPHOROUS) < 0.2)
                                 {
                                     return blockPos;
                                 }
                             }
-                            if(inventory.hasAnyOf(NITROGENF) && crop.getPrimaryNutrient() == NITROGEN)
+                            if(inventory.hasAnyOf(workersTFC_1_20_X$NITROGENF) && crop.getPrimaryNutrient() == NITROGEN)
                             {
                                 if(Farmland instanceof IFarmland farmland && farmland.getNutrient(NITROGEN) < 0.2)
                                 {
                                     return blockPos;
                                 }
                             }
-                            if(inventory.hasAnyOf(POTASSIUMF) && crop.getPrimaryNutrient() == POTASSIUM)
+                            if(inventory.hasAnyOf(workersTFC_1_20_X$POTASSIUMF) && crop.getPrimaryNutrient() == POTASSIUM)
                             {
                                 if(Farmland instanceof IFarmland farmland && farmland.getNutrient(POTASSIUM) < 0.2)
                                 {
@@ -446,6 +477,11 @@ public abstract class FarmerAIMixin extends Goal {
         return null;
     }
 
+    /**
+     * @author Ckeeze
+     * @reason TFC fertilizer management
+     */
+    @Overwrite(remap = false)
     private void fertilizeSeeds(BlockPos workPos) {
         SimpleContainer inventory = farmer.getInventory();
         BlockState state = farmer.getCommandSenderWorld().getBlockState(workPos);

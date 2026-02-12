@@ -26,12 +26,14 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import net.minecraftforge.common.data.ForgeItemTagsProvider;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 
 @SuppressWarnings("unused")
 @Mixin(DepositItemsInChestGoal.class)
 public abstract class DepositItemsInChestGoalMixin extends Goal {
+    @Mutable
+    @Final
+    @Shadow
     private final AbstractWorkerEntity worker;
 
     @Shadow
@@ -63,6 +65,7 @@ public abstract class DepositItemsInChestGoalMixin extends Goal {
     }
 
     //FOOD CHANGES
+    @Unique
     private static final Set<Item> RAW_FOOD = ImmutableSet.of(
             TFCItems.FOOD.get(Food.HORSE_MEAT).get(),TFCItems.FOOD.get(Food.BEAR).get(),TFCItems.FOOD.get(Food.FOX).get(),TFCItems.FOOD.get(Food.PORK).get(),TFCItems.FOOD.get(Food.VENISON).get(),
             TFCItems.FOOD.get(Food.BEEF).get(),TFCItems.FOOD.get(Food.CHICKEN).get(),TFCItems.FOOD.get(Food.QUAIL).get(),TFCItems.FOOD.get(Food.MUTTON).get(),TFCItems.FOOD.get(Food.GRAN_FELINE).get(),

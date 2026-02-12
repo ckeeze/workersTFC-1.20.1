@@ -47,13 +47,8 @@ public abstract class LumberjackAIMixin extends Goal {
         return this.canUse();
     }
 
-    @Override
-    public void start() {
-        super.start();
-        this.workPos = this.lumber.getStartPos();
-        this.lumber.resetWorkerParameters();
-        this.state = LumberjackEntity.State.fromIndex(lumber.getState());
-    }
+    //@Shadow
+    //public void start() {}
 
     public void tick() {
         this.breakLeaves();
@@ -180,16 +175,11 @@ public abstract class LumberjackAIMixin extends Goal {
         return false;
     }
 
-    @Override
-    public void stop() {
-        this.setWorkState(IDLE);
-        super.stop();
-    }
+    //@Shadow
+    //public void stop() {}
 
-    private void setWorkState(LumberjackEntity.@NotNull State state) {
-        this.state = state;
-        this.lumber.setState(state.getIndex());
-    }
+    @Shadow
+    private void setWorkState(LumberjackEntity.@NotNull State state) {}
 
     @Shadow
     private void breakLeaves() {}

@@ -10,6 +10,9 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Set;
 
@@ -17,13 +20,16 @@ import java.util.Set;
 @Mixin(EatGoal.class)
 public class EatGoalMixin {
 
+    @Shadow
     public AbstractWorkerEntity worker;
+    @Shadow
     public int slotID;
 
     public EatGoalMixin(AbstractWorkerEntity worker) {
         this.worker = worker;
     }
 
+    @Unique
     private static final Set<Item> RAW_FOOD = ImmutableSet.of(
             TFCItems.FOOD.get(Food.HORSE_MEAT).get(),TFCItems.FOOD.get(Food.BEAR).get(),TFCItems.FOOD.get(Food.FOX).get(),TFCItems.FOOD.get(Food.PORK).get(),TFCItems.FOOD.get(Food.VENISON).get(),
             TFCItems.FOOD.get(Food.BEEF).get(),TFCItems.FOOD.get(Food.CHICKEN).get(),TFCItems.FOOD.get(Food.QUAIL).get(),TFCItems.FOOD.get(Food.MUTTON).get(),TFCItems.FOOD.get(Food.GRAN_FELINE).get(),
@@ -46,6 +52,11 @@ public class EatGoalMixin {
             TFCItems.FOOD.get(Food.SUGARCANE).get(),TFCItems.FOOD.get(Food.CRANBERRY).get(),TFCItems.FOOD.get(Food.CLOUDBERRY).get(),TFCItems.FOOD.get(Food.BUNCHBERRY).get(),TFCItems.FOOD.get(Food.STRAWBERRY ).get()
     );
 
+    /**
+     * @author Ckeeze
+     * @reason Preventing workers from eating their own produce
+     */
+    @Overwrite(remap = false)
     private boolean hasFoodInInv(){
         boolean hasfood = false;
         SimpleContainer inventory = worker.getInventory();
@@ -56,6 +67,11 @@ public class EatGoalMixin {
         return hasfood;
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Preventing workers from eating their own produce
+     */
+    @Overwrite(remap = false)
     private ItemStack getAndRemoveFoodInInv(){
         ItemStack itemStack = null;
         for(int i = 0; i < worker.getInventory().getContainerSize(); i++){

@@ -20,6 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +36,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
         super(entityType, world);
     }
 
+    @Unique
     private static final Set<Item> WANTED_SEEDS = ImmutableSet.of(
             Items.WHEAT_SEEDS,
             Items.MELON_SEEDS,
@@ -64,6 +67,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             TFCItems.CROP_SEEDS.get(Crop.GREEN_BEAN).get() //sticks
             );
 
+    @Unique
     private static final Set<Item> FARMED_ITEMS = ImmutableSet.of(
             Items.WHEAT,
             Items.MELON_SLICE,
@@ -77,6 +81,7 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
             TFCItems.FOOD.get(Food.MAIZE).get(),
             TFCItems.FOOD.get(Food.WHEAT).get());
 
+    @Unique
     private static final Set<Block> CROP_BLOCKS = ImmutableSet.of(
             Blocks.WHEAT,
             Blocks.POTATOES,
@@ -107,7 +112,8 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
     );
 
     //HoeItem
-    private static final Set<Block> TILLABLES = ImmutableSet.of(
+    @Unique
+    private static final Set<Block> workersTFC_1_20_X$TILLABLES = ImmutableSet.of(
             Blocks.DIRT,
             Blocks.ROOTED_DIRT,
             Blocks.COARSE_DIRT,
@@ -126,12 +132,22 @@ public abstract class FarmerEntityMixin extends AbstractInventoryEntity {
         return (FARMED_ITEMS.contains(item) || WANTED_SEEDS.contains(item) || itemStack.is(TFCTags.Items.GOAT_FOOD) || itemStack.is(Items.STICK));
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Changing starter equipment to TFC items
+     */
+    @Overwrite(remap = false)
     public void setEquipment() {
         ItemStack initialTool = new ItemStack(TFCItems.ROCK_TOOLS.get(RockCategory.IGNEOUS_EXTRUSIVE).get(RockCategory.ItemType.HOE).get());
         this.updateInventory(0, initialTool);
         this.equipTool(initialTool);
     }
 
+    /**
+     * @author Ckeeze
+     * @reason Changing displayed items to TFC items
+     */
+    @Overwrite(remap = false)
     public List<Item> inventoryInputHelp() {
         return Arrays.asList(TFCItems.METAL_ITEMS.get(Metal.Default.WROUGHT_IRON).get(Metal.ItemType.HOE).get(),
                 TFCItems.CROP_SEEDS.get(Crop.BARLEY).get(),
